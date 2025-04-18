@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+
+<div class="text-center mt-5">
+  <h1 class="display-1">Oops!</h1>
+  <h2 class="mb-4"><%= message || "Something went wrong" %></h2>
+  <div class="mb-4">
+    <img src="/img/cricket-ball.png" alt="Cricket Ball" style="max-width: 150px; opacity: 0.7;">
+  </div>
+  <p class="lead">We couldn't find the page you were looking for.</p>
+  <a href="/" class="btn btn-primary mt-3">Return to Home</a>
+</div>
+
+<%- include('partials/footer') %>

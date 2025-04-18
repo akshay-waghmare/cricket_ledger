@@ -1,0 +1,83 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Place a Bet</h1>
+  <a href="/matches/<%= match.match_id %>" class="btn btn-secondary">Back to Match</a>
+</div>
+
+<div class="card">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">Bet Details - <%= match.teams.join(' vs ') %></h5>
+  </div>
+  <div class="card-body">
+    <form action="/bets" method="POST">
+      <input type="hidden" name="matchId" value="<%= match.match_id %>">
+      
+      <div class="mb-3">
+        <label for="userId" class="form-label">User</label>
+        <select class="form-select" id="userId" name="userId" required>
+          <option value="">-- Select user --</option>
+          <% users.forEach(user => { %>
+            <option value="<%= user.id %>" <%= (formData && formData.userId === user.id) ? 'selected' : '' %>>
+              <%= user.id %> (Balance: <%= user.balance.toFixed(2) %>)
+            </option>
+          <% }); %>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">Bet Type</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="betType" id="betTypeBack" value="back" 
+            <%= (!formData || formData.betType === 'back') ? 'checked' : '' %>>
+          <label class="form-check-label" for="betTypeBack">
+            Back (Bet on a team to win)
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="betType" id="betTypeLay" value="lay"
+            <%= (formData && formData.betType === 'lay') ? 'checked' : '' %>>
+          <label class="form-check-label" for="betTypeLay">
+            Lay (Bet against a team winning)
+          </label>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="target" class="form-label">Target Team</label>
+        <select class="form-select" id="target" name="target" required>
+          <option value="">-- Select team --</option>
+          <% match.teams.forEach(team => { %>
+            <option value="<%= team %>" <%= (formData && formData.target === team) ? 'selected' : '' %>>
+              <%= team %>
+            </option>
+          <% }); %>
+        </select>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="stake" class="form-label">Stake</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" id="stake" name="stake" min="1" step="any" required
+              value="<%= formData ? formData.stake : '100' %>">
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="odds" class="form-label">Odds</label>
+          <input type="number" class="form-control" id="odds" name="odds" min="1.01" step="0.01" required
+            value="<%= formData ? formData.odds : '2.0' %>">
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-between">
+        <a href="/matches/<%= match.match_id %>" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Place Bet</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,1130 @@
+[
+  [
+    "match-001",
+    {
+      "match_id": "match-001",
+      "teams": [
+        "India",
+        "Australia"
+      ],
+      "bets": [
+        {
+          "id": "38977ce0-240b-4c9c-a703-b20779ad8ce8",
+          "user_id": "user-001",
+          "bet_type": "back",
+          "target": "India",
+          "stake": 100,
+          "odds": 2,
+          "status": "confirmed",
+          "created_at": "2025-04-08T21:07:21.311Z",
+          "reserved_amount": 100
+        },
+        {
+          "id": "3eec7ff9-2502-4745-a1fe-1c2fc28932a2",
+          "user_id": "user-001",
+          "bet_type": "back",
+          "target": "Australia",
+          "stake": 50,
+          "odds": 3,
+          "status": "confirmed",
+          "created_at": "2025-04-08T21:07:21.354Z",
+          "reserved_amount": 50
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "India": {
+            "win": 50,
+            "lose": 0
+          },
+          "Australia": {
+            "win": 0,
+            "lose": 50
+          }
+        },
+        "users": {
+          "user-001": {
+            "India": {
+              "win": 50,
+              "lose": 0
+            },
+            "Australia": {
+              "win": 0,
+              "lose": 50
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "match-002",
+    {
+      "match_id": "match-002",
+      "teams": [
+        "England",
+        "South Africa"
+      ],
+      "bets": [],
+      "exposures": {
+        "teams": {
+          "England": {
+            "win": 0,
+            "lose": 0
+          },
+          "South Africa": {
+            "win": 0,
+            "lose": 0
+          }
+        },
+        "users": {}
+      }
+    }
+  ],
+  [
+    "gujarat-titans-vs-rajasthan-royals-23rd-match-1473460",
+    {
+      "match_id": "gujarat-titans-vs-rajasthan-royals-23rd-match-1473460",
+      "teams": [
+        "gujarat-titans",
+        "rajasthan-royals"
+      ],
+      "bets": [
+        {
+          "id": "e0fcd4de-3e96-4f72-a912-b258de6f9a14",
+          "user_id": "santosh",
+          "bet_type": "back",
+          "target": "gujarat-titans",
+          "stake": 10000,
+          "odds": 1.95,
+          "status": "won",
+          "created_at": "2025-04-09T14:12:32.650Z",
+          "reserved_amount": 10000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "gujarat-titans": {
+            "win": 0,
+            "lose": 0
+          },
+          "rajasthan-royals": {
+            "win": 0,
+            "lose": 0
+          }
+        },
+        "users": {}
+      }
+    }
+  ],
+  [
+    "royal-challengers-bengaluru-vs-delhi-capitals-24th-match-1473461",
+    {
+      "match_id": "royal-challengers-bengaluru-vs-delhi-capitals-24th-match-1473461",
+      "teams": [
+        "royal-challengers-bengaluru",
+        "delhi-capitals"
+      ],
+      "bets": [
+        {
+          "id": "0f1d03ea-d2a8-4cd5-b4b5-495bfa12dee5",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 10000,
+          "odds": 1.83,
+          "status": "won",
+          "created_at": "2025-04-10T14:13:41.096Z",
+          "reserved_amount": 8300
+        },
+        {
+          "id": "88282618-ee06-4928-a6af-3edfa593bd0c",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 9000,
+          "odds": 1.81,
+          "status": "lost",
+          "created_at": "2025-04-10T14:14:11.934Z",
+          "reserved_amount": 9000
+        },
+        {
+          "id": "743c7ad9-77d9-4493-9a06-28c8db87b86d",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.67,
+          "status": "lost",
+          "created_at": "2025-04-10T14:14:37.456Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "5b0eb7ca-8e1f-42b7-87b2-977c7021311b",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 5000,
+          "odds": 1.69,
+          "status": "won",
+          "created_at": "2025-04-10T14:15:04.161Z",
+          "reserved_amount": 3449.9999999999995
+        },
+        {
+          "id": "5c904da3-5fa2-400b-8dff-4f5f5a689243",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 5000,
+          "odds": 1.58,
+          "status": "lost",
+          "created_at": "2025-04-10T14:16:02.117Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "3d1f77a9-7464-4c8e-9bc2-c92bf1942675",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 5000,
+          "odds": 1.48,
+          "status": "won",
+          "created_at": "2025-04-10T14:22:25.956Z",
+          "reserved_amount": 2400
+        },
+        {
+          "id": "5288f94b-d34e-46f0-916b-925aaa9efdac",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 5000,
+          "odds": 1.45,
+          "status": "won",
+          "created_at": "2025-04-10T14:23:42.463Z",
+          "reserved_amount": 2250
+        },
+        {
+          "id": "f455535e-9ff1-49b8-8e24-5d3500feb212",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 3000,
+          "odds": 1.47,
+          "status": "lost",
+          "created_at": "2025-04-10T14:24:00.754Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "bc6d89bc-f253-4916-9b63-c32e496991ff",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 5000,
+          "odds": 1.43,
+          "status": "lost",
+          "created_at": "2025-04-10T14:24:18.075Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "c252fdee-d2fc-4bd9-a4b6-18c6e954a48a",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.48,
+          "status": "lost",
+          "created_at": "2025-04-10T14:25:24.590Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "8842896d-9d36-4d44-bbc9-446fbb6d2995",
+          "user_id": "Tanmay",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 1000,
+          "odds": 1.8,
+          "status": "lost",
+          "created_at": "2025-04-10T14:57:28.917Z",
+          "reserved_amount": 800
+        },
+        {
+          "id": "0d34cda3-4233-4c82-8986-9e2cd8b1d7f3",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 15000,
+          "odds": 1.59,
+          "status": "lost",
+          "created_at": "2025-04-10T15:06:05.826Z",
+          "reserved_amount": 8850.000000000002
+        },
+        {
+          "id": "be8ce36e-ab1d-4f35-8e1b-863488e11321",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 15000,
+          "odds": 1.55,
+          "status": "won",
+          "created_at": "2025-04-10T15:06:23.222Z",
+          "reserved_amount": 15000
+        },
+        {
+          "id": "2e62458b-f91d-40ab-98cd-cc24dff9a190",
+          "user_id": "user-001",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 3000,
+          "odds": 2.7,
+          "status": "lost",
+          "created_at": "2025-04-10T15:06:44.259Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "001436ca-e6b1-4f35-8c11-dda1dfd5dde7",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 6000,
+          "odds": 1.57,
+          "status": "won",
+          "created_at": "2025-04-10T15:07:09.668Z",
+          "reserved_amount": 6000
+        },
+        {
+          "id": "a24d08bd-9e1d-4e91-b04c-d130f445c900",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 1000,
+          "odds": 1.53,
+          "status": "won",
+          "created_at": "2025-04-10T15:12:05.812Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "7cfe0ca7-580b-45f2-9cb8-07f5fbaddaa1",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 2000,
+          "odds": 1.33,
+          "status": "won",
+          "created_at": "2025-04-10T15:21:03.708Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "06f495d1-aa88-4678-9c9c-fe75603038e1",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.23,
+          "status": "won",
+          "created_at": "2025-04-10T15:25:25.309Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "f0773140-48cb-43f6-9588-f59952445e3a",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.25,
+          "status": "lost",
+          "created_at": "2025-04-10T15:25:48.570Z",
+          "reserved_amount": 1250
+        },
+        {
+          "id": "c79f40e0-1122-4e4f-a51a-2749b9fda276",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 1000,
+          "odds": 1.39,
+          "status": "won",
+          "created_at": "2025-04-10T16:02:26.501Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "8ace483f-b1c6-4f29-a17c-983c2cc2e652",
+          "user_id": "Tanmay",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 1500,
+          "odds": 1.67,
+          "status": "lost",
+          "created_at": "2025-04-10T16:05:12.089Z",
+          "reserved_amount": 1004.9999999999999
+        },
+        {
+          "id": "7cb8c923-4eb5-47ba-963f-b0b1a0eef084",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.91,
+          "status": "lost",
+          "created_at": "2025-04-10T16:09:51.906Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "eb8e415b-df56-40cc-a3c6-432a1ecc26b2",
+          "user_id": "Tanmay",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 500,
+          "odds": 1.84,
+          "status": "won",
+          "created_at": "2025-04-10T16:58:12.838Z",
+          "reserved_amount": 420.00000000000006
+        },
+        {
+          "id": "16fe997c-dcdd-4dbe-a54b-551206b8c392",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.73,
+          "status": "lost",
+          "created_at": "2025-04-10T17:01:53.670Z",
+          "reserved_amount": 3650
+        },
+        {
+          "id": "1c636115-9e6a-432e-911e-a459e44b452a",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.71,
+          "status": "won",
+          "created_at": "2025-04-10T17:02:08.386Z",
+          "reserved_amount": 5000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "royal-challengers-bengaluru": {
+            "win": -3409.999999999999,
+            "lose": -105.00000000000182
+          },
+          "delhi-capitals": {
+            "win": -105.00000000000182,
+            "lose": -3409.999999999999
+          }
+        },
+        "users": {
+          "santosh": {
+            "royal-challengers-bengaluru": {
+              "win": 8600,
+              "lose": 11249.999999999998
+            },
+            "delhi-capitals": {
+              "win": 11249.999999999998,
+              "lose": 8600
+            }
+          },
+          "Tanmay": {
+            "royal-challengers-bengaluru": {
+              "win": -17110,
+              "lose": -8355
+            },
+            "delhi-capitals": {
+              "win": -8355,
+              "lose": -17110
+            }
+          },
+          "user-001": {
+            "royal-challengers-bengaluru": {
+              "win": 5100.000000000001,
+              "lose": -3000
+            },
+            "delhi-capitals": {
+              "win": -3000,
+              "lose": 5100.000000000001
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "chennai-super-kings-vs-kolkata-knight-riders-25th-match-1473462",
+    {
+      "match_id": "chennai-super-kings-vs-kolkata-knight-riders-25th-match-1473462",
+      "teams": [
+        "chennai-super-kings",
+        "kolkata-knight-riders"
+      ],
+      "bets": [
+        {
+          "id": "d7c582ee-bf53-4f3f-9af8-ca7ae98fd10e",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "kolkata-knight-riders",
+          "stake": 5000,
+          "odds": 1.68,
+          "status": "confirmed",
+          "created_at": "2025-04-11T14:14:33.979Z",
+          "reserved_amount": 3399.9999999999995
+        },
+        {
+          "id": "03bc9f41-c343-4026-8387-f02f619cf196",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "kolkata-knight-riders",
+          "stake": 2000,
+          "odds": 1.67,
+          "status": "confirmed",
+          "created_at": "2025-04-11T14:14:54.315Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "8cce9a8c-5ca2-4811-92eb-40ab931e5386",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "kolkata-knight-riders",
+          "stake": 1000,
+          "odds": 1.52,
+          "status": "confirmed",
+          "created_at": "2025-04-11T14:17:52.879Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "8e0c538e-8594-4bc3-92ba-4d65b37c3bc1",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "kolkata-knight-riders",
+          "stake": 1000,
+          "odds": 1.52,
+          "status": "confirmed",
+          "created_at": "2025-04-11T14:18:20.215Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "7200c33d-2d62-47b2-8640-3f22a597f0ff",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "kolkata-knight-riders",
+          "stake": 1000,
+          "odds": 1.33,
+          "status": "confirmed",
+          "created_at": "2025-04-11T14:23:35.927Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "ec9bdc9d-2857-430d-9b7f-e5fe4f5c2b2a",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "kolkata-knight-riders",
+          "stake": 1000,
+          "odds": 1.14,
+          "status": "confirmed",
+          "created_at": "2025-04-11T15:10:13.243Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "a758063f-6c4f-42b5-96fc-8a61a10debd5",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "kolkata-knight-riders",
+          "stake": 1500,
+          "odds": 1.03,
+          "status": "confirmed",
+          "created_at": "2025-04-11T15:56:39.211Z",
+          "reserved_amount": 1500
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "chennai-super-kings": {
+            "win": -2500,
+            "lose": -504.99999999999955
+          },
+          "kolkata-knight-riders": {
+            "win": -504.99999999999955,
+            "lose": -2500
+          }
+        },
+        "users": {
+          "santosh": {
+            "chennai-super-kings": {
+              "win": 5000,
+              "lose": -3399.9999999999995
+            },
+            "kolkata-knight-riders": {
+              "win": -3399.9999999999995,
+              "lose": 5000
+            }
+          },
+          "Tanmay": {
+            "chennai-super-kings": {
+              "win": -7500,
+              "lose": 2895
+            },
+            "kolkata-knight-riders": {
+              "win": 2895,
+              "lose": -7500
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "lucknow-super-giants-vs-gujarat-titans-26th-match-1473463",
+    {
+      "match_id": "lucknow-super-giants-vs-gujarat-titans-26th-match-1473463",
+      "teams": [
+        "lucknow-super-giants",
+        "gujarat-titans"
+      ],
+      "bets": [
+        {
+          "id": "20103db8-4561-4583-8bf5-39fa7d0e3d80",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "gujarat-titans",
+          "stake": 15000,
+          "odds": 1.71,
+          "status": "confirmed",
+          "created_at": "2025-04-12T10:34:48.136Z",
+          "reserved_amount": 10650
+        },
+        {
+          "id": "5e7d519e-220c-47fa-a2d5-d2f79126639d",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "gujarat-titans",
+          "stake": 10000,
+          "odds": 1.28,
+          "status": "confirmed",
+          "created_at": "2025-04-12T10:48:03.023Z",
+          "reserved_amount": 2800.0000000000005
+        },
+        {
+          "id": "637f671d-d964-4b79-9771-2057e0afbe8b",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "lucknow-super-giants",
+          "stake": 10000,
+          "odds": 1.8,
+          "status": "confirmed",
+          "created_at": "2025-04-12T12:25:31.648Z",
+          "reserved_amount": 8000
+        },
+        {
+          "id": "fba87d50-08e4-4119-8905-d960111770b0",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "lucknow-super-giants",
+          "stake": 5000,
+          "odds": 1.38,
+          "status": "confirmed",
+          "created_at": "2025-04-12T12:33:45.950Z",
+          "reserved_amount": 1899.9999999999995
+        },
+        {
+          "id": "32f7ab03-ed07-4308-a23e-1ec39d7c59e2",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "lucknow-super-giants",
+          "stake": 5000,
+          "odds": 1.29,
+          "status": "confirmed",
+          "created_at": "2025-04-12T12:39:41.564Z",
+          "reserved_amount": 1450.0000000000002
+        },
+        {
+          "id": "7bea1a13-c764-4913-9c44-a557b55804ce",
+          "user_id": "user-001",
+          "bet_type": "back",
+          "target": "gujarat-titans",
+          "stake": 2000,
+          "odds": 3.7,
+          "status": "confirmed",
+          "created_at": "2025-04-12T12:46:59.981Z",
+          "reserved_amount": 2000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "lucknow-super-giants": {
+            "win": 11650,
+            "lose": 11950
+          },
+          "gujarat-titans": {
+            "win": 11950,
+            "lose": 11650
+          }
+        },
+        "users": {
+          "santosh": {
+            "lucknow-super-giants": {
+              "win": 13650,
+              "lose": 6550
+            },
+            "gujarat-titans": {
+              "win": 6550,
+              "lose": 13650
+            }
+          },
+          "user-001": {
+            "lucknow-super-giants": {
+              "win": -2000,
+              "lose": 5400
+            },
+            "gujarat-titans": {
+              "win": 5400,
+              "lose": -2000
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "sunrisers-hyderabad-vs-punjab-kings-27th-match-1473464",
+    {
+      "match_id": "sunrisers-hyderabad-vs-punjab-kings-27th-match-1473464",
+      "teams": [
+        "sunrisers-hyderabad",
+        "punjab-kings"
+      ],
+      "bets": [
+        {
+          "id": "d8957366-4e75-4ba7-8975-f8b0e66d1f53",
+          "user_id": "santosh",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 5000,
+          "odds": 1.33,
+          "status": "confirmed",
+          "created_at": "2025-04-12T14:19:55.284Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "ab24c4ce-09f7-4d31-b3e9-e1368e754dd9",
+          "user_id": "user-001",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 3000,
+          "odds": 4.1,
+          "status": "confirmed",
+          "created_at": "2025-04-12T15:54:34.626Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "ab6e3f16-3a73-4fc9-9831-1baa03c2ece5",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 2000,
+          "odds": 1.3,
+          "status": "confirmed",
+          "created_at": "2025-04-12T16:04:42.045Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "7208d719-2300-4b05-8fa6-6d97d48c00e6",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 1000,
+          "odds": 1.29,
+          "status": "confirmed",
+          "created_at": "2025-04-12T16:54:42.362Z",
+          "reserved_amount": 1000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "sunrisers-hyderabad": {
+            "win": 2589.999999999998,
+            "lose": -1750
+          },
+          "punjab-kings": {
+            "win": -1750,
+            "lose": 2589.999999999998
+          }
+        },
+        "users": {
+          "santosh": {
+            "sunrisers-hyderabad": {
+              "win": -5000,
+              "lose": 1650
+            },
+            "punjab-kings": {
+              "win": 1650,
+              "lose": -5000
+            }
+          },
+          "user-001": {
+            "sunrisers-hyderabad": {
+              "win": 9299.999999999998,
+              "lose": -3000
+            },
+            "punjab-kings": {
+              "win": -3000,
+              "lose": 9299.999999999998
+            }
+          },
+          "Tanmay": {
+            "sunrisers-hyderabad": {
+              "win": -1710,
+              "lose": -400
+            },
+            "punjab-kings": {
+              "win": -400,
+              "lose": -1710
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "rajasthan-royals-vs-royal-challengers-bengaluru-28th-match-1473465",
+    {
+      "match_id": "rajasthan-royals-vs-royal-challengers-bengaluru-28th-match-1473465",
+      "teams": [
+        "rajasthan-royals",
+        "royal-challengers-bengaluru"
+      ],
+      "bets": [
+        {
+          "id": "8bb55d85-8505-4056-b2b0-3831c7fa566c",
+          "user_id": "Tanmay",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 7000,
+          "odds": 1.88,
+          "status": "lost",
+          "created_at": "2025-04-13T10:15:58.341Z",
+          "reserved_amount": 6159.999999999999
+        },
+        {
+          "id": "d2fb7c7c-5b9c-4352-857f-2b4f462a8dd2",
+          "user_id": "Tanmay",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 2000,
+          "odds": 1.89,
+          "status": "lost",
+          "created_at": "2025-04-13T10:16:10.890Z",
+          "reserved_amount": 1779.9999999999998
+        },
+        {
+          "id": "73e933d2-d965-4a4d-9cbb-d26a2529576f",
+          "user_id": "Tanmay",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.91,
+          "status": "lost",
+          "created_at": "2025-04-13T10:25:44.162Z",
+          "reserved_amount": 909.9999999999999
+        },
+        {
+          "id": "2a86fbf1-935d-433f-bdda-9e0f646a8184",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.5,
+          "status": "won",
+          "created_at": "2025-04-13T12:00:35.115Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "ff2a297c-abe6-4dd9-9767-549e6020a49d",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.29,
+          "status": "won",
+          "created_at": "2025-04-13T12:07:29.168Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "6ba00197-23cb-4041-b4bb-8b1831c97386",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 2000,
+          "odds": 1.21,
+          "status": "won",
+          "created_at": "2025-04-13T12:18:14.163Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "c5f13ced-39bc-453a-ad7a-65ed13ad27b2",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 10000,
+          "odds": 1.13,
+          "status": "lost",
+          "created_at": "2025-04-13T12:53:13.813Z",
+          "reserved_amount": 1299.9999999999989
+        },
+        {
+          "id": "7dd03470-f02d-4a2a-b537-08652ad17711",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 10000,
+          "odds": 1.15,
+          "status": "won",
+          "created_at": "2025-04-13T12:53:28.888Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "4bebb50d-9838-41f2-9f6b-74f57f02226a",
+          "user_id": "santosh",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 10000,
+          "odds": 1.87,
+          "status": "won",
+          "created_at": "2025-04-13T13:07:00.730Z",
+          "reserved_amount": 10000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "rajasthan-royals": {
+            "win": -4000,
+            "lose": 1260.0000000000027
+          },
+          "royal-challengers-bengaluru": {
+            "win": 1260.0000000000027,
+            "lose": -4000
+          }
+        },
+        "users": {
+          "Tanmay": {
+            "rajasthan-royals": {
+              "win": -4000,
+              "lose": -6139.999999999998
+            },
+            "royal-challengers-bengaluru": {
+              "win": -6139.999999999998,
+              "lose": -4000
+            }
+          },
+          "santosh": {
+            "rajasthan-royals": {
+              "win": 0,
+              "lose": 7400.000000000001
+            },
+            "royal-challengers-bengaluru": {
+              "win": 7400.000000000001,
+              "lose": 0
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "delhi-capitals-vs-mumbai-indians-29th-match-1473466",
+    {
+      "match_id": "delhi-capitals-vs-mumbai-indians-29th-match-1473466",
+      "teams": [
+        "delhi-capitals",
+        "mumbai-indians"
+      ],
+      "bets": [
+        {
+          "id": "1ab436e6-59ed-4bc6-8006-eb9c599da150",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 5000,
+          "odds": 1.63,
+          "status": "lost",
+          "created_at": "2025-04-13T16:16:13.383Z",
+          "reserved_amount": 3149.9999999999995
+        },
+        {
+          "id": "9b58d05f-7082-48ad-be91-eef3142c2fa3",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 5000,
+          "odds": 1.61,
+          "status": "won",
+          "created_at": "2025-04-13T16:16:39.214Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "330696bc-f839-4e9e-9252-5f66de685244",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 3000,
+          "odds": 1.27,
+          "status": "won",
+          "created_at": "2025-04-13T16:17:10.788Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "bbf22592-a172-4cbc-b3b3-995b814a3950",
+          "user_id": "Tanmay",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 1000,
+          "odds": 1.52,
+          "status": "lost",
+          "created_at": "2025-04-13T16:17:22.763Z",
+          "reserved_amount": 520
+        },
+        {
+          "id": "e027cafe-00c2-4a24-8c7c-a892491bf35e",
+          "user_id": "Tanmay",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 500,
+          "odds": 1.64,
+          "status": "lost",
+          "created_at": "2025-04-13T16:24:40.713Z",
+          "reserved_amount": 319.99999999999994
+        },
+        {
+          "id": "3576c465-ca15-4dda-9727-760463624767",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 500,
+          "odds": 1.72,
+          "status": "lost",
+          "created_at": "2025-04-13T16:28:14.816Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "2a911714-57df-4ba6-aa8c-b997ec562087",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 500,
+          "odds": 1.45,
+          "status": "lost",
+          "created_at": "2025-04-13T16:32:47.318Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "2beaa4a5-914a-4962-b010-ba3cc81b8398",
+          "user_id": "santosh",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 3000,
+          "odds": 1.47,
+          "status": "won",
+          "created_at": "2025-04-13T16:44:19.044Z",
+          "reserved_amount": 1410
+        },
+        {
+          "id": "3f3f1a65-c01d-444d-834d-4d5ba01672a4",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 3000,
+          "odds": 1.46,
+          "status": "lost",
+          "created_at": "2025-04-13T16:44:38.370Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "63f5780b-3486-4165-aea2-d62ddeb41892",
+          "user_id": "user-001",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 2000,
+          "odds": 4,
+          "status": "won",
+          "created_at": "2025-04-13T17:15:03.731Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "183f475c-a89d-4681-9a47-43c69e4e86b5",
+          "user_id": "Tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 6000,
+          "odds": 1.3,
+          "status": "lost",
+          "created_at": "2025-04-13T17:15:23.456Z",
+          "reserved_amount": 6000
+        },
+        {
+          "id": "f2da44ba-d1f0-4cd2-bd0a-a0885892932c",
+          "user_id": "santosh",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 5000,
+          "odds": 1.5,
+          "status": "won",
+          "created_at": "2025-04-13T17:50:59.252Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "f80851fe-fb01-463f-88d8-d8587954600c",
+          "user_id": "Tanmay",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 5000,
+          "odds": 1.51,
+          "status": "lost",
+          "created_at": "2025-04-13T17:51:13.387Z",
+          "reserved_amount": 2550
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "delhi-capitals": {
+            "win": -1145,
+            "lose": -1180
+          },
+          "mumbai-indians": {
+            "win": -1180,
+            "lose": -1145
+          }
+        },
+        "users": {
+          "santosh": {
+            "delhi-capitals": {
+              "win": -1410,
+              "lose": 2350.0000000000005
+            },
+            "mumbai-indians": {
+              "win": 2350.0000000000005,
+              "lose": -1410
+            }
+          },
+          "Tanmay": {
+            "delhi-capitals": {
+              "win": 2265,
+              "lose": -9530
+            },
+            "mumbai-indians": {
+              "win": -9530,
+              "lose": 2265
+            }
+          },
+          "user-001": {
+            "delhi-capitals": {
+              "win": -2000,
+              "lose": 6000
+            },
+            "mumbai-indians": {
+              "win": 6000,
+              "lose": -2000
+            }
+          }
+        }
+      }
+    }
+  ]
+]

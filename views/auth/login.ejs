@@ -1,0 +1,50 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Login</h4>
+        </div>
+        <div class="card-body">
+          <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert alert-danger">
+              <%= error %>
+            </div>
+          <% } %>
+          
+          <% if (typeof success_msg !== 'undefined' && success_msg !== '') { %>
+            <div class="alert alert-success">
+              <%= success_msg %>
+            </div>
+          <% } %>
+          
+          <% if (typeof error_msg !== 'undefined' && error_msg !== '') { %>
+            <div class="alert alert-danger">
+              <%= error_msg %>
+            </div>
+          <% } %>
+          
+          <form action="/auth/login" method="POST">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary w-100">Login</button>
+            </div>
+          </form>
+          
+          <div class="text-center">
+            <p>Don't have an account? <a href="/auth/register">Register</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

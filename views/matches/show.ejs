@@ -1,0 +1,107 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1><%= match.match_id %></h1>
+  <div>
+    <a href="/matches/<%= match.match_id %>/exposure" class="btn btn-warning">View Exposures</a>
+    <a href="/matches/<%= match.match_id %>/settle" class="btn btn-success">Settle Match</a>
+    <form action="/matches/delete/<%= match.match_id %>" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this match? This action cannot be undone.')">
+      <button type="submit" class="btn btn-danger">Delete Match</button>
+    </form>
+    <a href="/matches" class="btn btn-secondary">Back to Matches</a>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Match Details</h5>
+      </div>
+      <div class="card-body">
+        <p><strong>Teams:</strong> <%= match.teams.join(' vs ') %></p>
+        <p><strong>Total Bets:</strong> <%= match.bets.length %></p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Place a Bet</h5>
+      </div>
+      <div class="card-body">
+        <% if (users && users.length > 0) { %>
+          <a href="/bets/create/<%= match.match_id %>" class="btn btn-primary">Add Bet</a>
+        <% } else { %>
+          <div class="alert alert-warning">
+            No users available. <a href="/users/create">Create a user</a> to place bets.
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Match Bets</h5>
+    <a href="/bets" class="btn btn-sm btn-light">View All Bets</a>
+  </div>
+  <div class="card-body p-0">
+    <% if (match.bets && match.bets.length > 0) { %>
+      <table class="table table-striped table-hover mb-0">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Type</th>
+            <th>Target</th>
+            <th>Stake</th>
+            <th>Odds</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% match.bets.forEach(bet => { %>
+            <tr>
+              <td><a href="/users/<%= bet.user_id %>"><%= bet.user_id %></a></td>
+              <td><span class="badge bg-<%= bet.bet_type === 'back' ? 'primary' : 'danger' %>"><%= bet.bet_type %></span></td>
+              <td><%= bet.target %></td>
+              <td><%= bet.stake.toFixed(2) %></td>
+              <td><%= bet.odds.toFixed(2) %></td>
+              <td>
+                <span class="badge bg-<%= 
+                  bet.status === 'confirmed' ? 'secondary' : 
+                  (bet.status === 'won' ? 'success' : 'danger') 
+                %>">
+                  <%= bet.status %>
+                </span>
+              </td>
+              <td><%= new Date(bet.created_at).toLocaleString() %></td>
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <% if (bet.status === 'confirmed') { %>
+                    <a href="/bets/edit/<%= match.match_id %>/<%= bet.id %>" class="btn btn-info">Edit</a>
+                    <form action="/bets/delete/<%= match.match_id %>/<%= bet.id %>" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this bet?')">
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                  <% } else { %>
+                    <span class="text-muted">Settled</span>
+                  <% } %>
+                </div>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="alert alert-info m-3">
+        No bets have been placed on this match yet.
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

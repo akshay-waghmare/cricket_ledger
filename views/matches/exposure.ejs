@@ -1,0 +1,86 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Exposure Snapshot</h1>
+  <a href="/matches/<%= exposures.match_id %>" class="btn btn-secondary">Back to Match</a>
+</div>
+
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <div class="card-header bg-warning text-dark">
+        <h5 class="mb-0">Team Exposures</h5>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th>Win Exposure</th>
+              <th>Lose Exposure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% Object.entries(exposures.team_exposures).forEach(([team, exposure]) => { %>
+              <tr>
+                <td><%= team %></td>
+                <td class="<%= exposure.win >= 0 ? 'text-success' : 'text-danger' %>">
+                  <%= exposure.win.toFixed(2) %>
+                </td>
+                <td class="<%= exposure.lose >= 0 ? 'text-success' : 'text-danger' %>">
+                  <%= exposure.lose.toFixed(2) %>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 mb-4">
+    <div class="card">
+      <div class="card-header bg-info text-white">
+        <h5 class="mb-0">User Exposures</h5>
+      </div>
+      <div class="card-body p-0">
+        <% if (Object.keys(exposures.user_exposures).length > 0) { %>
+          <table class="table table-striped mb-0">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Team</th>
+                <th>Win Exposure</th>
+                <th>Lose Exposure</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% Object.entries(exposures.user_exposures).forEach(([userId, teamExposures]) => { %>
+                <% Object.entries(teamExposures).forEach(([team, exposure], index) => { %>
+                  <tr>
+                    <% if (index === 0) { %>
+                      <td rowspan="<%= Object.keys(teamExposures).length %>"><a href="/users/<%= userId %>"><%= userId %></a></td>
+                    <% } %>
+                    <td><%= team %></td>
+                    <td class="<%= exposure.win >= 0 ? 'text-success' : 'text-danger' %>">
+                      <%= exposure.win.toFixed(2) %>
+                    </td>
+                    <td class="<%= exposure.lose >= 0 ? 'text-success' : 'text-danger' %>">
+                      <%= exposure.lose.toFixed(2) %>
+                    </td>
+                  </tr>
+                <% }); %>
+              <% }); %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <div class="alert alert-info m-3">
+            No user exposures available. Place some bets to see exposures.
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

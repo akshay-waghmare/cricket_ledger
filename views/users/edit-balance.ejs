@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <h1>Edit Balance for <%= user.id %></h1>
+  
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-danger">
+      <%= error %>
+    </div>
+  <% } %>
+  
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5>Current Balance: <%= user.balance.toFixed(2) %></h5>
+    </div>
+    <div class="card-body">
+      <form action="/users/<%= user.id %>/update-balance" method="POST">
+        <div class="mb-3">
+          <label for="balance" class="form-label">New Balance</label>
+          <input type="number" class="form-control" id="balance" name="balance" step="0.01" value="<%= user.balance %>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Balance</button>
+        <a href="/users/<%= user.id %>" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+  
+  <div class="mt-4">
+    <a href="/users/<%= user.id %>/deposit" class="btn btn-success me-2">Deposit</a>
+    <a href="/users/<%= user.id %>/withdraw" class="btn btn-warning">Withdraw</a>
+  </div>
+</div>

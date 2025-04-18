@@ -1,0 +1,33 @@
+<%- include('../partials/header') %>
+
+<div class="card">
+  <div class="card-header bg-primary text-white">
+    <h1 class="h4 mb-0">Create New Match</h1>
+  </div>
+  <div class="card-body">
+    <form action="/matches" method="POST">
+      <div class="mb-3">
+        <label for="matchId" class="form-label">Match ID</label>
+        <input type="text" class="form-control" id="matchId" name="matchId" required>
+        <div class="form-text">A unique identifier for the match (e.g., match-001)</div>
+      </div>
+      
+      <div class="mb-3">
+        <label for="teamA" class="form-label">Team A</label>
+        <input type="text" class="form-control" id="teamA" name="teamA" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="teamB" class="form-label">Team B</label>
+        <input type="text" class="form-control" id="teamB" name="teamB" required>
+      </div>
+      
+      <div class="d-flex justify-content-between">
+        <a href="/matches" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Create Match</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

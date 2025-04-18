@@ -1,0 +1,33 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Settle Match: <%= match.match_id %></h1>
+  <a href="/matches/<%= match.match_id %>" class="btn btn-secondary">Back to Match</a>
+</div>
+
+<div class="alert alert-warning">
+  <strong>Warning:</strong> Settling a match is final and will update user balances based on bet outcomes.
+</div>
+
+<div class="card">
+  <div class="card-header bg-success text-white">
+    <h5 class="mb-0">Select Winning Team</h5>
+  </div>
+  <div class="card-body">
+    <form action="/matches/<%= match.match_id %>/settle" method="POST">
+      <div class="mb-3">
+        <label class="form-label">Winning Team</label>
+        <select class="form-select" name="winningTeam" required>
+          <option value="">-- Select winning team --</option>
+          <% match.teams.forEach(team => { %>
+            <option value="<%= team %>"><%= team %></option>
+          <% }); %>
+        </select>
+      </div>
+      
+      <button type="submit" class="btn btn-success">Settle Match</button>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

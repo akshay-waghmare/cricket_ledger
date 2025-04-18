@@ -1,0 +1,75 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Profit/Loss Report</h1>
+  <a href="/users/<%= user.id %>" class="btn btn-secondary">Back to User</a>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Match & User Info</h5>
+      </div>
+      <div class="card-body">
+        <p><strong>User:</strong> <%= user.id %></p>
+        <p><strong>Match:</strong> <%= match.match_id %></p>
+        <p><strong>Teams:</strong> <%= match.teams.join(' vs ') %></p>
+        <p><strong>Total Profit/Loss:</strong> 
+          <span class="<%= report.total_profit_or_loss >= 0 ? 'text-success' : 'text-danger' %>">
+            <%= report.total_profit_or_loss.toFixed(2) %>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">
+    <h5 class="mb-0">Bet Details</h5>
+  </div>
+  <div class="card-body p-0">
+    <% if (report.bets && report.bets.length > 0) { %>
+      <table class="table table-striped table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Target</th>
+            <th>Type</th>
+            <th>Stake</th>
+            <th>Odds</th>
+            <th>Status</th>
+            <th>Payout</th>
+            <th>Profit/Loss</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% report.bets.forEach(bet => { %>
+            <tr>
+              <td><%= bet.target %></td>
+              <td><span class="badge bg-<%= bet.bet_type === 'back' ? 'primary' : 'danger' %>"><%= bet.bet_type %></span></td>
+              <td><%= bet.stake.toFixed(2) %></td>
+              <td><%= bet.odds.toFixed(2) %></td>
+              <td>
+                <span class="badge bg-<%= 
+                  bet.status === 'confirmed' ? 'secondary' : 
+                  (bet.status === 'won' ? 'success' : 'danger') 
+                %>"><%= bet.status %></span>
+              </td>
+              <td><%= bet.payout.toFixed(2) %></td>
+              <td class="<%= bet.profit_or_loss >= 0 ? 'text-success' : 'text-danger' %>">
+                <%= bet.profit_or_loss.toFixed(2) %>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="alert alert-info m-3">
+        No bets found for this user in this match.
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

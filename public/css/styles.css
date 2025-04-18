@@ -1,0 +1,88 @@
+/* Custom styles for Cricket Betting Ledger */
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+}
+
+.jumbotron {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+.btn-primary {
+  background-color: #3949ab;
+  border-color: #3949ab;
+}
+
+.btn-primary:hover {
+  background-color: #303f9f;
+  border-color: #303f9f;
+}
+
+.btn-success {
+  background-color: #43a047;
+  border-color: #43a047;
+}
+
+.btn-success:hover {
+  background-color: #388e3c;
+  border-color: #388e3c;
+}
+
+.table th {
+  font-weight: 600;
+  background-color: #f1f1f1;
+}
+
+.footer {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Badge styles */
+.badge {
+  padding: 0.5em 0.75em;
+  font-weight: 500;
+}
+
+/* Form styles */
+.form-control:focus {
+  border-color: #3949ab;
+  box-shadow: 0 0 0 0.25rem rgba(57, 73, 171, 0.25);
+}
+
+/* Custom styles for bet types */
+.badge.bg-primary {
+  background-color: #3949ab !important;
+}
+
+.badge.bg-danger {
+  background-color: #e53935 !important;
+}

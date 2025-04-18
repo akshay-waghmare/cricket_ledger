@@ -1,0 +1,51 @@
+[
+  [
+    "user-001",
+    {
+      "id": "user-001",
+      "balance": 0
+    }
+  ],
+  [
+    "santosh",
+    {
+      "id": "santosh",
+      "balance": 6900
+    }
+  ],
+  [
+    "Tanmay",
+    {
+      "id": "Tanmay",
+      "balance": -745
+    }
+  ],
+  [
+    "mujahid",
+    {
+      "id": "mujahid",
+      "balance": 0
+    }
+  ],
+  [
+    "Arujn",
+    {
+      "id": "Arujn",
+      "balance": 0
+    }
+  ],
+  [
+    "cash",
+    {
+      "id": "cash",
+      "balance": -1300
+    }
+  ],
+  [
+    "9faf8b16-518a-4a28-ad46-b003958110dc",
+    {
+      "id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "balance": 1000
+    }
+  ]
+]

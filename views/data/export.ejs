@@ -1,0 +1,57 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Export Data</h1>
+  <a href="/" class="btn btn-secondary">Back to Home</a>
+</div>
+
+<% if (typeof message !== 'undefined') { %>
+  <div class="alert alert-<%= success ? 'success' : 'danger' %> mb-4">
+    <%= message %>
+  </div>
+<% } %>
+
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Save Data</h5>
+      </div>
+      <div class="card-body">
+        <p>Save your current cricket ledger data to persistent storage. This ensures your data will be available the next time you run the application.</p>
+        <p>Data that will be saved:</p>
+        <ul>
+          <li><strong>Matches</strong> - All match details, bets, and exposures</li>
+          <li><strong>Users</strong> - All user profiles and balances</li>
+        </ul>
+        
+        <a href="/data/save" class="btn btn-success">
+          <i class="bi bi-save"></i> Save Data
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Export to Excel</h5>
+      </div>
+      <div class="card-body">
+        <p>Export your cricket ledger data to an Excel file for backup or analysis.</p>
+        <p>The exported file will contain the following sheets:</p>
+        <ul>
+          <li><strong>Matches</strong> - All match details</li>
+          <li><strong>Users</strong> - All user details</li>
+          <li><strong>Bets</strong> - All betting history</li>
+        </ul>
+        
+        <a href="/data/export" class="btn btn-info">
+          <i class="bi bi-file-earmark-excel"></i> Export to Excel
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
