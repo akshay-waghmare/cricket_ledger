@@ -1,29 +1,34 @@
 import express from 'express';
-import { Bet } from '../types';
+import { ensureAuthenticated } from '../middleware/auth';
+import { MatchLedger, Bet, User } from '../types';
 
 const router = express.Router();
 
+// Require authentication for all bet routes
+router.use(ensureAuthenticated);
+
 // Add bet form (accessed from match page)
 router.get('/create/:matchId', (req, res) => {
-  const match = (req as any).ledgerService.getMatch(req.params.matchId);
-  if (!match) {
+  const match: MatchLedger | undefined = req.ledgerService.getMatch(req.params.matchId);
+  if (!match || match.user_id !== req.user!.id) {
     return res.status(404).render('error', { message: 'Match not found' });
   }
-  
-  const users = (req as any).ledgerService.getAllUsers();
+
+  const accountId = req.user!.id;
+  const users: User[] = req.ledgerService.getAllUsers()
+    .filter((u: User) => u.owner_id === accountId);
   res.render('bets/create', { match, users, formData: null });
 });
 
 // Display bet edit form
 router.get('/edit/:matchId/:betId', (req, res) => {
   const { matchId, betId } = req.params;
-  
-  const match = (req as any).ledgerService.getMatch(matchId);
-  if (!match) {
+  const match: MatchLedger | undefined = req.ledgerService.getMatch(matchId);
+  if (!match || match.user_id !== req.user!.id) {
     return res.status(404).render('error', { message: 'Match not found' });
   }
-  
-  const bet = (req as any).ledgerService.getBet(matchId, betId);
+
+  const bet = req.ledgerService.getBet(matchId, betId);
   if (!bet) {
     return res.status(404).render('error', { message: 'Bet not found' });
   }
@@ -35,7 +40,8 @@ router.get('/edit/:matchId/:betId', (req, res) => {
     });
   }
   
-  const users = (req as any).ledgerService.getAllUsers();
+  const users: User[] = req.ledgerService.getAllUsers()
+    .filter((u: User) => u.owner_id === req.user!.id);
   res.render('bets/edit', { match, bet, users });
 });
 
@@ -44,7 +50,9 @@ router.post('/', (req, res) => {
   const { matchId, userId, betType, target, stake, odds } = req.body;
   
   try {
-    (req as any).ledgerService.addBet(
+    const match: MatchLedger | undefined = req.ledgerService.getMatch(matchId);
+    if (!match || match.user_id !== req.user!.id) throw new Error('Match not found');
+    req.ledgerService.addBet(
       matchId,
       userId,
       betType,
@@ -54,8 +62,9 @@ router.post('/', (req, res) => {
     );
     res.redirect(`/matches/${matchId}`);
   } catch (error) {
-    const match = (req as any).ledgerService.getMatch(matchId);
-    const users = (req as any).ledgerService.getAllUsers();
+    const match = req.ledgerService.getMatch(matchId);
+    const users = req.ledgerService.getAllUsers();
+    
     res.render('bets/create', { 
       match, 
       users, 
@@ -71,7 +80,9 @@ router.post('/update/:matchId/:betId', (req, res) => {
   const { betType, target, stake, odds } = req.body;
   
   try {
-    (req as any).ledgerService.updateBet(
+    const match: MatchLedger | undefined = req.ledgerService.getMatch(matchId);
+    if (!match || match.user_id !== req.user!.id) throw new Error('Match not found');
+    req.ledgerService.updateBet(
       matchId,
       betId,
       betType,
@@ -81,9 +92,9 @@ router.post('/update/:matchId/:betId', (req, res) => {
     );
     res.redirect(`/matches/${matchId}`);
   } catch (error) {
-    const match = (req as any).ledgerService.getMatch(matchId);
-    const bet = (req as any).ledgerService.getBet(matchId, betId);
-    const users = (req as any).ledgerService.getAllUsers();
+    const match = req.ledgerService.getMatch(matchId);
+    const bet = req.ledgerService.getBet(matchId, betId);
+    const users = req.ledgerService.getAllUsers();
     
     res.render('bets/edit', { 
       match, 
@@ -99,7 +110,9 @@ router.post('/delete/:matchId/:betId', (req, res) => {
   const { matchId, betId } = req.params;
   
   try {
-    const success = (req as any).ledgerService.deleteBet(matchId, betId);
+    const match: MatchLedger | undefined = req.ledgerService.getMatch(matchId);
+    if (!match || match.user_id !== req.user!.id) throw new Error('Match not found');
+    const success = req.ledgerService.deleteBet(matchId, betId);
     if (!success) {
       throw new Error('Failed to delete bet');
     }
@@ -113,7 +126,9 @@ router.post('/delete/:matchId/:betId', (req, res) => {
 
 // View all bets (new route to see all bets across matches)
 router.get('/', (req, res) => {
-  const matches = (req as any).ledgerService.getAllMatches();
+  const userId = req.user!.id;
+  const matches: MatchLedger[] = req.ledgerService.getAllMatches()
+    .filter((m: MatchLedger) => m.user_id === userId);
   
   // Define the structure of the enhanced bet object with match information
   interface EnhancedBet extends Bet {
@@ -122,10 +137,8 @@ router.get('/', (req, res) => {
   }
   
   const allBets: EnhancedBet[] = [];
-  
-  // Collect all bets from all matches
-  matches.forEach((match: any) => {
-    match.bets.forEach((bet: any) => {
+  matches.forEach((match: MatchLedger) => {
+    match.bets.forEach((bet) => {
       allBets.push({
         ...bet,
         match_id: match.match_id,

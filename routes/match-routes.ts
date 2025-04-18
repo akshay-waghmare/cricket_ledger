@@ -1,4 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
+import { ensureAuthenticated } from '../middleware/auth';
+import { MatchLedger } from '../types';
 
 // Extend Express Request interface to include ledgerService
 declare global {
@@ -12,9 +14,14 @@ declare global {
 // Create the router
 const router = express.Router();
 
+// Require authentication for all match routes
+router.use(ensureAuthenticated);
+
 // Display all matches
 router.get('/', (req: Request, res: Response) => {
-  const matches = req.ledgerService.getAllMatches();
+  const userId = req.user!.id;
+  const matches: MatchLedger[] = req.ledgerService.getAllMatches()
+    .filter((m: MatchLedger) => m.user_id === userId);
   res.render('matches/index', { matches });
 });
 
@@ -27,7 +34,7 @@ router.get('/create', (req: Request, res: Response) => {
 router.post('/', (req: Request, res: Response) => {
   const { matchId, teamA, teamB } = req.body;
   try {
-    req.ledgerService.createMatch(matchId, [teamA, teamB]);
+    req.ledgerService.createMatch(matchId, [teamA, teamB], req.user!.id);
     res.redirect('/matches');
   } catch (error) {
     res.render('matches/create', { 
@@ -39,7 +46,7 @@ router.post('/', (req: Request, res: Response) => {
 // Display match details
 router.get('/:id', (req: Request, res: Response) => {
   const match = req.ledgerService.getMatch(req.params.id);
-  if (!match) {
+  if (!match || match.user_id !== req.user!.id) {
     return res.status(404).render('error', { message: 'Match not found' });
   }
   
@@ -50,6 +57,10 @@ router.get('/:id', (req: Request, res: Response) => {
 // Display exposure snapshot
 router.get('/:id/exposure', (req: Request, res: Response) => {
   try {
+    const match = req.ledgerService.getMatch(req.params.id);
+    if (!match || match.user_id !== req.user!.id) {
+      throw new Error('Match not found');
+    }
     const exposures = req.ledgerService.getExposureSnapshot(req.params.id);
     res.render('matches/exposure', { exposures });
   } catch (error) {
@@ -62,7 +73,7 @@ router.get('/:id/exposure', (req: Request, res: Response) => {
 // Display settle match form
 router.get('/:id/settle', (req: Request, res: Response) => {
   const match = req.ledgerService.getMatch(req.params.id);
-  if (!match) {
+  if (!match || match.user_id !== req.user!.id) {
     return res.status(404).render('error', { message: 'Match not found' });
   }
   res.render('matches/settle', { match });
@@ -72,6 +83,8 @@ router.get('/:id/settle', (req: Request, res: Response) => {
 router.post('/:id/settle', (req: Request, res: Response) => {
   const { winningTeam } = req.body;
   try {
+    const match = req.ledgerService.getMatch(req.params.id);
+    if (!match || match.user_id !== req.user!.id) throw new Error('Match not found');
     req.ledgerService.settleMatch(req.params.id, winningTeam);
     res.redirect(`/matches/${req.params.id}`);
   } catch (error) {

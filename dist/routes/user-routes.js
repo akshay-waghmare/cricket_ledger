@@ -4,10 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const auth_1 = require("../middleware/auth");
 const router = express_1.default.Router();
+// Require authentication for all user routes
+router.use(auth_1.ensureAuthenticated);
 // Display all users
 router.get('/', (req, res) => {
-    const users = req.ledgerService.getAllUsers();
+    const accountId = req.user.id;
+    const users = req.ledgerService.getAllUsers()
+        .filter((u) => u.owner_id === accountId);
     res.render('users/index', { users });
 });
 // Display user creation form
@@ -18,7 +23,7 @@ router.get('/create', (req, res) => {
 router.post('/', (req, res) => {
     const { userId, balance } = req.body;
     try {
-        req.ledgerService.addUser(userId, parseFloat(balance) || 0);
+        req.ledgerService.addUser(userId, parseFloat(balance) || 0, req.user.id);
         res.redirect('/users');
     }
     catch (error) {
@@ -30,20 +35,22 @@ router.post('/', (req, res) => {
 // Display user details
 router.get('/:id', (req, res) => {
     const user = req.ledgerService.getUser(req.params.id);
-    if (!user) {
+    if (!user || user.owner_id !== req.user.id) {
         return res.status(404).render('error', { message: 'User not found' });
     }
-    // Find all matches that this user has bet on
-    const matches = req.ledgerService.getAllMatches();
+    const matches = req.ledgerService.getAllMatches()
+        .filter((match) => match.user_id === req.user.id);
     const userMatches = matches.filter((match) => match.bets.some((bet) => bet.user_id === req.params.id));
     res.render('users/show', { user, userMatches });
 });
 // Display profit/loss report for a user in a match
 router.get('/:userId/matches/:matchId/report', (req, res) => {
     try {
+        const user = req.ledgerService.getUser(req.params.userId);
+        if (!user || user.owner_id !== req.user.id)
+            throw new Error('User not found');
         const report = req.ledgerService.generateProfitLossReport(req.params.matchId, req.params.userId);
         const match = req.ledgerService.getMatch(req.params.matchId);
-        const user = req.ledgerService.getUser(req.params.userId);
         res.render('users/report', { report, match, user });
     }
     catch (error) {
@@ -56,6 +63,9 @@ router.get('/:userId/matches/:matchId/report', (req, res) => {
 router.post('/delete/:id', (req, res) => {
     const userId = req.params.id;
     try {
+        const user = req.ledgerService.getUser(userId);
+        if (!user || user.owner_id !== req.user.id)
+            throw new Error('User not found');
         const success = req.ledgerService.deleteUser(userId);
         if (!success) {
             throw new Error('Failed to delete user');
@@ -71,7 +81,7 @@ router.post('/delete/:id', (req, res) => {
 // Display balance edit form
 router.get('/:id/edit-balance', (req, res) => {
     const user = req.ledgerService.getUser(req.params.id);
-    if (!user) {
+    if (!user || user.owner_id !== req.user.id) {
         return res.status(404).render('error', { message: 'User not found' });
     }
     res.render('users/edit-balance', { user });
@@ -84,10 +94,10 @@ router.post('/:id/update-balance', (req, res) => {
         if (isNaN(newBalance)) {
             throw new Error('Invalid balance amount');
         }
-        const user = req.ledgerService.updateUserBalance(userId, newBalance);
-        if (!user) {
+        const user = req.ledgerService.getUser(userId);
+        if (!user || user.owner_id !== req.user.id)
             throw new Error('User not found');
-        }
+        req.ledgerService.updateUserBalance(userId, newBalance);
         req.flash('success', 'Balance updated successfully');
         res.redirect(`/users/${userId}`);
     }
@@ -99,7 +109,7 @@ router.post('/:id/update-balance', (req, res) => {
 // Display deposit form
 router.get('/:id/deposit', (req, res) => {
     const user = req.ledgerService.getUser(req.params.id);
-    if (!user) {
+    if (!user || user.owner_id !== req.user.id) {
         return res.status(404).render('error', { message: 'User not found' });
     }
     res.render('users/deposit', { user });
@@ -112,10 +122,10 @@ router.post('/:id/deposit', (req, res) => {
         if (isNaN(amount)) {
             throw new Error('Invalid deposit amount');
         }
-        const user = req.ledgerService.depositToUserBalance(userId, amount);
-        if (!user) {
+        const userEntry = req.ledgerService.getUser(userId);
+        if (!userEntry || userEntry.owner_id !== req.user.id)
             throw new Error('User not found');
-        }
+        req.ledgerService.depositToUserBalance(userId, amount);
         req.flash('success', `Successfully deposited ${amount}`);
         res.redirect(`/users/${userId}`);
     }
@@ -127,7 +137,7 @@ router.post('/:id/deposit', (req, res) => {
 // Display user withdrawal form
 router.get('/:id/withdraw', (req, res) => {
     const user = req.ledgerService.getUser(req.params.id);
-    if (!user) {
+    if (!user || user.owner_id !== req.user.id) {
         return res.status(404).render('error', { message: 'User not found' });
     }
     res.render('users/withdraw', { user });
@@ -140,10 +150,10 @@ router.post('/:id/withdraw', (req, res) => {
         if (isNaN(amount)) {
             throw new Error('Invalid withdrawal amount');
         }
-        const user = req.ledgerService.withdrawFromUserBalance(userId, amount);
-        if (!user) {
+        const userEntry = req.ledgerService.getUser(userId);
+        if (!userEntry || userEntry.owner_id !== req.user.id)
             throw new Error('User not found');
-        }
+        req.ledgerService.withdrawFromUserBalance(userId, amount);
         req.flash('success', `Successfully withdrew ${amount}`);
         res.redirect(`/users/${userId}`);
     }
@@ -156,7 +166,7 @@ router.post('/:id/withdraw', (req, res) => {
 router.get('/:id/transactions', (req, res) => {
     const userId = req.params.id;
     const user = req.ledgerService.getUser(userId);
-    if (!user) {
+    if (!user || user.owner_id !== req.user.id) {
         return res.status(404).render('error', { message: 'User not found' });
     }
     const transactions = req.ledgerService.getUserTransactions(userId);

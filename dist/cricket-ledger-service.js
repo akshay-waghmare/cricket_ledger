@@ -28,7 +28,7 @@ class CricketLedgerService {
     /**
      * Create a new match ledger
      */
-    createMatch(matchId, teams) {
+    createMatch(matchId, teams, userId) {
         if (this.matches.has(matchId)) {
             throw new Error(`Match with ID ${matchId} already exists`);
         }
@@ -42,6 +42,7 @@ class CricketLedgerService {
         });
         const match = {
             match_id: matchId,
+            user_id: userId, // Owner of the match (optional)
             teams,
             bets: [],
             exposures
@@ -54,13 +55,14 @@ class CricketLedgerService {
     /**
      * Add a user to the system
      */
-    addUser(userId, initialBalance = 0) {
+    addUser(userId, initialBalance = 0, ownerId) {
         if (this.users.has(userId)) {
             throw new Error(`User with ID ${userId} already exists`);
         }
         const user = {
             id: userId,
-            balance: initialBalance
+            balance: initialBalance,
+            owner_id: ownerId
         };
         this.users.set(userId, user);
         // Save data to disk after adding a user

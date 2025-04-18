@@ -1126,5 +1126,101 @@
         }
       }
     }
+  ],
+  [
+    "asdasd",
+    {
+      "match_id": "asdasd",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "asd",
+        "aaa"
+      ],
+      "bets": [
+        {
+          "id": "3fea9da4-0d2c-4848-8936-ebbfaf3ef140",
+          "user_id": "sumit",
+          "bet_type": "lay",
+          "target": "asd",
+          "stake": 100,
+          "odds": 2,
+          "status": "confirmed",
+          "created_at": "2025-04-18T22:27:23.003Z",
+          "reserved_amount": 100
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "asd": {
+            "win": -100,
+            "lose": 100
+          },
+          "aaa": {
+            "win": 100,
+            "lose": -100
+          }
+        },
+        "users": {
+          "sumit": {
+            "asd": {
+              "win": -100,
+              "lose": 100
+            },
+            "aaa": {
+              "win": 100,
+              "lose": -100
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "asd",
+    {
+      "match_id": "asd",
+      "user_id": "868fe24d-7406-44ca-aa66-e536f7089516",
+      "teams": [
+        "asd",
+        "dd"
+      ],
+      "bets": [
+        {
+          "id": "eb56cc12-7d88-4052-b237-15eb52cede93",
+          "user_id": "akshay",
+          "bet_type": "lay",
+          "target": "asd",
+          "stake": 100,
+          "odds": 2,
+          "status": "confirmed",
+          "created_at": "2025-04-18T22:26:59.942Z",
+          "reserved_amount": 100
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "asd": {
+            "win": -100,
+            "lose": 100
+          },
+          "dd": {
+            "win": 100,
+            "lose": -100
+          }
+        },
+        "users": {
+          "akshay": {
+            "asd": {
+              "win": -100,
+              "lose": 100
+            },
+            "dd": {
+              "win": 100,
+              "lose": -100
+            }
+          }
+        }
+      }
+    }
   ]
 ]

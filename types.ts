@@ -26,6 +26,7 @@ export interface Bet {
 
 export interface MatchLedger {
   match_id: string;
+  user_id?: string; // Owner of the match
   teams: string[];
   bets: Bet[];
   exposures: {
@@ -52,6 +53,7 @@ export interface User {
   id: string;
   balance: number;
   role?: 'user' | 'admin';
+  owner_id?: string; // ID of the account that owns this customer user
 }
 
 export interface AuthUser {
