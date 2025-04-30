@@ -50,10 +50,50 @@
     }
   ],
   [
-    "sumit",
+    "tanmay",
     {
-      "id": "sumit",
-      "balance": 1000,
+      "id": "tanmay",
+      "balance": 61905,
+      "owner_id": "9faf8b16-518a-4a28-ad46-b003958110dc"
+    }
+  ],
+  [
+    "mjhid",
+    {
+      "id": "mjhid",
+      "balance": 0,
+      "owner_id": "9faf8b16-518a-4a28-ad46-b003958110dc"
+    }
+  ],
+  [
+    "bk",
+    {
+      "id": "bk",
+      "balance": 345641,
+      "owner_id": "9faf8b16-518a-4a28-ad46-b003958110dc"
+    }
+  ],
+  [
+    "cassh",
+    {
+      "id": "cassh",
+      "balance": -4800,
+      "owner_id": "9faf8b16-518a-4a28-ad46-b003958110dc"
+    }
+  ],
+  [
+    "stsh",
+    {
+      "id": "stsh",
+      "balance": 26600,
+      "owner_id": "9faf8b16-518a-4a28-ad46-b003958110dc"
+    }
+  ],
+  [
+    "vipul",
+    {
+      "id": "vipul",
+      "balance": 182300,
       "owner_id": "9faf8b16-518a-4a28-ad46-b003958110dc"
     }
   ]

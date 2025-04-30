@@ -37,7 +37,7 @@
               <td><span class="badge bg-<%= bet.bet_type === 'back' ? 'primary' : 'danger' %>"><%= bet.bet_type %></span></td>
               <td><%= bet.target %></td>
               <td><%= bet.stake.toFixed(2) %></td>
-              <td><%= bet.odds.toFixed(2) %></td>
+              <td><%= bet.odds.toFixed(3) %></td>
               <td>
                 <span class="badge bg-<%= 
                   bet.status === 'confirmed' ? 'secondary' : 

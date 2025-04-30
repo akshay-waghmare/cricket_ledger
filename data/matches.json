@@ -1136,42 +1136,19 @@
         "asd",
         "aaa"
       ],
-      "bets": [
-        {
-          "id": "3fea9da4-0d2c-4848-8936-ebbfaf3ef140",
-          "user_id": "sumit",
-          "bet_type": "lay",
-          "target": "asd",
-          "stake": 100,
-          "odds": 2,
-          "status": "confirmed",
-          "created_at": "2025-04-18T22:27:23.003Z",
-          "reserved_amount": 100
-        }
-      ],
+      "bets": [],
       "exposures": {
         "teams": {
           "asd": {
-            "win": -100,
-            "lose": 100
+            "win": 0,
+            "lose": 0
           },
           "aaa": {
-            "win": 100,
-            "lose": -100
+            "win": 0,
+            "lose": 0
           }
         },
-        "users": {
-          "sumit": {
-            "asd": {
-              "win": -100,
-              "lose": 100
-            },
-            "aaa": {
-              "win": 100,
-              "lose": -100
-            }
-          }
-        }
+        "users": {}
       }
     }
   ],
@@ -1217,6 +1194,2429 @@
             "dd": {
               "win": 100,
               "lose": -100
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "gujarat-titans-vs-delhi-capitals-35th-match-1473472",
+    {
+      "match_id": "gujarat-titans-vs-delhi-capitals-35th-match-1473472",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "gujarat-titans",
+        "delhi-capitals"
+      ],
+      "bets": [
+        {
+          "id": "b4168b91-b7c4-4e1d-a549-f025da8c274d",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "gujarat-titans",
+          "stake": 500,
+          "odds": 1.89,
+          "status": "confirmed",
+          "created_at": "2025-04-19T11:56:02.049Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "b9c73464-b248-44f4-a9d3-ad0539b84777",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 300,
+          "odds": 1.78,
+          "status": "confirmed",
+          "created_at": "2025-04-19T11:57:05.223Z",
+          "reserved_amount": 300
+        },
+        {
+          "id": "20a0ed05-0390-4cf4-adbf-41e721cf61c1",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 100,
+          "odds": 1.72,
+          "status": "confirmed",
+          "created_at": "2025-04-19T11:57:17.222Z",
+          "reserved_amount": 100
+        },
+        {
+          "id": "1d02f4d9-bc8a-4ab2-80dd-c712cb5bd66e",
+          "user_id": "mjhid",
+          "bet_type": "back",
+          "target": "gujarat-titans",
+          "stake": 3000,
+          "odds": 2.1,
+          "status": "confirmed",
+          "created_at": "2025-04-19T13:09:21.305Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "84b16b81-ee89-498c-b67d-2b3df9a3528d",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 2000,
+          "odds": 1.8,
+          "status": "confirmed",
+          "created_at": "2025-04-19T13:09:42.051Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "5659ced6-285d-4ccd-8657-0f075ae74f93",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 500,
+          "odds": 1.77,
+          "status": "confirmed",
+          "created_at": "2025-04-19T13:12:45.219Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "cd355779-c2c1-4781-878a-eb5e216fff01",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "gujarat-titans",
+          "stake": 1000,
+          "odds": 1.45,
+          "status": "confirmed",
+          "created_at": "2025-04-19T13:13:22.097Z",
+          "reserved_amount": 1000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "gujarat-titans": {
+            "win": 1295,
+            "lose": -2209
+          },
+          "delhi-capitals": {
+            "win": -2209,
+            "lose": 1295
+          }
+        },
+        "users": {
+          "bk": {
+            "gujarat-titans": {
+              "win": -2005,
+              "lose": 791
+            },
+            "delhi-capitals": {
+              "win": 791,
+              "lose": -2005
+            }
+          },
+          "mjhid": {
+            "gujarat-titans": {
+              "win": 3300,
+              "lose": -3000
+            },
+            "delhi-capitals": {
+              "win": -3000,
+              "lose": 3300
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "lucknow-super-giants-vs-delhi-capitals-40th-match-1473477",
+    {
+      "match_id": "lucknow-super-giants-vs-delhi-capitals-40th-match-1473477",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "lucknow-super-giants",
+        "delhi-capitals"
+      ],
+      "bets": [
+        {
+          "id": "5cef8796-cfdb-42ea-aaf7-c1c185716fe5",
+          "user_id": "stsh",
+          "bet_type": "back",
+          "target": "lucknow-super-giants",
+          "stake": 15000,
+          "odds": 1.96,
+          "status": "lost",
+          "created_at": "2025-04-22T14:28:06.651Z",
+          "reserved_amount": 15000
+        },
+        {
+          "id": "65784643-32b6-4986-9de0-5831b4ab9a8a",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "lucknow-super-giants",
+          "stake": 15000,
+          "odds": 1.85,
+          "status": "won",
+          "created_at": "2025-04-22T14:28:42.056Z",
+          "reserved_amount": 12750.000000000002
+        },
+        {
+          "id": "bb2f2526-8500-436a-bc60-f3974c6a8ec9",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "lucknow-super-giants",
+          "stake": 10000,
+          "odds": 1.98,
+          "status": "won",
+          "created_at": "2025-04-22T14:33:31.112Z",
+          "reserved_amount": 9800
+        },
+        {
+          "id": "cdf99d9e-790b-43fd-aba4-c3771bff4a42",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "lucknow-super-giants",
+          "stake": 2000,
+          "odds": 1.97,
+          "status": "won",
+          "created_at": "2025-04-22T14:33:47.509Z",
+          "reserved_amount": 1940
+        },
+        {
+          "id": "14c9f690-67d9-405a-b496-0ea01d73a165",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "lucknow-super-giants",
+          "stake": 10000,
+          "odds": 1.79,
+          "status": "lost",
+          "created_at": "2025-04-22T14:34:26.474Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "7891ab0c-65de-4e1a-b1ce-1209ad68827b",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "lucknow-super-giants",
+          "stake": 5000,
+          "odds": 1.78,
+          "status": "lost",
+          "created_at": "2025-04-22T14:34:38.480Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "2f8b0f72-aca0-45ce-8b82-dd902686e9ac",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "lucknow-super-giants",
+          "stake": 15000,
+          "odds": 1.61,
+          "status": "lost",
+          "created_at": "2025-04-22T14:35:12.300Z",
+          "reserved_amount": 15000
+        },
+        {
+          "id": "7e1a8da1-53bb-4a8b-b4b1-8346da8c4eaf",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "lucknow-super-giants",
+          "stake": 15000,
+          "odds": 1.61,
+          "status": "won",
+          "created_at": "2025-04-22T14:35:36.219Z",
+          "reserved_amount": 9150.000000000002
+        },
+        {
+          "id": "b24c136e-efb6-4e4c-9c1b-f958ec111077",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 20000,
+          "odds": 1.78,
+          "status": "lost",
+          "created_at": "2025-04-22T14:54:09.349Z",
+          "reserved_amount": 15600
+        },
+        {
+          "id": "ba3b1a6d-bc51-49af-b108-ba3b55dee761",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 20000,
+          "odds": 1.77,
+          "status": "won",
+          "created_at": "2025-04-22T14:54:49.752Z",
+          "reserved_amount": 20000
+        },
+        {
+          "id": "185149e8-c737-4797-a8a0-35a5523fa62d",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 1000,
+          "odds": 1.77,
+          "status": "won",
+          "created_at": "2025-04-22T14:55:04.978Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "b49c32c8-3a41-494a-934c-59b0436bb94f",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 1000,
+          "odds": 1.61,
+          "status": "won",
+          "created_at": "2025-04-22T15:04:18.104Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "431e4c20-bc8d-4c37-a915-dea263430daa",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.46,
+          "status": "won",
+          "created_at": "2025-04-22T15:07:53.236Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "0426b8f9-982a-4710-afb4-79f5a527a857",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.46,
+          "status": "lost",
+          "created_at": "2025-04-22T15:08:10.679Z",
+          "reserved_amount": 2300
+        },
+        {
+          "id": "fc388b66-5817-44ae-9c12-ac03bb845440",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 500,
+          "odds": 1.36,
+          "status": "won",
+          "created_at": "2025-04-22T15:21:53.180Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "e7460b38-1a16-433f-83fb-f0b6c25caf3b",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 500,
+          "odds": 1.18,
+          "status": "won",
+          "created_at": "2025-04-22T15:53:31.391Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "750a7dd2-7983-4709-8d0e-67a8c230728e",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 1000,
+          "odds": 1.17,
+          "status": "won",
+          "created_at": "2025-04-22T15:55:27.324Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "8a517699-24fe-4cf3-96f7-c5216b2270b0",
+          "user_id": "mjhid",
+          "bet_type": "back",
+          "target": "lucknow-super-giants",
+          "stake": 3000,
+          "odds": 6.8,
+          "status": "lost",
+          "created_at": "2025-04-22T15:58:01.067Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "c9a417ee-204f-4867-a5d7-d864e5626fbd",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 15000,
+          "odds": 1.16,
+          "status": "won",
+          "created_at": "2025-04-22T15:58:50.917Z",
+          "reserved_amount": 15000
+        },
+        {
+          "id": "15bd27c9-3697-4c73-b55b-10ef05e08539",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 3000,
+          "odds": 1.17,
+          "status": "won",
+          "created_at": "2025-04-22T15:59:24.896Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "fcca1087-5b50-4a10-9415-c0624c95e8d0",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 4000,
+          "odds": 1.16,
+          "status": "lost",
+          "created_at": "2025-04-22T16:02:50.340Z",
+          "reserved_amount": 639.9999999999997
+        },
+        {
+          "id": "ade98504-d0e8-41a4-baf2-75e744e6cd86",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 4000,
+          "odds": 1.15,
+          "status": "won",
+          "created_at": "2025-04-22T16:03:08.611Z",
+          "reserved_amount": 4000
+        },
+        {
+          "id": "5ec21fe6-a916-461f-baa9-a14131538fde",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 2000,
+          "odds": 1.16,
+          "status": "won",
+          "created_at": "2025-04-22T16:03:52.757Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "e7731867-9fe4-44ce-824b-462cd2fddac2",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 20000,
+          "odds": 1.15,
+          "status": "lost",
+          "created_at": "2025-04-22T16:20:31.629Z",
+          "reserved_amount": 2999.999999999998
+        },
+        {
+          "id": "ef532e5b-2777-4696-93c1-8404025aab49",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 20000,
+          "odds": 1.15,
+          "status": "won",
+          "created_at": "2025-04-22T16:21:02.710Z",
+          "reserved_amount": 20000
+        },
+        {
+          "id": "9b63a000-a381-42c3-a979-b8648c0ad176",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 500,
+          "odds": 1.15,
+          "status": "won",
+          "created_at": "2025-04-22T16:22:58.404Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "34236998-5e1a-4154-85b2-e3220369116d",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.16,
+          "status": "lost",
+          "created_at": "2025-04-22T16:38:31.858Z",
+          "reserved_amount": 799.9999999999995
+        },
+        {
+          "id": "6bf46f7d-c8cd-4108-8000-0d8b271ceba8",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.15,
+          "status": "won",
+          "created_at": "2025-04-22T16:38:57.232Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "53fe86a2-23f0-44f1-b0c2-363fdb42bf89",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 500,
+          "odds": 1.15,
+          "status": "won",
+          "created_at": "2025-04-22T16:40:33.248Z",
+          "reserved_amount": 500
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "lucknow-super-giants": {
+            "win": -5890,
+            "lose": -1089.9999999999982
+          },
+          "delhi-capitals": {
+            "win": -1089.9999999999982,
+            "lose": -5890
+          }
+        },
+        "users": {
+          "stsh": {
+            "lucknow-super-giants": {
+              "win": 46500,
+              "lose": -7339.999999999998
+            },
+            "delhi-capitals": {
+              "win": -7339.999999999998,
+              "lose": 46500
+            }
+          },
+          "bk": {
+            "lucknow-super-giants": {
+              "win": -69790,
+              "lose": 9250
+            },
+            "delhi-capitals": {
+              "win": 9250,
+              "lose": -69790
+            }
+          },
+          "mjhid": {
+            "lucknow-super-giants": {
+              "win": 17400,
+              "lose": -3000
+            },
+            "delhi-capitals": {
+              "win": -3000,
+              "lose": 17400
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "sunrisers-hyderabad-vs-mumbai-indians-41st-match-1473478/",
+    {
+      "match_id": "sunrisers-hyderabad-vs-mumbai-indians-41st-match-1473478/",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "sunrisers-hyderabad",
+        "mumbai-indians"
+      ],
+      "bets": [],
+      "exposures": {
+        "teams": {
+          "sunrisers-hyderabad": {
+            "win": 0,
+            "lose": 0
+          },
+          "mumbai-indians": {
+            "win": 0,
+            "lose": 0
+          }
+        },
+        "users": {}
+      }
+    }
+  ],
+  [
+    "sunrisers-hyderabad-vs-mumbai-indians-41st-match-",
+    {
+      "match_id": "sunrisers-hyderabad-vs-mumbai-indians-41st-match-",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "srh",
+        "mi"
+      ],
+      "bets": [
+        {
+          "id": "8a415d98-aad5-4b20-88bf-a2c9bd0140b9",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "mi",
+          "stake": 10000,
+          "odds": 1.61,
+          "status": "confirmed",
+          "created_at": "2025-04-23T14:14:07.743Z",
+          "reserved_amount": 6100.000000000001
+        },
+        {
+          "id": "926d5db7-773c-429d-ae1e-eae446ef7f32",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mi",
+          "stake": 10000,
+          "odds": 1.59,
+          "status": "confirmed",
+          "created_at": "2025-04-23T14:14:29.676Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "c779ee80-5080-4665-bd32-8258e66541ed",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mi",
+          "stake": 2000,
+          "odds": 1.33,
+          "status": "confirmed",
+          "created_at": "2025-04-23T14:15:00.408Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "98a90b67-3420-4ba6-bbb4-3791fb965a38",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mi",
+          "stake": 2000,
+          "odds": 1.34,
+          "status": "confirmed",
+          "created_at": "2025-04-23T14:15:13.131Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "29d8457b-ba7e-478c-a468-aabb19260603",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mi",
+          "stake": 5000,
+          "odds": 1.12,
+          "status": "confirmed",
+          "created_at": "2025-04-23T14:22:18.256Z",
+          "reserved_amount": 5000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "srh": {
+            "win": -9000,
+            "lose": 1740
+          },
+          "mi": {
+            "win": 1740,
+            "lose": -9000
+          }
+        },
+        "users": {
+          "stsh": {
+            "srh": {
+              "win": 10000,
+              "lose": -6100.000000000001
+            },
+            "mi": {
+              "win": -6100.000000000001,
+              "lose": 10000
+            }
+          },
+          "bk": {
+            "srh": {
+              "win": -19000,
+              "lose": 7840.000000000001
+            },
+            "mi": {
+              "win": 7840.000000000001,
+              "lose": -19000
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "royal-challengers-bengaluru-vs-rajasthan-royals-42nd-match-1473479",
+    {
+      "match_id": "royal-challengers-bengaluru-vs-rajasthan-royals-42nd-match-1473479",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "royal-challengers-bengaluru",
+        "rajasthan-royal"
+      ],
+      "bets": [
+        {
+          "id": "d9d2ac9b-23c1-4f42-82f8-ab13efdd3024",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 10000,
+          "odds": 1.87,
+          "status": "confirmed",
+          "created_at": "2025-04-24T14:15:18.976Z",
+          "reserved_amount": 8700.000000000002
+        },
+        {
+          "id": "3dd70c75-f564-491e-9de8-d3a366a6f84c",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 10000,
+          "odds": 1.74,
+          "status": "confirmed",
+          "created_at": "2025-04-24T14:15:35.525Z",
+          "reserved_amount": 7400
+        },
+        {
+          "id": "0b45fb42-8832-4e56-8365-a6d3355d8d98",
+          "user_id": "stsh",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 15000,
+          "odds": 1.59,
+          "status": "confirmed",
+          "created_at": "2025-04-24T16:34:23.395Z",
+          "reserved_amount": 15000
+        },
+        {
+          "id": "0204694b-ffd6-4d56-a0f7-7a76b9508c2d",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "rajasthan-royal",
+          "stake": 10000,
+          "odds": 1.8,
+          "status": "confirmed",
+          "created_at": "2025-04-24T16:34:54.678Z",
+          "reserved_amount": 8000
+        },
+        {
+          "id": "16559321-7796-4941-ad61-ca69e543a265",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 10000,
+          "odds": 1.46,
+          "status": "confirmed",
+          "created_at": "2025-04-24T16:36:39.440Z",
+          "reserved_amount": 4600
+        },
+        {
+          "id": "791d97cc-5c1a-4054-9caa-09b488baf727",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "rajasthan-royal",
+          "stake": 5000,
+          "odds": 1.37,
+          "status": "confirmed",
+          "created_at": "2025-04-24T16:41:27.865Z",
+          "reserved_amount": 1850.0000000000005
+        },
+        {
+          "id": "b66f06b2-4f08-468d-9c79-39aa147a5641",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "rajasthan-royal",
+          "stake": 5000,
+          "odds": 1.33,
+          "status": "confirmed",
+          "created_at": "2025-04-24T16:48:29.414Z",
+          "reserved_amount": 1650.0000000000005
+        },
+        {
+          "id": "530789e7-f796-44d1-8f84-067e72a7e544",
+          "user_id": "mjhid",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 2000,
+          "odds": 5.3,
+          "status": "confirmed",
+          "created_at": "2025-04-24T16:50:32.924Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "e2b423e6-8a9e-4b99-a211-0983f7de06ff",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 2000,
+          "odds": 1.5,
+          "status": "confirmed",
+          "created_at": "2025-04-24T17:23:14.680Z",
+          "reserved_amount": 1000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "royal-challengers-bengaluru": {
+            "win": 15749.999999999998,
+            "lose": 3500
+          },
+          "rajasthan-royal": {
+            "win": 3500,
+            "lose": 15749.999999999998
+          }
+        },
+        "users": {
+          "stsh": {
+            "royal-challengers-bengaluru": {
+              "win": 7149.999999999998,
+              "lose": 5500
+            },
+            "rajasthan-royal": {
+              "win": 5500,
+              "lose": 7149.999999999998
+            }
+          },
+          "mjhid": {
+            "royal-challengers-bengaluru": {
+              "win": 8600,
+              "lose": -2000
+            },
+            "rajasthan-royal": {
+              "win": -2000,
+              "lose": 8600
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "chennai-super-kings-vs-sunrisers-hyderabad-43rd-match-1473480",
+    {
+      "match_id": "chennai-super-kings-vs-sunrisers-hyderabad-43rd-match-1473480",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "chennai-super-kings",
+        "sunrisers-hyderabad"
+      ],
+      "bets": [
+        {
+          "id": "c3f1fe16-b190-4aec-bf91-59eb2399c7b7",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "sunrisers-hyderabad",
+          "stake": 10000,
+          "odds": 1.71,
+          "status": "lost",
+          "created_at": "2025-04-25T14:16:24.342Z",
+          "reserved_amount": 7100
+        },
+        {
+          "id": "3207a2f6-de96-4dde-a881-8779bfe8c6d9",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 10000,
+          "odds": 1.71,
+          "status": "won",
+          "created_at": "2025-04-25T14:16:45.732Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "fc8dd75d-891e-48ea-a89f-060ee12262dd",
+          "user_id": "vipul",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 20000,
+          "odds": 1.73,
+          "status": "won",
+          "created_at": "2025-04-25T14:17:59.104Z",
+          "reserved_amount": 20000
+        },
+        {
+          "id": "e4c46b08-e039-40b1-a1b9-2b318a8047d8",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "sunrisers-hyderabad",
+          "stake": 20000,
+          "odds": 1.74,
+          "status": "lost",
+          "created_at": "2025-04-25T14:18:24.439Z",
+          "reserved_amount": 14800
+        },
+        {
+          "id": "7c03841c-3ad3-482d-9573-10f9ead4ff8c",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 500,
+          "odds": 1.85,
+          "status": "won",
+          "created_at": "2025-04-25T15:14:36.121Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "eb7c6c20-96dc-4417-91a8-84fdd1424ad7",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 500,
+          "odds": 1.61,
+          "status": "won",
+          "created_at": "2025-04-25T15:23:05.625Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "0eeef1b9-06c0-4c2b-8a5c-c42006efdd36",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 1000,
+          "odds": 1.29,
+          "status": "won",
+          "created_at": "2025-04-25T15:37:53.515Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "3ebec08f-38e6-4ffe-9216-28e871678769",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "sunrisers-hyderabad",
+          "stake": 600,
+          "odds": 1.53,
+          "status": "lost",
+          "created_at": "2025-04-25T16:12:45.217Z",
+          "reserved_amount": 318
+        },
+        {
+          "id": "d5a5b52b-3dd1-4316-9dc4-94e9980c538c",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "chennai-super-kings",
+          "stake": 500,
+          "odds": 1.63,
+          "status": "lost",
+          "created_at": "2025-04-25T16:51:54.835Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "4576e431-dd74-4682-a0e9-6df35cf7907a",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "chennai-super-kings",
+          "stake": 5000,
+          "odds": 1.63,
+          "status": "won",
+          "created_at": "2025-04-25T16:56:09.243Z",
+          "reserved_amount": 3149.9999999999995
+        },
+        {
+          "id": "099d0b64-a2e0-4c05-b96c-5d0f0e5d85fe",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "chennai-super-kings",
+          "stake": 3000,
+          "odds": 1.61,
+          "status": "lost",
+          "created_at": "2025-04-25T16:56:24.131Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "1dd1ffc3-c098-4498-89e1-af972b2ce93c",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 2000,
+          "odds": 1.66,
+          "status": "won",
+          "created_at": "2025-04-25T16:59:44.555Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "537921e3-a32a-49ee-917d-973a184baffa",
+          "user_id": "tanmay",
+          "bet_type": "lay",
+          "target": "sunrisers-hyderabad",
+          "stake": 2000,
+          "odds": 1.71,
+          "status": "lost",
+          "created_at": "2025-04-25T17:11:53.197Z",
+          "reserved_amount": 1420
+        },
+        {
+          "id": "2e52c421-2356-4d73-84e2-5c122053d083",
+          "user_id": "tanmay",
+          "bet_type": "lay",
+          "target": "sunrisers-hyderabad",
+          "stake": 1000,
+          "odds": 1.81,
+          "status": "lost",
+          "created_at": "2025-04-25T17:12:09.157Z",
+          "reserved_amount": 810
+        },
+        {
+          "id": "83efa4fb-2284-4799-a3e0-66000fbf2278",
+          "user_id": "tanmay",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 1000,
+          "odds": 1.84,
+          "status": "won",
+          "created_at": "2025-04-25T17:20:43.728Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "305f9bc3-12e1-43bb-a92c-c848960832ce",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "sunrisers-hyderabad",
+          "stake": 1000,
+          "odds": 1.84,
+          "status": "lost",
+          "created_at": "2025-04-25T17:20:56.281Z",
+          "reserved_amount": 840.0000000000001
+        },
+        {
+          "id": "5495fb51-26d3-40ac-b37a-363092d9ae43",
+          "user_id": "vipul",
+          "bet_type": "lay",
+          "target": "sunrisers-hyderabad",
+          "stake": 20000,
+          "odds": 1.42,
+          "status": "lost",
+          "created_at": "2025-04-25T17:29:43.435Z",
+          "reserved_amount": 8399.999999999998
+        },
+        {
+          "id": "97265044-2e58-48ec-a6e3-40e15337ac99",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "sunrisers-hyderabad",
+          "stake": 20000,
+          "odds": 1.27,
+          "status": "won",
+          "created_at": "2025-04-25T17:30:13.753Z",
+          "reserved_amount": 20000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "chennai-super-kings": {
+            "win": -1405,
+            "lose": -1907.9999999999982
+          },
+          "sunrisers-hyderabad": {
+            "win": -1907.9999999999982,
+            "lose": -1405
+          }
+        },
+        "users": {
+          "stsh": {
+            "chennai-super-kings": {
+              "win": 6850,
+              "lose": -2100
+            },
+            "sunrisers-hyderabad": {
+              "win": -2100,
+              "lose": 6850
+            }
+          },
+          "bk": {
+            "chennai-super-kings": {
+              "win": -10255,
+              "lose": -4618
+            },
+            "sunrisers-hyderabad": {
+              "win": -4618,
+              "lose": -10255
+            }
+          },
+          "vipul": {
+            "chennai-super-kings": {
+              "win": 0,
+              "lose": 6200.000000000002
+            },
+            "sunrisers-hyderabad": {
+              "win": 6200.000000000002,
+              "lose": 0
+            }
+          },
+          "tanmay": {
+            "chennai-super-kings": {
+              "win": 2000,
+              "lose": -1390
+            },
+            "sunrisers-hyderabad": {
+              "win": -1390,
+              "lose": 2000
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "kolkata-knight-riders-vs-punjab-kings-44th-match-1473481",
+    {
+      "match_id": "kolkata-knight-riders-vs-punjab-kings-44th-match-1473481",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "kolkata-knight-riders",
+        "punjab-kings"
+      ],
+      "bets": [
+        {
+          "id": "000f1afa-b714-4f06-b968-d389a4875dfa",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 10000,
+          "odds": 1.79,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:38:14.596Z",
+          "reserved_amount": 7900
+        },
+        {
+          "id": "35d8ceec-3988-4dfd-972b-07fb13e0ebb1",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 10000,
+          "odds": 1.85,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:38:41.688Z",
+          "reserved_amount": 8500
+        },
+        {
+          "id": "88a57b4c-28c8-4460-aafa-bf9624a39ff6",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 10000,
+          "odds": 1.71,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:39:04.515Z",
+          "reserved_amount": 7100
+        },
+        {
+          "id": "3d3a2ce9-8d63-441e-bed3-e12f26502ffb",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 10000,
+          "odds": 1.77,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:40:05.147Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "08ca73cb-911c-4221-98d8-0a05c034d87f",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 10000,
+          "odds": 1.84,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:40:18.788Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "ff5741bb-ace8-40da-8cec-2cf394ef7c1d",
+          "user_id": "tanmay",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 10000,
+          "odds": 1.71,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:40:36.387Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "eefff09e-a558-455a-b699-425f394d3ca3",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 1000,
+          "odds": 1.82,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:55:04.063Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "c96a6ed3-f411-412b-9c48-9a37d7155dd5",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 500,
+          "odds": 1.85,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:55:32.659Z",
+          "reserved_amount": 425.00000000000006
+        },
+        {
+          "id": "89e62c31-8c1d-453b-bf7a-8e928c53d9cb",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 200,
+          "odds": 1.89,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:55:54.014Z",
+          "reserved_amount": 177.99999999999997
+        },
+        {
+          "id": "fe239dee-3878-4f27-8e84-d804900599e4",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 200,
+          "odds": 1.92,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:56:10.073Z",
+          "reserved_amount": 184
+        },
+        {
+          "id": "05f256a7-b179-41df-9b09-4c54444fb034",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 1000,
+          "odds": 1.82,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:56:47.883Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "795f37ef-7ec7-4dfe-95a3-85ffe3293107",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 500,
+          "odds": 1.85,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:57:00.303Z",
+          "reserved_amount": 425.00000000000006
+        },
+        {
+          "id": "116d9f26-89db-4b6f-a4f1-70e4014c0015",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 200,
+          "odds": 1.87,
+          "status": "confirmed",
+          "created_at": "2025-04-26T14:57:17.972Z",
+          "reserved_amount": 174.00000000000003
+        },
+        {
+          "id": "7dda6043-8715-4b76-85a9-b6b7ce4d87ba",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 2000,
+          "odds": 1.44,
+          "status": "confirmed",
+          "created_at": "2025-04-26T15:33:22.169Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "6f299b17-44d6-4e5b-a82a-20c5682181da",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 1000,
+          "odds": 1.47,
+          "status": "confirmed",
+          "created_at": "2025-04-26T15:33:43.617Z",
+          "reserved_amount": 470
+        },
+        {
+          "id": "736c6930-9a2b-40ce-93fe-0cfd66a151cb",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 500,
+          "odds": 1.51,
+          "status": "confirmed",
+          "created_at": "2025-04-26T15:35:55.267Z",
+          "reserved_amount": 255
+        },
+        {
+          "id": "db02b09b-bf69-46f4-ad1c-bbff1575cd9f",
+          "user_id": "vipul",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 25000,
+          "odds": 1.49,
+          "status": "confirmed",
+          "created_at": "2025-04-26T15:37:32.741Z",
+          "reserved_amount": 25000
+        },
+        {
+          "id": "5210c1d4-c79a-4498-9118-374973c97edb",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 25000,
+          "odds": 1.51,
+          "status": "confirmed",
+          "created_at": "2025-04-26T15:38:10.414Z",
+          "reserved_amount": 12750
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "kolkata-knight-riders": {
+            "win": -900,
+            "lose": -391
+          },
+          "punjab-kings": {
+            "win": -391,
+            "lose": -900
+          }
+        },
+        "users": {
+          "stsh": {
+            "kolkata-knight-riders": {
+              "win": 30000,
+              "lose": -23500
+            },
+            "punjab-kings": {
+              "win": -23500,
+              "lose": 30000
+            }
+          },
+          "bk": {
+            "kolkata-knight-riders": {
+              "win": 4100,
+              "lose": 3759
+            },
+            "punjab-kings": {
+              "win": 3759,
+              "lose": 4100
+            }
+          },
+          "tanmay": {
+            "kolkata-knight-riders": {
+              "win": -10000,
+              "lose": 7100
+            },
+            "punjab-kings": {
+              "win": 7100,
+              "lose": -10000
+            }
+          },
+          "vipul": {
+            "kolkata-knight-riders": {
+              "win": -25000,
+              "lose": 12250
+            },
+            "punjab-kings": {
+              "win": 12250,
+              "lose": -25000
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "mumbai-indians-vs-lucknow-super-giants-45th-match-1473482/",
+    {
+      "match_id": "mumbai-indians-vs-lucknow-super-giants-45th-match-1473482/",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "mumbai-indians",
+        "lucknow-super-giants"
+      ],
+      "bets": [],
+      "exposures": {
+        "teams": {
+          "mumbai-indians": {
+            "win": 0,
+            "lose": 0
+          },
+          "lucknow-super-giants": {
+            "win": 0,
+            "lose": 0
+          }
+        },
+        "users": {}
+      }
+    }
+  ],
+  [
+    "mumbai-indians-vs-lucknow-super-giants",
+    {
+      "match_id": "mumbai-indians-vs-lucknow-super-giants",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "mumbai-indians",
+        "lucknow-super-giants"
+      ],
+      "bets": [
+        {
+          "id": "51971d0e-8202-4b95-869d-807d3948016a",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 20000,
+          "odds": 1.52,
+          "status": "lost",
+          "created_at": "2025-04-27T10:08:13.511Z",
+          "reserved_amount": 10400
+        },
+        {
+          "id": "a8aed74f-8fe1-4433-9941-f5d239cf3a19",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 20000,
+          "odds": 1.48,
+          "status": "won",
+          "created_at": "2025-04-27T10:08:57.421Z",
+          "reserved_amount": 20000
+        },
+        {
+          "id": "e35d1176-a3f1-4c58-9a54-ef2caf8cd03c",
+          "user_id": "vipul",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 40000,
+          "odds": 1.67,
+          "status": "lost",
+          "created_at": "2025-04-27T10:20:06.242Z",
+          "reserved_amount": 26799.999999999996
+        },
+        {
+          "id": "f3348948-cc47-48e5-baf3-d51cff3abdc9",
+          "user_id": "tanmay",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 40000,
+          "odds": 1.66,
+          "status": "won",
+          "created_at": "2025-04-27T10:20:50.095Z",
+          "reserved_amount": 40000
+        },
+        {
+          "id": "cf2c3e4b-a215-4fb8-b5cf-d4b8f70dc236",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 10000,
+          "odds": 1.48,
+          "status": "lost",
+          "created_at": "2025-04-27T10:39:12.589Z",
+          "reserved_amount": 4800
+        },
+        {
+          "id": "4597e15a-8ee2-42cb-b87c-e11bea2b8b74",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 10000,
+          "odds": 1.48,
+          "status": "won",
+          "created_at": "2025-04-27T10:39:33.307Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "6053aa56-430a-40be-9246-7e293f9bd669",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 500,
+          "odds": 1.38,
+          "status": "won",
+          "created_at": "2025-04-27T10:51:48.425Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "554439eb-5484-4a08-90ed-41016636383a",
+          "user_id": "vipul",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 60000,
+          "odds": 1.41,
+          "status": "won",
+          "created_at": "2025-04-27T11:15:09.661Z",
+          "reserved_amount": 60000
+        },
+        {
+          "id": "c49a2180-4183-4115-a3a4-53e14fe0f1c4",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 58000,
+          "odds": 1.41,
+          "status": "lost",
+          "created_at": "2025-04-27T11:15:39.657Z",
+          "reserved_amount": 23779.999999999996
+        },
+        {
+          "id": "1b25b1a5-636f-4148-a459-573295d5a84e",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 2000,
+          "odds": 1.42,
+          "status": "lost",
+          "created_at": "2025-04-27T11:16:00.307Z",
+          "reserved_amount": 839.9999999999999
+        },
+        {
+          "id": "593a25d7-5749-4c62-b63d-46ccf42f5e94",
+          "user_id": "vipul",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 10000,
+          "odds": 1.5,
+          "status": "won",
+          "created_at": "2025-04-27T11:46:03.661Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "6ba3eb41-0b6b-4192-8352-eb5924e39b2f",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 10000,
+          "odds": 1.49,
+          "status": "lost",
+          "created_at": "2025-04-27T11:46:17.047Z",
+          "reserved_amount": 4900
+        },
+        {
+          "id": "23a597b7-5d8e-4197-a195-7103fe1c69de",
+          "user_id": "mjhid",
+          "bet_type": "back",
+          "target": "lucknow-super-giants",
+          "stake": 3000,
+          "odds": 3.5,
+          "status": "lost",
+          "created_at": "2025-04-27T12:16:41.093Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "cd3deb2a-b760-4e9f-9842-1b91ea673b6c",
+          "user_id": "tanmay",
+          "bet_type": "lay",
+          "target": "lucknow-super-giants",
+          "stake": 1600,
+          "odds": 3.5,
+          "status": "won",
+          "created_at": "2025-04-27T12:16:53.730Z",
+          "reserved_amount": 4000
+        },
+        {
+          "id": "5d3d477f-333b-41d3-9cc0-600bb59305f0",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 1000,
+          "odds": 1.32,
+          "status": "won",
+          "created_at": "2025-04-27T12:18:56.838Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "ebe11300-0031-4abe-8169-341e8dac78c2",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 1000,
+          "odds": 1.34,
+          "status": "won",
+          "created_at": "2025-04-27T12:19:14.575Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "b42388ae-d43d-4993-b09f-4b3aa67ec2d8",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 500,
+          "odds": 1.4,
+          "status": "won",
+          "created_at": "2025-04-27T12:20:15.339Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "78caa340-504a-4a57-bd8a-99fda9e5e440",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 1000,
+          "odds": 1.4,
+          "status": "won",
+          "created_at": "2025-04-27T12:21:19.050Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "82f05cff-2276-4717-963f-2278c2d7072c",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 3000,
+          "odds": 1.28,
+          "status": "won",
+          "created_at": "2025-04-27T12:40:48.144Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "3adc5b1a-3c9c-473a-9520-d146f69c1010",
+          "user_id": "tanmay",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 3000,
+          "odds": 1.28,
+          "status": "lost",
+          "created_at": "2025-04-27T12:41:11.032Z",
+          "reserved_amount": 840.0000000000001
+        },
+        {
+          "id": "00aa30f6-8520-4eaa-a34f-a0bc23b1f536",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 500,
+          "odds": 1.22,
+          "status": "won",
+          "created_at": "2025-04-27T12:41:59.468Z",
+          "reserved_amount": 500
+        },
+        {
+          "id": "7738b8c3-33e7-4880-aa25-784da57b173b",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 1000,
+          "odds": 1.17,
+          "status": "won",
+          "created_at": "2025-04-27T12:53:52.101Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "edff9c9a-e248-4a25-9083-fafbff05b009",
+          "user_id": "tanmay",
+          "bet_type": "lay",
+          "target": "mumbai-indians",
+          "stake": 1000,
+          "odds": 1.17,
+          "status": "lost",
+          "created_at": "2025-04-27T12:54:03.545Z",
+          "reserved_amount": 169.99999999999994
+        },
+        {
+          "id": "5aa2e7fc-de2a-4a4f-8ca2-00d3492f74ee",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "mumbai-indians",
+          "stake": 500,
+          "odds": 1.1,
+          "status": "won",
+          "created_at": "2025-04-27T12:54:40.258Z",
+          "reserved_amount": 500
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "mumbai-indians": {
+            "win": -909.9999999999927,
+            "lose": -1500
+          },
+          "lucknow-super-giants": {
+            "win": -1500,
+            "lose": -909.9999999999927
+          }
+        },
+        "users": {
+          "stsh": {
+            "mumbai-indians": {
+              "win": -15200,
+              "lose": 30000
+            },
+            "lucknow-super-giants": {
+              "win": 30000,
+              "lose": -15200
+            }
+          },
+          "bk": {
+            "mumbai-indians": {
+              "win": -12499.999999999996,
+              "lose": 31000
+            },
+            "lucknow-super-giants": {
+              "win": 31000,
+              "lose": -12499.999999999996
+            }
+          },
+          "vipul": {
+            "mumbai-indians": {
+              "win": 2800.0000000000036,
+              "lose": -30000
+            },
+            "lucknow-super-giants": {
+              "win": -30000,
+              "lose": 2800.0000000000036
+            }
+          },
+          "tanmay": {
+            "mumbai-indians": {
+              "win": 26990,
+              "lose": -40000
+            },
+            "lucknow-super-giants": {
+              "win": -40000,
+              "lose": 26990
+            }
+          },
+          "mjhid": {
+            "mumbai-indians": {
+              "win": -3000,
+              "lose": 7500
+            },
+            "lucknow-super-giants": {
+              "win": 7500,
+              "lose": -3000
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "delhi-capitals-vs-royal-challengers-bengaluru-46th-match-1473483",
+    {
+      "match_id": "delhi-capitals-vs-royal-challengers-bengaluru-46th-match-1473483",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "delhi-capitals",
+        "royal-challengers-bengaluru"
+      ],
+      "bets": [
+        {
+          "id": "eae38a11-23fa-46d5-a2ef-a5f44b6521b2",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 20000,
+          "odds": 1.82,
+          "status": "lost",
+          "created_at": "2025-04-27T14:09:45.532Z",
+          "reserved_amount": 16400
+        },
+        {
+          "id": "46067aed-d365-4c80-9237-a261ce387869",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 20000,
+          "odds": 1.8,
+          "status": "won",
+          "created_at": "2025-04-27T14:10:00.082Z",
+          "reserved_amount": 20000
+        },
+        {
+          "id": "6ab52b0d-66a3-4899-a85a-204600ba119c",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 10000,
+          "odds": 1.79,
+          "status": "lost",
+          "created_at": "2025-04-27T14:47:53.127Z",
+          "reserved_amount": 7900
+        },
+        {
+          "id": "c2e9d2d8-4217-4062-a517-512d1329b1b4",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 8000,
+          "odds": 1.78,
+          "status": "won",
+          "created_at": "2025-04-27T14:48:23.709Z",
+          "reserved_amount": 8000
+        },
+        {
+          "id": "441f05fd-861b-4d0c-859f-b4ffb0274497",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.72,
+          "status": "won",
+          "created_at": "2025-04-27T14:48:49.417Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "c2733d2a-ecee-4b68-920f-1e365b1c626a",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.75,
+          "status": "won",
+          "created_at": "2025-04-27T14:49:01.278Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "f21d1b16-e220-4113-a796-aa593b3d9073",
+          "user_id": "vipul",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 25000,
+          "odds": 1.66,
+          "status": "lost",
+          "created_at": "2025-04-27T15:09:54.391Z",
+          "reserved_amount": 16499.999999999996
+        },
+        {
+          "id": "fb12fd49-9211-48a8-8458-a2d9a04d632d",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 24000,
+          "odds": 1.65,
+          "status": "won",
+          "created_at": "2025-04-27T15:11:03.442Z",
+          "reserved_amount": 24000
+        },
+        {
+          "id": "5b204270-5c8c-4c99-a31e-ef5381b0cb78",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.67,
+          "status": "won",
+          "created_at": "2025-04-27T15:11:22.555Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "a7962f77-ce65-444c-b55a-8c56c137ed48",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 600,
+          "odds": 1.3,
+          "status": "won",
+          "created_at": "2025-04-27T15:33:20.625Z",
+          "reserved_amount": 600
+        },
+        {
+          "id": "b8708906-68a9-473d-9098-cde5fd0d015a",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 300,
+          "odds": 1.39,
+          "status": "won",
+          "created_at": "2025-04-27T15:38:21.671Z",
+          "reserved_amount": 300
+        },
+        {
+          "id": "ccefbe3b-7155-43df-b5d6-ca783362ac3c",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 2000,
+          "odds": 1.22,
+          "status": "won",
+          "created_at": "2025-04-27T16:14:06.745Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "91f51569-59a5-4aa9-824e-044c740fa818",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 500,
+          "odds": 1.65,
+          "status": "lost",
+          "created_at": "2025-04-27T16:18:07.728Z",
+          "reserved_amount": 324.99999999999994
+        },
+        {
+          "id": "f1484c30-d1df-460d-909d-666b590e0208",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 500,
+          "odds": 1.99,
+          "status": "lost",
+          "created_at": "2025-04-27T16:26:17.002Z",
+          "reserved_amount": 495
+        },
+        {
+          "id": "1c363029-b77c-4f6d-a405-12709ffff9bf",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 100,
+          "odds": 1.75,
+          "status": "won",
+          "created_at": "2025-04-27T16:29:52.482Z",
+          "reserved_amount": 100
+        },
+        {
+          "id": "e56065cf-5f14-411a-bd31-f1ac05f78ce6",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 200,
+          "odds": 1.88,
+          "status": "lost",
+          "created_at": "2025-04-27T16:33:35.618Z",
+          "reserved_amount": 200
+        },
+        {
+          "id": "736b3324-1de2-452f-a845-03ae163cba33",
+          "user_id": "vipul",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 20000,
+          "odds": 1.8,
+          "status": "won",
+          "created_at": "2025-04-27T16:44:05.289Z",
+          "reserved_amount": 20000
+        },
+        {
+          "id": "b141d075-d8d3-422a-9756-01128814669d",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 20000,
+          "odds": 1.81,
+          "status": "lost",
+          "created_at": "2025-04-27T16:44:27.781Z",
+          "reserved_amount": 16200.000000000002
+        },
+        {
+          "id": "84aab4c0-6de9-4eef-92bb-3322e9fa6850",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 2000,
+          "odds": 1.78,
+          "status": "won",
+          "created_at": "2025-04-27T16:44:40.938Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "66c46d31-3b25-45db-b375-335509743784",
+          "user_id": "vipul",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 20000,
+          "odds": 1.49,
+          "status": "lost",
+          "created_at": "2025-04-27T17:06:45.970Z",
+          "reserved_amount": 9800
+        },
+        {
+          "id": "279a7f06-510c-4389-8a69-d1990bc2d933",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 20000,
+          "odds": 1.47,
+          "status": "won",
+          "created_at": "2025-04-27T17:07:06.406Z",
+          "reserved_amount": 20000
+        },
+        {
+          "id": "d03d5e41-826e-4e92-b1bd-189938cbf0a9",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 1000,
+          "odds": 1.16,
+          "status": "won",
+          "created_at": "2025-04-27T17:21:57.048Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "d5e59dda-a97c-4256-9130-47cc44df6c5e",
+          "user_id": "vipul",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 40000,
+          "odds": 1.09,
+          "status": "won",
+          "created_at": "2025-04-27T17:41:20.541Z",
+          "reserved_amount": 40000
+        },
+        {
+          "id": "50c9ea1b-7962-4fd0-a520-4e37879fc47d",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 30000,
+          "odds": 1.1,
+          "status": "lost",
+          "created_at": "2025-04-27T17:41:41.945Z",
+          "reserved_amount": 3000.0000000000027
+        },
+        {
+          "id": "1a1251df-260e-424d-9536-e8cd301c2481",
+          "user_id": "tanmay",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 5000,
+          "odds": 1.09,
+          "status": "lost",
+          "created_at": "2025-04-27T17:42:28.405Z",
+          "reserved_amount": 450.0000000000004
+        },
+        {
+          "id": "3037c381-8dbc-4d29-a5dc-a9511b481721",
+          "user_id": "tanmay",
+          "bet_type": "lay",
+          "target": "royal-challengers-bengaluru",
+          "stake": 5000,
+          "odds": 1.16,
+          "status": "lost",
+          "created_at": "2025-04-27T17:44:13.505Z",
+          "reserved_amount": 799.9999999999995
+        },
+        {
+          "id": "049c5967-9472-485c-985b-659541a197fb",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "royal-challengers-bengaluru",
+          "stake": 5000,
+          "odds": 1.16,
+          "status": "won",
+          "created_at": "2025-04-27T17:44:27.822Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "216b5b77-d570-44d6-bb44-ca69265a5995",
+          "user_id": "tanmay",
+          "bet_type": "back",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.96,
+          "status": "lost",
+          "created_at": "2025-04-28T07:48:33.148Z",
+          "reserved_amount": 5000
+        },
+        {
+          "id": "d7d43725-ef56-4584-8f63-9f2bd0b073ba",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "delhi-capitals",
+          "stake": 5000,
+          "odds": 1.96,
+          "status": "won",
+          "created_at": "2025-04-28T07:48:51.154Z",
+          "reserved_amount": 4800
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "delhi-capitals": {
+            "win": -9824,
+            "lose": 242.00000000000364
+          },
+          "royal-challengers-bengaluru": {
+            "win": 242.00000000000364,
+            "lose": -9824
+          }
+        },
+        "users": {
+          "stsh": {
+            "delhi-capitals": {
+              "win": 30000,
+              "lose": -24300
+            },
+            "royal-challengers-bengaluru": {
+              "win": -24300,
+              "lose": 30000
+            }
+          },
+          "bk": {
+            "delhi-capitals": {
+              "win": -39624,
+              "lose": 37492
+            },
+            "royal-challengers-bengaluru": {
+              "win": 37492,
+              "lose": -39624
+            }
+          },
+          "vipul": {
+            "delhi-capitals": {
+              "win": -15000,
+              "lose": -6699.999999999996
+            },
+            "royal-challengers-bengaluru": {
+              "win": -6699.999999999996,
+              "lose": -15000
+            }
+          },
+          "tanmay": {
+            "delhi-capitals": {
+              "win": 14800,
+              "lose": -6250
+            },
+            "royal-challengers-bengaluru": {
+              "win": -6250,
+              "lose": 14800
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "rajasthan-royals-vs-gujarat-titans-47th-match-1473484",
+    {
+      "match_id": "rajasthan-royals-vs-gujarat-titans-47th-match-1473484",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "rajasthan-royals",
+        "gujarat-titans"
+      ],
+      "bets": [
+        {
+          "id": "5c3c9e76-a550-4d65-a52b-e43926fcc915",
+          "user_id": "stsh",
+          "bet_type": "back",
+          "target": "gujarat-titans",
+          "stake": 15000,
+          "odds": 1.87,
+          "status": "lost",
+          "created_at": "2025-04-28T14:08:14.840Z",
+          "reserved_amount": 15000
+        },
+        {
+          "id": "6c9c3f52-cd19-4750-a61b-1f7793cc32ae",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "gujarat-titans",
+          "stake": 10000,
+          "odds": 1.87,
+          "status": "won",
+          "created_at": "2025-04-28T14:08:42.084Z",
+          "reserved_amount": 8700.000000000002
+        },
+        {
+          "id": "e857258d-b23d-4177-9a6a-5c30b91764f2",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "gujarat-titans",
+          "stake": 2000,
+          "odds": 1.88,
+          "status": "won",
+          "created_at": "2025-04-28T14:08:56.573Z",
+          "reserved_amount": 1759.9999999999998
+        },
+        {
+          "id": "85557973-da13-4888-8442-29a9cc1b24f2",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "gujarat-titans",
+          "stake": 1000,
+          "odds": 1.9,
+          "status": "won",
+          "created_at": "2025-04-28T14:09:10.852Z",
+          "reserved_amount": 899.9999999999999
+        },
+        {
+          "id": "57414c59-0065-4bdd-ab8e-86d84e07095c",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "gujarat-titans",
+          "stake": 30000,
+          "odds": 1.59,
+          "status": "won",
+          "created_at": "2025-04-28T14:21:55.474Z",
+          "reserved_amount": 17700.000000000004
+        },
+        {
+          "id": "18e6747c-56c0-4816-b2d7-e22b66c464eb",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "gujarat-titans",
+          "stake": 30000,
+          "odds": 1.57,
+          "status": "lost",
+          "created_at": "2025-04-28T14:22:12.247Z",
+          "reserved_amount": 30000
+        },
+        {
+          "id": "5acafcdb-cb34-4816-9780-ff2336be1ce9",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "gujarat-titans",
+          "stake": 500,
+          "odds": 1.61,
+          "status": "won",
+          "created_at": "2025-04-28T14:29:46.988Z",
+          "reserved_amount": 305.00000000000006
+        },
+        {
+          "id": "334902d4-c083-48f0-9817-8b84bad4a5c1",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "gujarat-titans",
+          "stake": 1000,
+          "odds": 1.56,
+          "status": "won",
+          "created_at": "2025-04-28T14:51:01.292Z",
+          "reserved_amount": 560
+        },
+        {
+          "id": "d0b10c2f-5bd8-45fb-86fa-78dee7dcc98d",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "gujarat-titans",
+          "stake": 1000,
+          "odds": 1.55,
+          "status": "lost",
+          "created_at": "2025-04-28T15:48:26.100Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "c0921dbc-1a56-4265-a524-bea8b8495a08",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "gujarat-titans",
+          "stake": 1500,
+          "odds": 1.36,
+          "status": "won",
+          "created_at": "2025-04-28T15:48:44.301Z",
+          "reserved_amount": 540.0000000000001
+        },
+        {
+          "id": "55692dfa-3de6-46ea-bffe-e5c337d263b8",
+          "user_id": "mjhid",
+          "bet_type": "back",
+          "target": "gujarat-titans",
+          "stake": 3000,
+          "odds": 4.5,
+          "status": "lost",
+          "created_at": "2025-04-28T16:35:01.981Z",
+          "reserved_amount": 3000
+        },
+        {
+          "id": "b1cd46fd-39d4-40ee-ba3a-66db0003ea6f",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "rajasthan-royals",
+          "stake": 10000,
+          "odds": 1.29,
+          "status": "won",
+          "created_at": "2025-04-28T16:35:28.413Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "fb9d454c-371b-47fb-be3f-d24d8df04be8",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "rajasthan-royals",
+          "stake": 2000,
+          "odds": 1.26,
+          "status": "won",
+          "created_at": "2025-04-28T16:35:43.251Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "7d620d4b-8b3c-4da2-b165-95ea1b567e4b",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "rajasthan-royals",
+          "stake": 2000,
+          "odds": 1.26,
+          "status": "won",
+          "created_at": "2025-04-28T16:38:16.571Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "9eee07ea-b366-4212-8e41-58aceadca150",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "rajasthan-royals",
+          "stake": 2000,
+          "odds": 1.28,
+          "status": "won",
+          "created_at": "2025-04-28T16:44:11.007Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "e28645e4-c7fc-44a9-b289-bd17675c17d3",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "rajasthan-royals",
+          "stake": 3000,
+          "odds": 1.16,
+          "status": "won",
+          "created_at": "2025-04-28T16:48:42.740Z",
+          "reserved_amount": 3000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "rajasthan-royals": {
+            "win": 1980,
+            "lose": -8265.000000000007
+          },
+          "gujarat-titans": {
+            "win": -8265.000000000007,
+            "lose": 1980
+          }
+        },
+        "users": {
+          "stsh": {
+            "rajasthan-royals": {
+              "win": 15000,
+              "lose": -4650.000000000004
+            },
+            "gujarat-titans": {
+              "win": -4650.000000000004,
+              "lose": 15000
+            }
+          },
+          "bk": {
+            "rajasthan-royals": {
+              "win": -10020,
+              "lose": -14115.000000000002
+            },
+            "gujarat-titans": {
+              "win": -14115.000000000002,
+              "lose": -10020
+            }
+          },
+          "mjhid": {
+            "rajasthan-royals": {
+              "win": -3000,
+              "lose": 10500
+            },
+            "gujarat-titans": {
+              "win": 10500,
+              "lose": -3000
+            }
+          }
+        }
+      }
+    }
+  ],
+  [
+    "chennai-super-kings-vs-punjab-kings-49th-match-1473486",
+    {
+      "match_id": "chennai-super-kings-vs-punjab-kings-49th-match-1473486",
+      "user_id": "9faf8b16-518a-4a28-ad46-b003958110dc",
+      "teams": [
+        "chennai-super-kings",
+        "punjab-kings"
+      ],
+      "bets": [
+        {
+          "id": "a6ea5eb7-2c28-49b0-a146-a1e064af32a5",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "punjab-kings",
+          "stake": 1000,
+          "odds": 1.465,
+          "status": "confirmed",
+          "created_at": "2025-04-30T14:36:30.123Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "3ebb0119-8f26-4d5f-b785-480c94fccd3f",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 500,
+          "odds": 1.655,
+          "status": "confirmed",
+          "created_at": "2025-04-30T15:04:38.603Z",
+          "reserved_amount": 327.5
+        },
+        {
+          "id": "bc65a809-3e66-4417-8447-cd4e589f4cd8",
+          "user_id": "bk",
+          "bet_type": "lay",
+          "target": "punjab-kings",
+          "stake": 500,
+          "odds": 1.82,
+          "status": "confirmed",
+          "created_at": "2025-04-30T15:05:10.719Z",
+          "reserved_amount": 410.00000000000006
+        },
+        {
+          "id": "0baba600-d0fb-47c3-bb6d-4d657ffb430e",
+          "user_id": "stsh",
+          "bet_type": "lay",
+          "target": "chennai-super-kings",
+          "stake": 15000,
+          "odds": 1.8,
+          "status": "confirmed",
+          "created_at": "2025-04-30T15:10:14.416Z",
+          "reserved_amount": 12000
+        },
+        {
+          "id": "791c3bf1-d15f-4312-b2df-23e884b23eb5",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "chennai-super-kings",
+          "stake": 10000,
+          "odds": 1.79,
+          "status": "confirmed",
+          "created_at": "2025-04-30T15:10:26.680Z",
+          "reserved_amount": 10000
+        },
+        {
+          "id": "8069413f-d88d-4b50-9dd5-52972a9478ea",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "chennai-super-kings",
+          "stake": 2000,
+          "odds": 1.815,
+          "status": "confirmed",
+          "created_at": "2025-04-30T15:18:42.572Z",
+          "reserved_amount": 2000
+        },
+        {
+          "id": "921b4dde-96f5-451a-aa27-9de768316dd7",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "chennai-super-kings",
+          "stake": 1000,
+          "odds": 1.765,
+          "status": "confirmed",
+          "created_at": "2025-04-30T15:19:00.589Z",
+          "reserved_amount": 1000
+        },
+        {
+          "id": "b24e4c83-9299-454a-8134-883c3a1ce3f3",
+          "user_id": "bk",
+          "bet_type": "back",
+          "target": "chennai-super-kings",
+          "stake": 2000,
+          "odds": 1.77,
+          "status": "confirmed",
+          "created_at": "2025-04-30T15:19:22.854Z",
+          "reserved_amount": 2000
+        }
+      ],
+      "exposures": {
+        "teams": {
+          "chennai-super-kings": {
+            "win": -165,
+            "lose": -272.5
+          },
+          "punjab-kings": {
+            "win": -272.5,
+            "lose": -165
+          }
+        },
+        "users": {
+          "bk": {
+            "chennai-super-kings": {
+              "win": 11835,
+              "lose": -15272.5
+            },
+            "punjab-kings": {
+              "win": -15272.5,
+              "lose": 11835
+            }
+          },
+          "stsh": {
+            "chennai-super-kings": {
+              "win": -12000,
+              "lose": 15000
+            },
+            "punjab-kings": {
+              "win": 15000,
+              "lose": -12000
             }
           }
         }

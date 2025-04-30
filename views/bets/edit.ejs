@@ -58,9 +58,9 @@
         </div>
         
         <div class="col-md-6 mb-3">
-          <label for="odds" class="form-label">Odds</label>
-          <input type="number" class="form-control" id="odds" name="odds" min="1.01" step="0.01" required
-            value="<%= bet.odds %>">
+        <label for="odds" class="form-label">Odds</label>
+        <input type="number" class="form-control" id="odds" name="odds" min="1.001" step="0.001" required
+            value="<%= bet.odds.toFixed(3) %>">
         </div>
       </div>
       
