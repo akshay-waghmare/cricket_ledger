@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  cricket-ledger:
+    build: .
+    container_name: cricket-ledger-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
