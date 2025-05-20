@@ -7,6 +7,8 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
+      - /app/node_modules
+      - /app/dist
     environment:
       - NODE_ENV=production
     restart: unless-stopped
