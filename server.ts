@@ -69,9 +69,11 @@ const startServer = async () => {
     // Configure middleware
     app.use(expressLayouts);
     app.set('view engine', 'ejs');
-    app.set('views', path.join(__dirname, 'views'));
-    app.set('layout', 'layout'); // This ensures the layout file is used globally
-    app.use(express.static(path.join(__dirname, 'public')));
+    // Always serve views and static assets from the project root (not dist subfolder)
+    const root = process.cwd();
+    app.set('views', path.join(root, 'views'));
+    app.set('layout', 'layout');
+    app.use(express.static(path.join(root, 'public')));
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
 

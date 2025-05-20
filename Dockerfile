@@ -13,11 +13,21 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Build TypeScript code
-RUN npm run build
+
+# Remove legacy entrypoint script to avoid startup errors
+# (docker-entrypoint.sh is no longer used)
+# Clear any existing entrypoint
+ENTRYPOINT []
+
+# Build TypeScript code during build time
+RUN npm run build \
+    # Copy view templates and static assets into dist for production
+    && mkdir -p dist/views dist/public \
+    && cp -R views/* dist/views/ \
+    && cp -R public/* dist/public/
 
 # Expose the port (change if your app uses a different port)
 EXPOSE 3000
 
-# Start the application using the compiled JavaScript
+## In production, run the compiled JavaScript directly
 CMD ["node", "dist/server.js"]
