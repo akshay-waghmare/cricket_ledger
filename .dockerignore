@@ -1,0 +1,33 @@
+# Version control
+.git
+.gitignore
+
+# Node.js dependencies
+node_modules
+npm-debug.log
+
+# Build artifacts
+dist
+
+# Environment variables
+.env
+.env.*
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# Data directories
+data
+
+# IDE files
+.vscode
+.idea
+
+# Logs
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

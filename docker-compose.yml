@@ -11,4 +11,28 @@ services:
       - /app/dist
     environment:
       - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/cricket_ledger
+      - SESSION_SECRET=cricket-ledger-secret-docker
     restart: unless-stopped
+    depends_on:
+      - mongodb
+    networks:
+      - cricket-ledger-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: cricket-ledger-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+    networks:
+      - cricket-ledger-network
+
+networks:
+  cricket-ledger-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
