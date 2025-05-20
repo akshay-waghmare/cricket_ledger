@@ -2,13 +2,13 @@ services:
   cricket-ledger:
     build: .
     container_name: cricket-ledger-app
+    # Override entrypoint to run compiled JS directly
+    entrypoint: ["node", "dist/server.js"]
     ports:
       - "3000:3000"
     volumes:
-      # In development, mount source files but use container's compiled output
-      - .:/app:ro      # Mount source code as read-only
-      - ./dist:/app/dist  # Mount dist directory separately
-      - /app/node_modules  # Use container's node_modules
+      # Only mount node_modules; use internal build output for application code
+      - /app/node_modules
     environment:
       - NODE_ENV=production
       - MONGO_URI=mongodb://mongodb:27017/cricket_ledger
