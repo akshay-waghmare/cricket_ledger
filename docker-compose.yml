@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   cricket-ledger:
     build: .
@@ -20,7 +19,7 @@ services:
       - cricket-ledger-network
 
   mongodb:
-    image: mongo:latest
+    image: mongo:6
     container_name: cricket-ledger-mongodb
     ports:
       - "27017:27017"
