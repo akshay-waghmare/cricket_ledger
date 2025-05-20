@@ -1,19 +1,21 @@
 services:
   cricket-ledger:
     build: .
-    container_name: cricket-ledger-app
+    container_name: cricket-ledger-dev
     ports:
       - "3000:3000"
     volumes:
-      # In development, mount source files but use container's compiled output
-      - .:/app:ro      # Mount source code as read-only
-      - ./dist:/app/dist  # Mount dist directory separately
-      - /app/node_modules  # Use container's node_modules
+      - .:/app
+      - /app/node_modules
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - MONGO_URI=mongodb://mongodb:27017/cricket_ledger
-      - SESSION_SECRET=cricket-ledger-secret-docker
+      - SESSION_SECRET=cricket-ledger-secret-dev
     restart: unless-stopped
+    command: >
+      sh -c "npm run build && 
+             npm install -g nodemon && 
+             nodemon --watch 'src/**/*.ts' --exec 'npm run build && node dist/server.js'"
     depends_on:
       - mongodb
     networks:
@@ -21,11 +23,11 @@ services:
 
   mongodb:
     image: mongo:6
-    container_name: cricket-ledger-mongodb
+    container_name: cricket-ledger-mongodb-dev
     ports:
       - "27017:27017"
     volumes:
-      - mongodb_data:/data/db
+      - mongodb_data_dev:/data/db
     restart: unless-stopped
     networks:
       - cricket-ledger-network
@@ -35,4 +37,4 @@ networks:
     driver: bridge
 
 volumes:
-  mongodb_data:
+  mongodb_data_dev:

@@ -43,11 +43,22 @@ This application is containerized with Docker and Docker Compose for easy deploy
 
 ### Development with Docker
 
-The Docker Compose configuration includes volume mounts for source code, allowing development changes to be reflected in the running container:
+For development with hot reloading and TypeScript compilation:
 
-- Application code is mounted to `/app`
-- Node modules are preserved in a separate volume
-- MongoDB data is persisted in a named volume
+1. Use the development Docker Compose file:
+   ```bash
+   docker-compose -f docker-compose.dev.yml up
+   ```
+
+2. The development setup will:
+   - Watch for file changes and recompile TypeScript automatically
+   - Restart the application when changes are detected
+   - Keep TypeScript compilation and JavaScript execution separate
+
+The Docker setup ensures TypeScript is always compiled to JavaScript before running:
+
+- Production setup uses a dedicated entrypoint script that compiles TypeScript
+- Development setup uses nodemon to watch for changes and rebuild
 
 ## Environment Variables
 
@@ -80,6 +91,6 @@ The application uses the following environment variables:
 ## Scripts
 
 - `npm run build`: Compile TypeScript files
-- `npm start`: Start the application
-- `npm run dev`: Run in development mode with ts-node
+- `npm start`: Start the application (runs compiled JavaScript)
+- `npm run dev`: Run in development mode with ts-node (compiles on-the-fly)
 - `npm run watch`: Run with nodemon for auto-reloading
