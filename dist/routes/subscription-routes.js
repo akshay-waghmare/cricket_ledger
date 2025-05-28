@@ -13,7 +13,7 @@ const router = express_1.default.Router();
 // @access  Private
 router.get('/plans', auth_1.ensureAuthenticated, (req, res) => {
     res.render('subscription/plans', {
-        title: 'Subscription Plans - Cricket Betting Ledger'
+        title: 'Subscription Plans - Cricket Bookmaker App'
     });
 });
 // @route   POST /subscription/subscribe

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const cricket_ledger_service_1 = require("./cricket-ledger-service");
-// Example usage of the Cricket Ledger system
+// Example usage of the Cricket Bookmaker App system
 // Create a new cricket ledger service
 const ledgerService = new cricket_ledger_service_1.CricketLedgerService();
 // 1. Create a match ledger
