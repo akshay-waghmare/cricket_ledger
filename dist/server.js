@@ -132,7 +132,7 @@ const startServer = async () => {
         });
         // now safe to start listening
         app.listen(port, () => {
-            console.log(`Cricket Ledger app listening at http://localhost:${port}`);
+            console.log(`Cricket Bookmaker App listening at http://localhost:${port}`);
         });
     }
     catch (err) {

@@ -17,7 +17,7 @@ router.get('/login', (req, res) => {
         return res.redirect('/');
     }
     res.render('auth/login', {
-        title: 'Login - Cricket Betting Ledger'
+        title: 'Login - Cricket Bookmaker App'
     });
 });
 // @route   POST /auth/login
@@ -39,7 +39,7 @@ router.get('/register', (req, res) => {
         return res.redirect('/');
     }
     res.render('auth/register', {
-        title: 'Register - Cricket Betting Ledger'
+        title: 'Register - Cricket Bookmaker App'
     });
 });
 // @route   POST /auth/register
@@ -67,7 +67,7 @@ router.post('/register', async (req, res) => {
                 errors,
                 name,
                 email,
-                title: 'Register - Cricket Betting Ledger'
+                title: 'Register - Cricket Bookmaker App'
             });
         }
         // Check if email already exists
@@ -78,7 +78,7 @@ router.post('/register', async (req, res) => {
                 errors,
                 name,
                 email,
-                title: 'Register - Cricket Betting Ledger'
+                title: 'Register - Cricket Bookmaker App'
             });
         }
         // Create new user
@@ -107,7 +107,7 @@ router.post('/register', async (req, res) => {
         console.error('Registration error:', error);
         res.render('auth/register', {
             errors: ['An unexpected error occurred'],
-            title: 'Register - Cricket Betting Ledger'
+            title: 'Register - Cricket Bookmaker App'
         });
     }
 });
