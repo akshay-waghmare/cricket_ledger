@@ -65,9 +65,11 @@ const startServer = async () => {
         // Configure middleware
         app.use(express_ejs_layouts_1.default);
         app.set('view engine', 'ejs');
-        app.set('views', path_1.default.join(__dirname, 'views'));
-        app.set('layout', 'layout'); // This ensures the layout file is used globally
-        app.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
+        // Always serve views and static assets from the project root (not dist subfolder)
+        const root = process.cwd();
+        app.set('views', path_1.default.join(root, 'views'));
+        app.set('layout', 'layout');
+        app.use(express_1.default.static(path_1.default.join(root, 'public')));
         app.use(express_1.default.urlencoded({ extended: true }));
         app.use(express_1.default.json());
         // Set up session middleware (required for flash messages)
