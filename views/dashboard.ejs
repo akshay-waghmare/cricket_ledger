@@ -32,6 +32,9 @@
         <div class="d-grid gap-2">
           <a href="/matches" class="btn btn-primary">View Matches</a>
           <a href="/bets" class="btn btn-success">Your Bets</a>
+          <% if (user.role === 'admin') { %>
+            <a href="/admin/manual-ledger" class="btn btn-warning">Offline Manual Ledger</a>
+          <% } %>
           <a href="/users/profile" class="btn btn-info">Update Profile</a>
         </div>
       </div>

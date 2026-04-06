@@ -1,43 +1,53 @@
-import { 
-  MatchLedger, 
-  Bet, 
-  BetType, 
-  BetStatus, 
-  ExposureSnapshot, 
+import {
+  MatchLedger,
+  Bet,
+  BetType,
+  ExposureSnapshot,
   User,
   ProfitLossReport,
   BetResult,
-  Transaction
+  Transaction,
+  ManualLedgerEntry,
+  ManualLedgerEntryInput,
+  ManualLedgerEntryStatus,
+  ManualLedgerEvent,
+  ManualLedgerEventSummary,
+  ManualLedgerMarketType,
+  ManualLedgerOverview,
 } from './types';
 import { v4 as uuidv4 } from 'uuid';
 import { saveDataToExcel } from './utils/excel-utils';
-import { saveAllData, loadMatches, loadUsers } from './utils/data-persistence';
+import {
+  saveAllData,
+  loadMatches,
+  loadUsers,
+  loadManualLedgerEvents,
+} from './utils/data-persistence';
 
 export class CricketLedgerService {
   private matches: Map<string, MatchLedger>;
   private users: Map<string, User>;
   private transactions: Map<string, Transaction>;
+  private manualLedgerEvents: Map<string, ManualLedgerEvent>;
 
   constructor() {
-    // Load data from disk if available
     this.matches = loadMatches();
     this.users = loadUsers();
-    
-    // If no data was loaded, initialize with empty maps
+    this.manualLedgerEvents = loadManualLedgerEvents();
+
     if (this.matches.size === 0) {
       this.matches = new Map();
     }
-    
+
     if (this.users.size === 0) {
       this.users = new Map();
     }
-    
-    // Initialize transactions map
+
+    if (this.manualLedgerEvents.size === 0) {
+      this.manualLedgerEvents = new Map();
+    }
+
     this.transactions = new Map();
-    
-    // Load existing transactions or create empty map
-    // Note: In a real app, you'd also load transactions from persistence
-    // this.transactions = loadTransactions();
     if (this.transactions.size === 0) {
       this.transactions = new Map();
     }
@@ -51,26 +61,24 @@ export class CricketLedgerService {
       throw new Error(`Match with ID ${matchId} already exists`);
     }
 
-    const exposures: any = {
+    const exposures: MatchLedger['exposures'] = {
       teams: {},
-      users: {}
+      users: {},
     };
 
-    // Initialize team exposures
-    teams.forEach(team => {
+    teams.forEach((team) => {
       exposures.teams[team] = { win: 0, lose: 0 };
     });
 
     const match: MatchLedger = {
       match_id: matchId,
-      user_id: userId, // Owner of the match (optional)
+      user_id: userId,
       teams,
       bets: [],
-      exposures
+      exposures,
     };
 
     this.matches.set(matchId, match);
-    // Save data to disk after creating a match
     this.saveData();
     return match;
   }
@@ -86,11 +94,10 @@ export class CricketLedgerService {
     const user: User = {
       id: userId,
       balance: initialBalance,
-      owner_id: ownerId
+      owner_id: ownerId,
     };
 
     this.users.set(userId, user);
-    // Save data to disk after adding a user
     this.saveData();
     return user;
   }
@@ -104,31 +111,26 @@ export class CricketLedgerService {
     betType: BetType,
     target: string,
     stake: number,
-    odds: number
+    odds: number,
   ): Bet {
-    // Validate match exists
     const match = this.matches.get(matchId);
     if (!match) {
       throw new Error(`Match with ID ${matchId} does not exist`);
     }
 
-    // Validate user exists
     const user = this.users.get(userId);
     if (!user) {
       throw new Error(`User with ID ${userId} does not exist`);
     }
 
-    // Validate team/target exists
     if (!match.teams.includes(target)) {
       throw new Error(`Target ${target} is not a valid team for this match`);
     }
 
-    // Validate stake and odds
     if (stake <= 0 || odds <= 1) {
       throw new Error('Stake must be positive and odds must be greater than 1');
     }
 
-    // Create bet
     const bet: Bet = {
       id: uuidv4(),
       user_id: userId,
@@ -138,30 +140,18 @@ export class CricketLedgerService {
       odds,
       status: 'confirmed',
       created_at: new Date(),
-      reserved_amount: betType === 'back' ? stake : stake * (odds - 1)
+      reserved_amount: betType === 'back' ? stake : stake * (odds - 1),
     };
 
-    // Add bet to match
     match.bets.push(bet);
-
-    // Update exposures
     this.calculateExposures(match);
-    
-    // Save data to disk after adding a bet
     this.saveData();
 
     return bet;
   }
-  
+
   /**
    * Update an existing bet
-   * @param matchId Match ID that contains the bet
-   * @param betId ID of the bet to update
-   * @param betType New bet type
-   * @param target New target team
-   * @param stake New stake amount
-   * @param odds New odds
-   * @returns The updated bet
    */
   updateBet(
     matchId: string,
@@ -169,91 +159,74 @@ export class CricketLedgerService {
     betType: BetType,
     target: string,
     stake: number,
-    odds: number
+    odds: number,
   ): Bet {
-    // Validate match exists
     const match = this.matches.get(matchId);
     if (!match) {
       throw new Error(`Match with ID ${matchId} does not exist`);
     }
-    
-    // Find the bet
-    const betIndex = match.bets.findIndex(bet => bet.id === betId);
+
+    const betIndex = match.bets.findIndex((bet) => bet.id === betId);
     if (betIndex === -1) {
       throw new Error(`Bet with ID ${betId} does not exist in this match`);
     }
-    
+
     const bet = match.bets[betIndex];
-    
-    // Can only update confirmed bets
     if (bet.status !== 'confirmed') {
       throw new Error(`Cannot update bet with status ${bet.status}`);
     }
-    
-    // Validate team/target exists
+
     if (!match.teams.includes(target)) {
       throw new Error(`Target ${target} is not a valid team for this match`);
     }
-    
-    // Validate stake and odds
+
     if (stake <= 0 || odds <= 1) {
       throw new Error('Stake must be positive and odds must be greater than 1');
     }
-    
-    // Update bet
+
     match.bets[betIndex] = {
       ...bet,
       bet_type: betType,
       target,
       stake,
       odds,
-      reserved_amount: betType === 'back' ? stake : stake * (odds - 1)
+      reserved_amount: betType === 'back' ? stake : stake * (odds - 1),
     };
-    
-    // Update exposures
+
     this.calculateExposures(match);
-    
-    // Save data to disk after updating a bet
     this.saveData();
-    
+
     return match.bets[betIndex];
   }
-  
+
   /**
    * Get a bet by ID from a match
-   * @param matchId Match ID that contains the bet
-   * @param betId ID of the bet to retrieve
-   * @returns The bet or undefined if not found
    */
   getBet(matchId: string, betId: string): Bet | undefined {
     const match = this.matches.get(matchId);
     if (!match) {
       return undefined;
     }
-    
-    return match.bets.find(bet => bet.id === betId);
+
+    return match.bets.find((bet) => bet.id === betId);
   }
 
   /**
    * Calculate exposures for a match
    */
   private calculateExposures(match: MatchLedger): void {
-    // Reset team exposures
-    match.teams.forEach(team => {
+    match.teams.forEach((team) => {
       match.exposures.teams[team] = { win: 0, lose: 0 };
     });
 
-    // Reset user exposures
     match.exposures.users = {};
 
-    // Step 1: Calculate raw exposures based on individual bets
     for (const bet of match.bets) {
       if (bet.status !== 'confirmed') continue;
 
-      // Initialize user exposure if not exists
       if (!match.exposures.users[bet.user_id]) {
         match.exposures.users[bet.user_id] = {};
-        match.teams.forEach(team => {
+        match.teams.forEach((team) => {
           match.exposures.users[bet.user_id][team] = { win: 0, lose: 0 };
         });
       }
@@ -261,48 +234,41 @@ export class CricketLedgerService {
       const userExposure = match.exposures.users[bet.user_id];
 
       if (bet.bet_type === 'back') {
-        // BACK BET LOGIC: You win when the backed team wins, lose the stake when it loses
         const profitIfWin = (bet.stake * bet.odds) - bet.stake;
         const lossIfLose = -bet.stake;
-        
-        // For the backed team
+
         userExposure[bet.target].win += profitIfWin;
         userExposure[bet.target].lose += lossIfLose;
-        
-        // For other teams
-        match.teams.forEach(team => {
+
+        match.teams.forEach((team) => {
           if (team !== bet.target) {
             userExposure[team].win += lossIfLose;
             userExposure[team].lose += profitIfWin;
           }
         });
       } else {
-        // LAY BET LOGIC: You win (stake) when the target loses and lose liability when the target wins.
-        const profitIfWin = bet.stake; // gain stake if target loses
-        const liability = bet.stake * (bet.odds - 1); // potential loss if target wins
-        const negativeLiability = -liability; // liability as a negative exposure
-        
-        // For the target team
-        userExposure[bet.target].win += negativeLiability; // negative if team wins (liability)
-        userExposure[bet.target].lose += profitIfWin;       // positive if team loses (profit)
-        
-        // For other teams
-        match.teams.forEach(team => {
+        const profitIfWin = bet.stake;
+        const liability = bet.stake * (bet.odds - 1);
+        const negativeLiability = -liability;
+
+        userExposure[bet.target].win += negativeLiability;
+        userExposure[bet.target].lose += profitIfWin;
+
+        match.teams.forEach((team) => {
           if (team !== bet.target) {
-            userExposure[team].win += profitIfWin;       // positive if other team wins
-            userExposure[team].lose += negativeLiability;  // negative if other team loses
+            userExposure[team].win += profitIfWin;
+            userExposure[team].lose += negativeLiability;
           }
         });
       }
     }
 
-    // Step 2: Aggregate user exposures into team exposures
-    match.teams.forEach(team => {
+    match.teams.forEach((team) => {
       match.exposures.teams[team] = { win: 0, lose: 0 };
     });
-    
-    Object.values(match.exposures.users).forEach(userExposure => {
-      match.teams.forEach(team => {
+
+    Object.values(match.exposures.users).forEach((userExposure) => {
+      match.teams.forEach((team) => {
         match.exposures.teams[team].win += userExposure[team].win;
         match.exposures.teams[team].lose += userExposure[team].lose;
       });
@@ -321,9 +287,10 @@ export class CricketLedgerService {
     return {
       match_id: match.match_id,
       team_exposures: { ...match.exposures.teams },
-      user_exposures: { ...match.exposures.users }
+      user_exposures: { ...match.exposures.users },
     };
   }
+
   /**
    * Settle bets after a match is completed
    */
@@ -337,82 +304,70 @@ export class CricketLedgerService {
       throw new Error(`${winningTeam} is not a valid team for this match`);
     }
 
-    // Process each bet to determine payout
     for (const bet of match.bets) {
       if (bet.status !== 'confirmed') continue;
 
       const user = this.users.get(bet.user_id);
-      if (!user) continue; // Skip if user not found
+      if (!user) continue;
 
       let payout = 0;
       let profit = 0;
-      
-      // Back bet on winning team = win
+
       if (bet.bet_type === 'back' && bet.target === winningTeam) {
         payout = bet.stake * bet.odds;
         profit = payout - bet.stake;
         bet.status = 'won';
-        
-        // Record winning bet transaction
+
         this.addTransaction(
-          bet.user_id, 
-          'bet_won', 
-          profit, 
-          `Won bet on ${bet.target} (${bet.bet_type}): ${bet.stake} @ ${bet.odds}`, 
-          bet.id
+          bet.user_id,
+          'bet_won',
+          profit,
+          `Won bet on ${bet.target} (${bet.bet_type}): ${bet.stake} @ ${bet.odds}`,
+          bet.id,
         );
-      } 
-      // Lay bet on losing team = win
-      else if (bet.bet_type === 'lay' && bet.target !== winningTeam) {
+      } else if (bet.bet_type === 'lay' && bet.target !== winningTeam) {
         payout = bet.stake;
         profit = bet.stake;
         bet.status = 'won';
-        
-        // Record winning bet transaction
+
         this.addTransaction(
-          bet.user_id, 
-          'bet_won', 
-          profit, 
-          `Won bet against ${bet.target} (${bet.bet_type}): ${bet.stake} @ ${bet.odds}`, 
-          bet.id
+          bet.user_id,
+          'bet_won',
+          profit,
+          `Won bet against ${bet.target} (${bet.bet_type}): ${bet.stake} @ ${bet.odds}`,
+          bet.id,
         );
-      } 
-      // Back bet on losing team or lay bet on winning team = loss
-      else {
+      } else {
         if (bet.bet_type === 'back') {
           payout = 0;
           profit = -bet.stake;
-          
-          // Record losing bet transaction
+
           this.addTransaction(
-            bet.user_id, 
-            'bet_lost', 
-            bet.stake, 
-            `Lost bet on ${bet.target} (${bet.bet_type}): ${bet.stake} @ ${bet.odds}`, 
-            bet.id
+            bet.user_id,
+            'bet_lost',
+            bet.stake,
+            `Lost bet on ${bet.target} (${bet.bet_type}): ${bet.stake} @ ${bet.odds}`,
+            bet.id,
           );
-        } else { // 'lay'
+        } else {
           const liability = bet.stake * (bet.odds - 1);
           payout = -liability;
           profit = -liability;
-          
-          // Record losing bet transaction
+
           this.addTransaction(
-            bet.user_id, 
-            'bet_lost', 
-            liability, 
-            `Lost bet against ${bet.target} (${bet.bet_type}): ${bet.stake} @ ${bet.odds}`, 
-            bet.id
+            bet.user_id,
+            'bet_lost',
+            liability,
+            `Lost bet against ${bet.target} (${bet.bet_type}): ${bet.stake} @ ${bet.odds}`,
+            bet.id,
           );
         }
         bet.status = 'lost';
       }
 
-      // Update user balance
       user.balance += payout;
     }
-    
-    // Save data to disk after settling a match
+
     this.saveData();
   }
 
@@ -430,9 +385,9 @@ export class CricketLedgerService {
       throw new Error(`User with ID ${userId} does not exist`);
     }
 
-    const userBets = match.bets.filter(bet => bet.user_id === userId);
-    
-    const betResults: BetResult[] = userBets.map(bet => {
+    const userBets = match.bets.filter((bet) => bet.user_id === userId);
+
+    const betResults: BetResult[] = userBets.map((bet) => {
       let payout = 0;
       let profit_or_loss = 0;
 
@@ -440,7 +395,7 @@ export class CricketLedgerService {
         if (bet.bet_type === 'back') {
           payout = bet.stake * bet.odds;
           profit_or_loss = payout - bet.stake;
-        } else { // 'lay'
+        } else {
           payout = bet.stake;
           profit_or_loss = bet.stake;
         }
@@ -448,13 +403,10 @@ export class CricketLedgerService {
         if (bet.bet_type === 'back') {
           payout = 0;
           profit_or_loss = -bet.stake;
-        } else { // 'lay'
+        } else {
           payout = 0;
           profit_or_loss = -bet.stake * (bet.odds - 1);
         }
-      } else { // 'confirmed' (match not settled yet)
-        payout = 0;
-        profit_or_loss = 0;
       }
 
       return {
@@ -464,7 +416,7 @@ export class CricketLedgerService {
         stake: bet.stake,
         odds: bet.odds,
         payout,
-        profit_or_loss
+        profit_or_loss,
       };
     });
 
@@ -475,94 +427,278 @@ export class CricketLedgerService {
     return {
       user_id: userId,
       bets: betResults,
-      total_profit_or_loss
+      total_profit_or_loss,
     };
   }
 
   /**
    * Save all current data to an Excel file
-   * @param filePath Path where the Excel file will be saved
-   * @returns The path to the saved file
    */
   saveDataToExcel(filePath: string): string {
     return saveDataToExcel(this.matches, this.users, filePath);
   }
-  
+
   /**
    * Delete a bet from a match
-   * @param matchId Match ID that contains the bet
-   * @param betId ID of the bet to delete
-   * @returns true if deletion was successful, false otherwise
    */
   deleteBet(matchId: string, betId: string): boolean {
     const match = this.matches.get(matchId);
     if (!match) {
       throw new Error(`Match with ID ${matchId} does not exist`);
     }
-    
+
     const initialLength = match.bets.length;
-    match.bets = match.bets.filter(bet => bet.id !== betId);
-    
+    match.bets = match.bets.filter((bet) => bet.id !== betId);
+
     if (match.bets.length === initialLength) {
-      // No bet was removed
       return false;
     }
-    
-    // Recalculate exposures since a bet was removed
+
     this.calculateExposures(match);
-    
-    // Save data to disk after deleting a bet
     this.saveData();
-    
+
     return true;
   }
-  
+
   /**
    * Delete a match from the ledger
-   * @param matchId ID of the match to delete
-   * @returns true if deletion was successful, false otherwise
    */
   deleteMatch(matchId: string): boolean {
     if (!this.matches.has(matchId)) {
       return false;
     }
-    
+
     this.matches.delete(matchId);
-    
-    // Save data to disk after deleting a match
     this.saveData();
-    
+
     return true;
   }
-  
+
   /**
    * Delete a user and all associated bets
-   * @param userId ID of the user to delete
-   * @returns true if deletion was successful, false otherwise
    */
   deleteUser(userId: string): boolean {
     if (!this.users.has(userId)) {
       return false;
     }
-    
-    // Remove user from users map
+
     this.users.delete(userId);
-    
-    // Remove user's bets from all matches and recalculate exposures
-    this.matches.forEach(match => {
+
+    this.matches.forEach((match) => {
       const initialLength = match.bets.length;
-      match.bets = match.bets.filter(bet => bet.user_id !== userId);
-      
+      match.bets = match.bets.filter((bet) => bet.user_id !== userId);
+
       if (match.bets.length !== initialLength) {
-        // Bets were removed, recalculate exposures
         this.calculateExposures(match);
       }
     });
-    
-    // Save data to disk after deleting a user
+
     this.saveData();
-    
     return true;
+  }
+
+  /**
+   * Create a new manual offline event for admin tracking
+   */
+  createManualEvent(eventName: string, teams: string[], note: string | undefined, ownerId: string): ManualLedgerEvent {
+    const normalizedName = eventName.trim();
+    if (!normalizedName) {
+      throw new Error('Event name is required');
+    }
+
+    const normalizedTeams = teams.map((team) => team.trim()).filter(Boolean);
+    const now = new Date();
+    const event: ManualLedgerEvent = {
+      id: uuidv4(),
+      owner_id: ownerId,
+      event_name: normalizedName,
+      teams: normalizedTeams,
+      note: note?.trim() || undefined,
+      status: 'open',
+      entries: [],
+      created_at: now,
+      updated_at: now,
+    };
+
+    this.manualLedgerEvents.set(event.id, event);
+    this.saveData();
+    return event;
+  }
+
+  /**
+   * Get one manual event owned by a specific admin
+   */
+  getManualEventForOwner(eventId: string, ownerId: string): ManualLedgerEvent {
+    return this.requireOwnedManualEvent(eventId, ownerId);
+  }
+
+  /**
+   * Get all manual events, optionally filtered by owner
+   */
+  getAllManualEvents(ownerId?: string): ManualLedgerEvent[] {
+    const events = Array.from(this.manualLedgerEvents.values());
+    const filtered = ownerId ? events.filter((event) => event.owner_id === ownerId) : events;
+
+    return filtered.sort((a, b) => {
+      return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+    });
+  }
+
+  /**
+   * Add a manual offline entry to an event
+   */
+  addManualEntry(eventId: string, ownerId: string, input: ManualLedgerEntryInput): ManualLedgerEntry {
+    const event = this.requireOwnedManualEvent(eventId, ownerId);
+    const normalizedInput = this.normalizeManualEntryInput(input);
+    const position = this.calculateManualPosition(
+      normalizedInput.market_type,
+      normalizedInput.bet_type,
+      normalizedInput.stake,
+      normalizedInput.price,
+    );
+
+    const entry: ManualLedgerEntry = {
+      id: uuidv4(),
+      event_id: event.id,
+      ...normalizedInput,
+      status: 'open',
+      created_at: new Date(),
+      potential_profit: position.profit,
+      potential_risk: position.risk,
+    };
+
+    event.entries.push(entry);
+    this.refreshManualEvent(event);
+    this.saveData();
+    return entry;
+  }
+
+  /**
+   * Update an existing manual offline entry
+   */
+  updateManualEntry(eventId: string, entryId: string, ownerId: string, input: ManualLedgerEntryInput): ManualLedgerEntry {
+    const event = this.requireOwnedManualEvent(eventId, ownerId);
+    const entry = this.requireManualEntry(event, entryId);
+    if (entry.status !== 'open') {
+      throw new Error('Only open manual entries can be edited');
+    }
+
+    const normalizedInput = this.normalizeManualEntryInput(input);
+    const position = this.calculateManualPosition(
+      normalizedInput.market_type,
+      normalizedInput.bet_type,
+      normalizedInput.stake,
+      normalizedInput.price,
+    );
+
+    entry.customer_name = normalizedInput.customer_name;
+    entry.market_type = normalizedInput.market_type;
+    entry.market_name = normalizedInput.market_name;
+    entry.selection = normalizedInput.selection;
+    entry.bet_type = normalizedInput.bet_type;
+    entry.stake = normalizedInput.stake;
+    entry.price = normalizedInput.price;
+    entry.note = normalizedInput.note;
+    entry.potential_profit = position.profit;
+    entry.potential_risk = position.risk;
+
+    this.refreshManualEvent(event);
+    this.saveData();
+    return entry;
+  }
+
+  /**
+   * Get one manual entry owned by a specific admin
+   */
+  getManualEntry(eventId: string, entryId: string, ownerId: string): ManualLedgerEntry {
+    const event = this.requireOwnedManualEvent(eventId, ownerId);
+    return this.requireManualEntry(event, entryId);
+  }
+
+  /**
+   * Settle a manual offline entry
+   */
+  settleManualEntry(
+    eventId: string,
+    entryId: string,
+    ownerId: string,
+    status: Exclude<ManualLedgerEntryStatus, 'open'>,
+  ): ManualLedgerEntry {
+    const event = this.requireOwnedManualEvent(eventId, ownerId);
+    const entry = this.requireManualEntry(event, entryId);
+
+    entry.status = status;
+    entry.settled_at = new Date();
+    entry.realized_profit_or_loss = this.calculateManualRealizedProfit(entry, status);
+
+    this.refreshManualEvent(event);
+    this.saveData();
+    return entry;
+  }
+
+  /**
+   * Delete a manual offline entry
+   */
+  deleteManualEntry(eventId: string, entryId: string, ownerId: string): boolean {
+    const event = this.requireOwnedManualEvent(eventId, ownerId);
+    const initialLength = event.entries.length;
+    event.entries = event.entries.filter((entry) => entry.id !== entryId);
+
+    if (event.entries.length === initialLength) {
+      return false;
+    }
+
+    this.refreshManualEvent(event);
+    this.saveData();
+    return true;
+  }
+
+  /**
+   * Delete a manual offline event
+   */
+  deleteManualEvent(eventId: string, ownerId: string): boolean {
+    const event = this.manualLedgerEvents.get(eventId);
+    if (!event || event.owner_id !== ownerId) {
+      return false;
+    }
+
+    this.manualLedgerEvents.delete(eventId);
+    this.saveData();
+    return true;
+  }
+
+  /**
+   * Build a summary for one manual event
+   */
+  getManualEventSummary(eventId: string, ownerId: string): ManualLedgerEventSummary {
+    const event = this.requireOwnedManualEvent(eventId, ownerId);
+    return this.buildManualEventSummary(event);
+  }
+
+  /**
+   * Build a consolidated overview for all manual events owned by an admin
+   */
+  getManualLedgerOverview(ownerId: string): ManualLedgerOverview {
+    const events = this.getAllManualEvents(ownerId).map((event) => this.buildManualEventSummary(event));
+
+    return {
+      totals: {
+        event_count: events.length,
+        open_event_count: events.filter((event) => event.status === 'open').length,
+        entry_count: events.reduce((sum, event) => sum + event.entry_count, 0),
+        open_entry_count: events.reduce((sum, event) => sum + event.open_entry_count, 0),
+        realized_profit_or_loss: this.roundAmount(
+          events.reduce((sum, event) => sum + event.realized_profit_or_loss, 0),
+        ),
+        open_potential_profit: this.roundAmount(
+          events.reduce((sum, event) => sum + event.open_potential_profit, 0),
+        ),
+        open_risk: this.roundAmount(
+          events.reduce((sum, event) => sum + event.open_risk, 0),
+        ),
+      },
+      events,
+    };
   }
 
   /**
@@ -588,7 +724,6 @@ export class CricketLedgerService {
 
   /**
    * Get the internal matches Map
-   * Used for data export operations
    */
   getMatchesMap(): Map<string, MatchLedger> {
     return this.matches;
@@ -603,110 +738,89 @@ export class CricketLedgerService {
 
   /**
    * Get the internal users Map
-   * Used for data export operations
    */
   getUsersMap(): Map<string, User> {
     return this.users;
   }
-  
+
   /**
    * Save all current data to disk
    */
   saveData(): void {
-    saveAllData(this.matches, this.users);
+    saveAllData(this.matches, this.users, this.manualLedgerEvents);
   }
 
   /**
    * Update a user's balance directly
-   * @param userId User ID
-   * @param amount New balance amount (absolute value)
-   * @returns Updated user or null if user not found
    */
   updateUserBalance(userId: string, amount: number): User | null {
     if (!this.users.has(userId)) {
       return null;
     }
-    
+
     const user = this.users.get(userId)!;
     user.balance = amount;
-    
-    // Save data to disk after updating balance
     this.saveData();
     return user;
   }
 
   /**
    * Deposit amount to a user's balance
-   * @param userId User ID
-   * @param amount Amount to deposit (positive number)
-   * @returns Updated user or null if user not found
    */
   depositToUserBalance(userId: string, amount: number): User | null {
     if (amount <= 0) {
       throw new Error('Deposit amount must be positive');
     }
-    
+
     if (!this.users.has(userId)) {
       return null;
     }
-    
+
     const user = this.users.get(userId)!;
     user.balance += amount;
-    
-    // Record the transaction
     this.addTransaction(userId, 'deposit', amount, `Deposited ${amount}`);
-    
-    // Save data to disk after deposit
     this.saveData();
     return user;
   }
 
   /**
    * Withdraw amount from a user's balance
-   * @param userId User ID
-   * @param amount Amount to withdraw (positive number)
-   * @returns Updated user or null if user not found or insufficient funds
    */
   withdrawFromUserBalance(userId: string, amount: number): User | null {
     if (amount <= 0) {
       throw new Error('Withdrawal amount must be positive');
     }
-    
+
     if (!this.users.has(userId)) {
       return null;
     }
-    
+
     const user = this.users.get(userId)!;
-    
     if (user.balance < amount) {
       throw new Error('Insufficient funds');
     }
-    
+
     user.balance -= amount;
-    
-    // Record the transaction
     this.addTransaction(userId, 'withdrawal', amount, `Withdrew ${amount}`);
-    
-    // Save data to disk after withdrawal
     this.saveData();
     return user;
   }
-  
+
   /**
-   * Add a transaction record
-   * @param userId User ID associated with the transaction
-   * @param type Type of transaction
-   * @param amount Transaction amount
-   * @param description Description of the transaction
-   * @param referenceId Optional reference ID (e.g., bet ID)
-   * @returns The created transaction
+   * Get all transactions for a user
    */
+  getUserTransactions(userId: string): Transaction[] {
+    return Array.from(this.transactions.values())
+      .filter((transaction) => transaction.user_id === userId)
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+  }
+
   private addTransaction(
-    userId: string, 
-    type: 'deposit' | 'withdrawal' | 'bet_won' | 'bet_lost', 
-    amount: number, 
-    description: string, 
-    referenceId?: string
+    userId: string,
+    type: 'deposit' | 'withdrawal' | 'bet_won' | 'bet_lost',
+    amount: number,
+    description: string,
+    referenceId?: string,
   ): Transaction {
     const transaction: Transaction = {
       id: uuidv4(),
@@ -715,23 +829,154 @@ export class CricketLedgerService {
       amount,
       description,
       created_at: new Date(),
-      reference_id: referenceId
+      reference_id: referenceId,
     };
-    
+
     this.transactions.set(transaction.id, transaction);
     return transaction;
   }
-  
-  /**
-   * Get all transactions for a user
-   * @param userId User ID
-   * @returns Array of transactions for the user
-   */
-  getUserTransactions(userId: string): Transaction[] {
-    const userTransactions = Array.from(this.transactions.values())
-      .filter(transaction => transaction.user_id === userId)
-      .sort((a, b) => b.created_at.getTime() - a.created_at.getTime()); // Sort by date, newest first
-    
-    return userTransactions;
+
+  private requireOwnedManualEvent(eventId: string, ownerId: string): ManualLedgerEvent {
+    const event = this.manualLedgerEvents.get(eventId);
+    if (!event || event.owner_id !== ownerId) {
+      throw new Error('Manual event not found');
+    }
+
+    return event;
+  }
+
+  private requireManualEntry(event: ManualLedgerEvent, entryId: string): ManualLedgerEntry {
+    const entry = event.entries.find((candidate) => candidate.id === entryId);
+    if (!entry) {
+      throw new Error('Manual entry not found');
+    }
+
+    return entry;
+  }
+
+  private normalizeManualEntryInput(input: ManualLedgerEntryInput): ManualLedgerEntryInput {
+    const customerName = input.customer_name?.trim();
+    const marketName = input.market_name?.trim();
+    const selection = input.selection?.trim();
+    const note = input.note?.trim() || undefined;
+
+    if (!customerName) {
+      throw new Error('Customer name is required');
+    }
+
+    if (!marketName) {
+      throw new Error('Market name is required');
+    }
+
+    if (!selection) {
+      throw new Error('Selection is required');
+    }
+
+    if (input.stake <= 0) {
+      throw new Error('Stake must be greater than 0');
+    }
+
+    if (input.market_type === 'match' && input.price <= 1) {
+      throw new Error('Match price must be greater than 1');
+    }
+
+    if (input.market_type === 'session' && input.price <= 0) {
+      throw new Error('Session rate must be greater than 0');
+    }
+
+    return {
+      customer_name: customerName,
+      market_type: input.market_type,
+      market_name: marketName,
+      selection,
+      bet_type: input.bet_type,
+      stake: this.roundAmount(input.stake),
+      price: this.roundAmount(input.price),
+      note,
+    };
+  }
+
+  private calculateManualPosition(
+    marketType: ManualLedgerMarketType,
+    betType: BetType,
+    stake: number,
+    price: number,
+  ): { profit: number; risk: number } {
+    if (marketType === 'match') {
+      if (betType === 'back') {
+        return {
+          profit: this.roundAmount(stake * (price - 1)),
+          risk: this.roundAmount(stake),
+        };
+      }
+
+      return {
+        profit: this.roundAmount(stake),
+        risk: this.roundAmount(stake * (price - 1)),
+      };
+    }
+
+    if (betType === 'back') {
+      return {
+        profit: this.roundAmount((stake * price) / 100),
+        risk: this.roundAmount(stake),
+      };
+    }
+
+    return {
+      profit: this.roundAmount(stake),
+      risk: this.roundAmount((stake * price) / 100),
+    };
+  }
+
+  private calculateManualRealizedProfit(
+    entry: ManualLedgerEntry,
+    status: Exclude<ManualLedgerEntryStatus, 'open'>,
+  ): number {
+    if (status === 'won') {
+      return entry.potential_profit;
+    }
+
+    if (status === 'lost') {
+      return this.roundAmount(-entry.potential_risk);
+    }
+
+    return 0;
+  }
+
+  private refreshManualEvent(event: ManualLedgerEvent): void {
+    event.status = event.entries.length > 0 && event.entries.every((entry) => entry.status !== 'open')
+      ? 'settled'
+      : 'open';
+    event.updated_at = new Date();
+  }
+
+  private buildManualEventSummary(event: ManualLedgerEvent): ManualLedgerEventSummary {
+    const openEntries = event.entries.filter((entry) => entry.status === 'open');
+    const settledEntries = event.entries.filter((entry) => entry.status !== 'open');
+
+    return {
+      event_id: event.id,
+      event_name: event.event_name,
+      teams: event.teams,
+      status: event.status,
+      entry_count: event.entries.length,
+      open_entry_count: openEntries.length,
+      settled_entry_count: settledEntries.length,
+      realized_profit_or_loss: this.roundAmount(
+        settledEntries.reduce((sum, entry) => sum + (entry.realized_profit_or_loss ?? 0), 0),
+      ),
+      open_potential_profit: this.roundAmount(
+        openEntries.reduce((sum, entry) => sum + entry.potential_profit, 0),
+      ),
+      open_risk: this.roundAmount(
+        openEntries.reduce((sum, entry) => sum + entry.potential_risk, 0),
+      ),
+      updated_at: event.updated_at,
+    };
+  }
+
+  private roundAmount(value: number): number {
+    return Math.round(value * 100) / 100;
   }
 }

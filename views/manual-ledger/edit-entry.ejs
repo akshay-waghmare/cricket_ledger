@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">Edit Offline Entry</h1>
+    <div class="text-muted"><%= event.event_name %></div>
+  </div>
+  <a href="/admin/manual-ledger/events/<%= event.id %>" class="btn btn-secondary">Back</a>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <form action="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/update" method="POST">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="customerName" class="form-label">Offline Customer / Counterparty</label>
+          <input type="text" class="form-control" id="customerName" name="customerName" required value="<%= entry.customer_name %>">
+        </div>
+        <div class="col-md-6">
+          <label for="marketType" class="form-label">Market Type</label>
+          <select class="form-select" id="marketType" name="marketType" required>
+            <option value="match" <%= entry.market_type === 'match' ? 'selected' : '' %>>Match</option>
+            <option value="session" <%= entry.market_type === 'session' ? 'selected' : '' %>>Session</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="marketName" class="form-label">Market Name</label>
+          <input type="text" class="form-control" id="marketName" name="marketName" required value="<%= entry.market_name %>">
+        </div>
+        <div class="col-md-6">
+          <label for="selection" class="form-label">Selection</label>
+          <input type="text" class="form-control" id="selection" name="selection" required value="<%= entry.selection %>">
+        </div>
+        <div class="col-md-6">
+          <label for="betType" class="form-label">Side</label>
+          <select class="form-select" id="betType" name="betType" required>
+            <option value="back" <%= entry.bet_type === 'back' ? 'selected' : '' %>>Back</option>
+            <option value="lay" <%= entry.bet_type === 'lay' ? 'selected' : '' %>>Lay</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="stake" class="form-label">Stake</label>
+          <input type="number" class="form-control" id="stake" name="stake" min="0.01" step="0.01" required value="<%= entry.stake %>">
+        </div>
+        <div class="col-md-3">
+          <label for="price" class="form-label">Price / Rate</label>
+          <input type="number" class="form-control" id="price" name="price" min="0.01" step="0.01" required value="<%= entry.price %>">
+        </div>
+        <div class="col-12">
+          <label for="note" class="form-label">Note (optional)</label>
+          <textarea class="form-control" id="note" name="note" rows="3"><%= entry.note || '' %></textarea>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2 mt-3">
+        <a href="/admin/manual-ledger/events/<%= event.id %>" class="btn btn-light">Cancel</a>
+        <button type="submit" class="btn btn-primary">Update Entry</button>
+      </div>
+    </form>
+  </div>
+</div>

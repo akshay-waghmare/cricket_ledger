@@ -1,0 +1,137 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1"><%= event.event_name %></h1>
+    <% if (event.teams.length > 0) { %>
+      <div class="text-muted"><%= event.teams.join(' vs ') %></div>
+    <% } %>
+  </div>
+  <div class="d-flex gap-2">
+    <a href="/admin/manual-ledger/reports/consolidated" class="btn btn-outline-primary">Consolidated Report</a>
+    <a href="/admin/manual-ledger/events/<%= event.id %>/entries/create" class="btn btn-primary">Add Offline Entry</a>
+    <a href="/admin/manual-ledger" class="btn btn-secondary">Back</a>
+  </div>
+</div>
+
+<% if (event.note) { %>
+  <div class="alert alert-info"><%= event.note %></div>
+<% } %>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Status</div>
+        <div class="fs-4 fw-semibold text-capitalize"><%= summary.status %></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Entries</div>
+        <div class="fs-4 fw-semibold"><%= summary.entry_count %></div>
+        <div class="small text-muted"><%= summary.open_entry_count %> open / <%= summary.settled_entry_count %> settled</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Realized P&amp;L</div>
+        <div class="fs-4 fw-semibold <%= summary.realized_profit_or_loss >= 0 ? 'text-success' : 'text-danger' %>">
+          ₹<%= summary.realized_profit_or_loss.toFixed(2) %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Open Risk / Profit</div>
+        <div class="fw-semibold">Risk: ₹<%= summary.open_risk.toFixed(2) %></div>
+        <div class="small text-muted">Potential profit: ₹<%= summary.open_potential_profit.toFixed(2) %></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="h5 mb-0">Offline Entries</h3>
+    <form action="/admin/manual-ledger/events/<%= event.id %>/delete" method="POST" onsubmit="return confirm('Delete this offline event and all its entries?')">
+      <button type="submit" class="btn btn-sm btn-outline-danger">Delete Event</button>
+    </form>
+  </div>
+  <div class="card-body p-0">
+    <% if (entries.length === 0) { %>
+      <div class="p-4 text-muted">No offline bets added yet.</div>
+    <% } else { %>
+      <div class="table-responsive">
+        <table class="table table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Market</th>
+              <th>Selection</th>
+              <th>Side</th>
+              <th>Stake</th>
+              <th>Price</th>
+              <th>Potential</th>
+              <th>Risk</th>
+              <th>Status</th>
+              <th>Realized P&amp;L</th>
+              <th>Created</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% entries.forEach((entry) => { %>
+              <tr>
+                <td>
+                  <div class="fw-semibold"><%= entry.customer_name %></div>
+                  <% if (entry.note) { %>
+                    <div class="small text-muted"><%= entry.note %></div>
+                  <% } %>
+                </td>
+                <td>
+                  <div><%= entry.market_name %></div>
+                  <div class="small text-muted text-capitalize"><%= entry.market_type %></div>
+                </td>
+                <td><%= entry.selection %></td>
+                <td>
+                  <span class="badge bg-<%= entry.bet_type === 'back' ? 'primary' : 'danger' %> text-uppercase">
+                    <%= entry.bet_type %>
+                  </span>
+                </td>
+                <td>₹<%= entry.stake.toFixed(2) %></td>
+                <td><%= entry.price.toFixed(2) %></td>
+                <td class="text-success">₹<%= entry.potential_profit.toFixed(2) %></td>
+                <td class="text-danger">₹<%= entry.potential_risk.toFixed(2) %></td>
+                <td>
+                  <span class="badge bg-<%= entry.status === 'open' ? 'secondary' : (entry.status === 'won' ? 'success' : entry.status === 'lost' ? 'danger' : 'warning text-dark') %>">
+                    <%= entry.status %>
+                  </span>
+                </td>
+                <td class="<%= (entry.realized_profit_or_loss || 0) >= 0 ? 'text-success' : 'text-danger' %>">
+                  <%= entry.realized_profit_or_loss !== undefined ? `₹${entry.realized_profit_or_loss.toFixed(2)}` : '—' %>
+                </td>
+                <td><%= new Date(entry.created_at).toLocaleString() %></td>
+                <td class="text-end">
+                  <div class="d-flex gap-1 justify-content-end">
+                    <% if (entry.status === 'open') { %>
+                      <a href="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <% } %>
+                    <a href="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/settle" class="btn btn-sm btn-outline-success">Settle</a>
+                    <form action="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/delete" method="POST" onsubmit="return confirm('Delete this offline entry?')">
+                      <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</div>

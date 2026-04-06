@@ -17,6 +17,7 @@ const bet_routes_1 = __importDefault(require("./routes/bet-routes"));
 const data_routes_1 = __importDefault(require("./routes/data-routes"));
 const auth_routes_1 = __importDefault(require("./routes/auth-routes"));
 const subscription_routes_1 = __importDefault(require("./routes/subscription-routes"));
+const manual_ledger_routes_1 = __importDefault(require("./routes/manual-ledger-routes"));
 const auth_1 = require("./middleware/auth");
 const passport_2 = __importDefault(require("./config/passport"));
 // Initialize our cricket ledger service
@@ -65,9 +66,11 @@ const startServer = async () => {
         // Configure middleware
         app.use(express_ejs_layouts_1.default);
         app.set('view engine', 'ejs');
-        app.set('views', path_1.default.join(__dirname, 'views'));
-        app.set('layout', 'layout'); // This ensures the layout file is used globally
-        app.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
+        // Always serve views and static assets from the project root (not dist subfolder)
+        const root = process.cwd();
+        app.set('views', path_1.default.join(root, 'views'));
+        app.set('layout', 'layout');
+        app.use(express_1.default.static(path_1.default.join(root, 'public')));
         app.use(express_1.default.urlencoded({ extended: true }));
         app.use(express_1.default.json());
         // Set up session middleware (required for flash messages)
@@ -113,6 +116,7 @@ const startServer = async () => {
         app.use('/users', auth_1.ensureAuthenticated, user_routes_1.default);
         app.use('/bets', auth_1.ensureAuthenticated, bet_routes_1.default);
         app.use('/data', auth_1.ensureAuthenticated, auth_1.ensureAdmin, data_routes_1.default);
+        app.use('/admin/manual-ledger', auth_1.ensureAuthenticated, auth_1.ensureAdmin, manual_ledger_routes_1.default);
         app.use('/subscription', auth_1.ensureAuthenticated, subscription_routes_1.default);
         // Add this below your existing routes to render a dashboard after login
         app.get('/dashboard', auth_1.ensureAuthenticated, (req, res) => {

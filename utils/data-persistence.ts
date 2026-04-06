@@ -1,10 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import { MatchLedger, User } from '../types';
+import { ManualLedgerEvent, MatchLedger, User } from '../types';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const MATCHES_FILE = path.join(DATA_DIR, 'matches.json');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
+const MANUAL_LEDGER_FILE = path.join(DATA_DIR, 'manual-ledger-events.json');
 
 /**
  * Ensure data directory exists
@@ -36,12 +37,22 @@ export function saveUsers(users: Map<string, User>): void {
 }
 
 /**
+ * Save manual ledger events to disk
+ * @param events Map of manual ledger event data
+ */
+export function saveManualLedgerEvents(events: Map<string, ManualLedgerEvent>): void {
+  ensureDataDir();
+  const eventsData = Array.from(events.entries());
+  fs.writeFileSync(MANUAL_LEDGER_FILE, JSON.stringify(eventsData, null, 2));
+}
+
+/**
  * Load matches from disk
  * @returns Map of match data or empty Map if no data found
  */
 export function loadMatches(): Map<string, MatchLedger> {
   ensureDataDir();
-  
+
   try {
     if (fs.existsSync(MATCHES_FILE)) {
       const matchesData = JSON.parse(fs.readFileSync(MATCHES_FILE, 'utf8'));
@@ -50,7 +61,7 @@ export function loadMatches(): Map<string, MatchLedger> {
   } catch (error) {
     console.error('Error loading matches:', error);
   }
-  
+
   return new Map();
 }
 
@@ -60,7 +71,7 @@ export function loadMatches(): Map<string, MatchLedger> {
  */
 export function loadUsers(): Map<string, User> {
   ensureDataDir();
-  
+
   try {
     if (fs.existsSync(USERS_FILE)) {
       const usersData = JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
@@ -69,7 +80,26 @@ export function loadUsers(): Map<string, User> {
   } catch (error) {
     console.error('Error loading users:', error);
   }
-  
+
+  return new Map();
+}
+
+/**
+ * Load manual ledger events from disk
+ * @returns Map of manual ledger data or empty Map if no data found
+ */
+export function loadManualLedgerEvents(): Map<string, ManualLedgerEvent> {
+  ensureDataDir();
+
+  try {
+    if (fs.existsSync(MANUAL_LEDGER_FILE)) {
+      const eventsData = JSON.parse(fs.readFileSync(MANUAL_LEDGER_FILE, 'utf8'));
+      return new Map(eventsData);
+    }
+  } catch (error) {
+    console.error('Error loading manual ledger events:', error);
+  }
+
   return new Map();
 }
 
@@ -77,10 +107,16 @@ export function loadUsers(): Map<string, User> {
  * Save all data to disk
  * @param matches Map of match data
  * @param users Map of user data
+ * @param manualLedgerEvents Map of manual ledger event data
  */
-export function saveAllData(matches: Map<string, MatchLedger>, users: Map<string, User>): void {
+export function saveAllData(
+  matches: Map<string, MatchLedger>,
+  users: Map<string, User>,
+  manualLedgerEvents: Map<string, ManualLedgerEvent>,
+): void {
   saveMatches(matches);
   saveUsers(users);
+  saveManualLedgerEvents(manualLedgerEvents);
 }
 
 /**
@@ -91,14 +127,14 @@ export function saveAllData(matches: Map<string, MatchLedger>, users: Map<string
  */
 export function updateUserBalance(userId: string, amount: number): User | null {
   const users = loadUsers();
-  
+
   if (!users.has(userId)) {
     return null;
   }
-  
+
   const user = users.get(userId)!;
   user.balance = amount;
-  
+
   saveUsers(users);
   return user;
 }
@@ -113,16 +149,16 @@ export function depositToUserBalance(userId: string, amount: number): User | nul
   if (amount <= 0) {
     throw new Error('Deposit amount must be positive');
   }
-  
+
   const users = loadUsers();
-  
+
   if (!users.has(userId)) {
     return null;
   }
-  
+
   const user = users.get(userId)!;
   user.balance += amount;
-  
+
   saveUsers(users);
   return user;
 }
@@ -137,21 +173,21 @@ export function withdrawFromUserBalance(userId: string, amount: number): User | 
   if (amount <= 0) {
     throw new Error('Withdrawal amount must be positive');
   }
-  
+
   const users = loadUsers();
-  
+
   if (!users.has(userId)) {
     return null;
   }
-  
+
   const user = users.get(userId)!;
-  
+
   if (user.balance < amount) {
     throw new Error('Insufficient funds');
   }
-  
+
   user.balance -= amount;
-  
+
   saveUsers(users);
   return user;
 }

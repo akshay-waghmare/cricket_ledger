@@ -26,6 +26,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/bets">Bets</a>
             </li>
+            <% if (locals.user.role === 'admin') { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/manual-ledger">Offline Ledger</a>
+              </li>
+            <% } %>
             <li class="nav-item">
               <a class="nav-link" href="/auth/logout">Logout</a>
             </li>

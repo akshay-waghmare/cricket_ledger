@@ -68,7 +68,7 @@ export interface AuthUser {
     plan: 'free' | 'basic' | 'premium';
     expiresAt: Date;
   };
-  matchPassword(enteredPassword: string): Promise<boolean>; // Add this method declaration
+  matchPassword(enteredPassword: string): Promise<boolean>;
 }
 
 export interface Transaction {
@@ -95,4 +95,69 @@ export interface ProfitLossReport {
   user_id: string;
   bets: BetResult[];
   total_profit_or_loss: number;
+}
+
+export type ManualLedgerMarketType = 'match' | 'session';
+export type ManualLedgerEventStatus = 'open' | 'settled';
+export type ManualLedgerEntryStatus = 'open' | 'won' | 'lost' | 'void';
+
+export interface ManualLedgerEntryInput {
+  customer_name: string;
+  market_type: ManualLedgerMarketType;
+  market_name: string;
+  selection: string;
+  bet_type: BetType;
+  stake: number;
+  price: number;
+  note?: string;
+}
+
+export interface ManualLedgerEntry extends ManualLedgerEntryInput {
+  id: string;
+  event_id: string;
+  status: ManualLedgerEntryStatus;
+  created_at: Date;
+  settled_at?: Date;
+  potential_profit: number;
+  potential_risk: number;
+  realized_profit_or_loss?: number;
+}
+
+export interface ManualLedgerEvent {
+  id: string;
+  owner_id: string;
+  event_name: string;
+  teams: string[];
+  note?: string;
+  status: ManualLedgerEventStatus;
+  entries: ManualLedgerEntry[];
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface ManualLedgerEventSummary {
+  event_id: string;
+  event_name: string;
+  teams: string[];
+  status: ManualLedgerEventStatus;
+  entry_count: number;
+  open_entry_count: number;
+  settled_entry_count: number;
+  realized_profit_or_loss: number;
+  open_potential_profit: number;
+  open_risk: number;
+  updated_at: Date;
+}
+
+export interface ManualLedgerOverview {
+  totals: {
+    event_count: number;
+    open_event_count: number;
+    entry_count: number;
+    open_entry_count: number;
+    realized_profit_or_loss: number;
+    open_potential_profit: number;
+    open_risk: number;
+  };
+  events: ManualLedgerEventSummary[];
 }

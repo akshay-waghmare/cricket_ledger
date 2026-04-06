@@ -1,0 +1,106 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">Offline Manual Ledger</h1>
+    <p class="text-muted mb-0">Admin-only tracking for offline match and session bets.</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a href="/admin/manual-ledger/reports/consolidated" class="btn btn-outline-primary">Consolidated Report</a>
+    <a href="/admin/manual-ledger/events/create" class="btn btn-primary">Create Offline Event</a>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Events</div>
+        <div class="fs-3 fw-semibold"><%= overview.totals.event_count %></div>
+        <div class="small text-muted"><%= overview.totals.open_event_count %> open</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Entries</div>
+        <div class="fs-3 fw-semibold"><%= overview.totals.entry_count %></div>
+        <div class="small text-muted"><%= overview.totals.open_entry_count %> open</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Realized P&amp;L</div>
+        <div class="fs-3 fw-semibold <%= overview.totals.realized_profit_or_loss >= 0 ? 'text-success' : 'text-danger' %>">
+          ₹<%= overview.totals.realized_profit_or_loss.toFixed(2) %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <div class="text-muted small">Open Risk / Profit</div>
+        <div class="fw-semibold">Risk: ₹<%= overview.totals.open_risk.toFixed(2) %></div>
+        <div class="small text-muted">Potential profit: ₹<%= overview.totals.open_potential_profit.toFixed(2) %></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="h5 mb-0">Offline Events</h3>
+    <span class="text-muted small">Separate from platform user bets</span>
+  </div>
+  <div class="card-body p-0">
+    <% if (overview.events.length === 0) { %>
+      <div class="p-4 text-muted">No offline events yet. Create one to start tracking manual bets.</div>
+    <% } else { %>
+      <div class="table-responsive">
+        <table class="table table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Status</th>
+              <th>Entries</th>
+              <th>Realized P&amp;L</th>
+              <th>Open Risk</th>
+              <th>Potential Profit</th>
+              <th>Updated</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% overview.events.forEach((event) => { %>
+              <tr>
+                <td>
+                  <div class="fw-semibold"><%= event.event_name %></div>
+                  <% if (event.teams.length > 0) { %>
+                    <div class="small text-muted"><%= event.teams.join(' vs ') %></div>
+                  <% } %>
+                </td>
+                <td>
+                  <span class="badge bg-<%= event.status === 'open' ? 'warning text-dark' : 'success' %>">
+                    <%= event.status %>
+                  </span>
+                </td>
+                <td><%= event.entry_count %> total / <%= event.open_entry_count %> open</td>
+                <td class="<%= event.realized_profit_or_loss >= 0 ? 'text-success' : 'text-danger' %>">
+                  ₹<%= event.realized_profit_or_loss.toFixed(2) %>
+                </td>
+                <td>₹<%= event.open_risk.toFixed(2) %></td>
+                <td>₹<%= event.open_potential_profit.toFixed(2) %></td>
+                <td><%= new Date(event.updated_at).toLocaleString() %></td>
+                <td class="text-end">
+                  <a href="/admin/manual-ledger/events/<%= event.event_id %>" class="btn btn-sm btn-outline-primary">Open</a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</div>

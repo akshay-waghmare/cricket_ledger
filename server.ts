@@ -12,6 +12,7 @@ import betRoutes from './routes/bet-routes';
 import dataRoutes from './routes/data-routes';
 import authRoutes from './routes/auth-routes';
 import subscriptionRoutes from './routes/subscription-routes';
+import manualLedgerRoutes from './routes/manual-ledger-routes';
 import { ensureAuthenticated, ensureAdmin, ensureActiveSubscription } from './middleware/auth';
 import configurePassport from './config/passport';
 
@@ -127,6 +128,7 @@ const startServer = async () => {
     app.use('/users', ensureAuthenticated, userRoutes);
     app.use('/bets', ensureAuthenticated, betRoutes);
     app.use('/data', ensureAuthenticated, ensureAdmin, dataRoutes);
+    app.use('/admin/manual-ledger', ensureAuthenticated, ensureAdmin, manualLedgerRoutes);
     app.use('/subscription', ensureAuthenticated, subscriptionRoutes);
 
     // Add this below your existing routes to render a dashboard after login
