@@ -24,7 +24,7 @@
       <div class="mb-1">
         <span class="small fw-semibold me-2"><%= team %> (<%= idx === 0 ? '1st' : '2nd' %> inn):</span>
         <% sessionOvers.forEach(function(ov) { %>
-          <a href="/admin/manual-ledger/events/<%= event.id %>/entries/create?marketType=session&marketName=<%= encodeURIComponent(ov + ' Over ' + team) %>&selection=Over"
+          <a href="/admin/manual-ledger/events/<%= event.id %>/entries/create?marketType=session&marketName=<%= encodeURIComponent(ov + ' Over ' + team) %>"
              class="btn btn-sm btn-outline-info me-1 mb-1"><%= ov %> Ov</a>
         <% }) %>
       </div>
@@ -76,6 +76,42 @@
   </div>
 </div>
 
+<%
+  // Gather open session markets for bulk settlement
+  const openSessionMarkets = {};
+  entries.forEach(function(e) {
+    if (e.market_type === 'session' && e.status === 'open') {
+      if (!openSessionMarkets[e.market_name]) {
+        openSessionMarkets[e.market_name] = 0;
+      }
+      openSessionMarkets[e.market_name]++;
+    }
+  });
+  const sessionMarketNames = Object.keys(openSessionMarkets);
+%>
+
+<% if (sessionMarketNames.length > 0) { %>
+<div class="card mb-4">
+  <div class="card-header"><strong>Settle Sessions by Score</strong></div>
+  <div class="card-body">
+    <div class="row g-3">
+      <% sessionMarketNames.forEach(function(mkt) { %>
+        <div class="col-md-6 col-lg-4">
+          <form action="/admin/manual-ledger/events/<%= event.id %>/settle-sessions" method="POST" class="d-flex align-items-end gap-2">
+            <input type="hidden" name="marketName" value="<%= mkt %>">
+            <div class="flex-grow-1">
+              <label class="form-label small mb-1"><%= mkt %> <span class="badge bg-secondary"><%= openSessionMarkets[mkt] %></span></label>
+              <input type="number" class="form-control form-control-sm" name="actualScore" min="0" step="1" required placeholder="Score">
+            </div>
+            <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Settle all open entries for <%= mkt %> with this score?')">Settle</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+<% } %>
+
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h3 class="h5 mb-0">Offline Entries</h3>
@@ -93,10 +129,10 @@
             <tr>
               <th>Customer</th>
               <th>Market</th>
-              <th>Selection</th>
+              <th>Selection / Line</th>
               <th>Side</th>
               <th>Stake</th>
-              <th>Price</th>
+              <th>Price / Rate</th>
               <th>Potential</th>
               <th>Risk</th>
               <th>Status</th>
@@ -121,11 +157,11 @@
                 <td><%= entry.selection %></td>
                 <td>
                   <span class="badge bg-<%= entry.bet_type === 'back' ? 'primary' : 'danger' %> text-uppercase">
-                    <%= entry.bet_type %>
+                    <%= entry.market_type === 'session' ? (entry.bet_type === 'back' ? 'YES' : 'NO') : entry.bet_type %>
                   </span>
                 </td>
                 <td>₹<%= entry.stake.toFixed(2) %></td>
-                <td><%= entry.price.toFixed(2) %></td>
+                <td><%= entry.price.toFixed(2) %><%= entry.market_type === 'session' ? '' : '' %></td>
                 <td class="text-success">₹<%= entry.potential_profit.toFixed(2) %></td>
                 <td class="text-danger">₹<%= entry.potential_risk.toFixed(2) %></td>
                 <td>

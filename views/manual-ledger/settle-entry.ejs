@@ -11,19 +11,91 @@
     <div class="row g-3">
       <div class="col-md-6"><strong>Customer:</strong> <%= entry.customer_name %></div>
       <div class="col-md-6"><strong>Market:</strong> <%= entry.market_name %> (<%= entry.market_type %>)</div>
-      <div class="col-md-6"><strong>Selection:</strong> <%= entry.selection %></div>
-      <div class="col-md-6"><strong>Side:</strong> <%= entry.bet_type %></div>
+      <div class="col-md-6">
+        <strong><%= entry.market_type === 'session' ? 'Line:' : 'Selection:' %></strong> <%= entry.selection %>
+      </div>
+      <div class="col-md-6">
+        <strong>Side:</strong>
+        <%= entry.bet_type === 'back' ? (entry.market_type === 'session' ? 'YES' : 'BACK') : (entry.market_type === 'session' ? 'NO' : 'LAY') %>
+      </div>
       <div class="col-md-4"><strong>Stake:</strong> ₹<%= entry.stake.toFixed(2) %></div>
-      <div class="col-md-4"><strong>Price:</strong> <%= entry.price.toFixed(2) %></div>
+      <div class="col-md-4"><strong><%= entry.market_type === 'session' ? 'Rate:' : 'Price:' %></strong> <%= entry.price.toFixed(2) %></div>
       <div class="col-md-4"><strong>Status:</strong> <%= entry.status %></div>
-      <div class="col-md-6 text-success"><strong>If won:</strong> ₹<%= entry.potential_profit.toFixed(2) %></div>
+      <div class="col-md-6 text-success"><strong>If won:</strong> +₹<%= entry.potential_profit.toFixed(2) %></div>
       <div class="col-md-6 text-danger"><strong>If lost:</strong> -₹<%= entry.potential_risk.toFixed(2) %></div>
+      <% if (entry.actual_score !== undefined && entry.actual_score !== null) { %>
+        <div class="col-md-6"><strong>Actual Score:</strong> <%= entry.actual_score %></div>
+      <% } %>
     </div>
   </div>
 </div>
 
+<% if (entry.market_type === 'session') { %>
+<%
+  var line = parseFloat(entry.selection);
+  var hasNumericLine = !isNaN(line);
+%>
+
+<% if (hasNumericLine) { %>
+<div class="card mb-3">
+  <div class="card-header"><strong>Session Settlement (by actual score)</strong></div>
+  <div class="card-body">
+    <form action="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/settle" method="POST">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+          <label for="actualScore" class="form-label">Actual Score</label>
+          <input type="number" class="form-control form-control-lg" id="actualScore" name="actualScore"
+            min="0" step="1" required placeholder="e.g. 42"
+            value="<%= entry.actual_score !== undefined && entry.actual_score !== null ? entry.actual_score : '' %>">
+        </div>
+        <div class="col-md-8">
+          <div class="alert alert-info mb-0 py-2" id="sessionResult">
+            <strong>Line:</strong> <%= line %> &nbsp;|&nbsp;
+            <strong>Side:</strong> <%= entry.bet_type === 'back' ? 'YES' : 'NO' %> &nbsp;|&nbsp;
+            <span id="resultText">Enter actual score to see result</span>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end gap-2 mt-3">
+        <a href="/admin/manual-ledger/events/<%= event.id %>" class="btn btn-light">Cancel</a>
+        <button type="submit" class="btn btn-success">Settle by Score</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  (function() {
+    var line = <%= line %>;
+    var betType = '<%= entry.bet_type %>';
+    var profit = <%= entry.potential_profit.toFixed(2) %>;
+    var risk = <%= entry.potential_risk.toFixed(2) %>;
+    var input = document.getElementById('actualScore');
+    var resultText = document.getElementById('resultText');
+    input.addEventListener('input', function() {
+      var score = parseFloat(this.value);
+      if (isNaN(score)) { resultText.innerHTML = 'Enter actual score to see result'; return; }
+      var yesWins = score >= line;
+      var won = (betType === 'back' && yesWins) || (betType === 'lay' && !yesWins);
+      if (won) {
+        resultText.innerHTML = '<span class="text-success fw-bold">WON +₹' + profit.toFixed(2) + '</span>' +
+          ' (score ' + score + (yesWins ? ' ≥ ' : ' < ') + line + ' → YES ' + (yesWins ? 'wins' : 'loses') + ')';
+      } else {
+        resultText.innerHTML = '<span class="text-danger fw-bold">LOST -₹' + risk.toFixed(2) + '</span>' +
+          ' (score ' + score + (yesWins ? ' ≥ ' : ' < ') + line + ' → YES ' + (yesWins ? 'wins' : 'loses') + ')';
+      }
+    });
+    if (input.value) input.dispatchEvent(new Event('input'));
+  })();
+</script>
+<% } %>
+
+<div class="card">
+  <div class="card-header"><strong>Manual Override</strong> <span class="small text-muted">(or settle without score)</span></div>
+  <div class="card-body">
+<% } else { %>
 <div class="card">
   <div class="card-body">
+<% } %>
     <form action="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/settle" method="POST">
       <label class="form-label">Settlement Result</label>
       <div class="form-check">

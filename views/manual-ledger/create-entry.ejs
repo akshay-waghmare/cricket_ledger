@@ -53,8 +53,9 @@
           <input type="text" class="form-control" id="marketName" name="marketName" required value="<%= formData?.marketName || '' %>" placeholder="Match Odds / 20 Over CSK">
         </div>
         <div class="col-md-6">
-          <label for="selection" class="form-label">Selection</label>
+          <label for="selection" class="form-label" id="selectionLabel">Selection</label>
           <input type="text" class="form-control" id="selection" name="selection" required value="<%= formData?.selection || '' %>" placeholder="CSK / Over / Under">
+          <div class="form-text" id="selectionHelp" style="display:none">The line number the bet is on (e.g. 35, 42). Used for auto-settlement.</div>
         </div>
         <div class="col-md-6">
           <label for="betType" class="form-label">Side</label>
@@ -97,12 +98,12 @@
     btn.addEventListener('click', function() {
       document.getElementById('marketType').value = this.dataset.marketType;
       document.getElementById('marketName').value = this.dataset.marketName;
-      document.getElementById('selection').value = this.dataset.selection;
+      document.getElementById('selection').value = '';
       toggleCalcHelp();
-      // Focus the stake input so user can fill in remaining fields
-      document.getElementById('stake').focus();
+      // Focus the selection (line) input so user enters the line
+      document.getElementById('selection').focus();
       // Highlight filled fields briefly
-      ['marketType', 'marketName', 'selection'].forEach(function(id) {
+      ['marketType', 'marketName'].forEach(function(id) {
         var el = document.getElementById(id);
         el.classList.add('border-info');
         setTimeout(function() { el.classList.remove('border-info'); }, 1200);
@@ -110,13 +111,16 @@
     });
   });
 
-  // Toggle help text and price label based on market type
+  // Toggle help text, labels, and placeholders based on market type
   var marketTypeSelect = document.getElementById('marketType');
   function toggleCalcHelp() {
     var isSession = marketTypeSelect.value === 'session';
     document.getElementById('calcMatchHelp').style.display = isSession ? 'none' : '';
     document.getElementById('calcSessionHelp').style.display = isSession ? '' : 'none';
     document.getElementById('priceLabel').textContent = isSession ? 'Rate (e.g. 90)' : 'Price (decimal odds)';
+    document.getElementById('selectionLabel').textContent = isSession ? 'Line (runs)' : 'Selection';
+    document.getElementById('selection').placeholder = isSession ? 'e.g. 35, 42, 155' : 'CSK / RCB / Draw';
+    document.getElementById('selectionHelp').style.display = isSession ? '' : 'none';
   }
   marketTypeSelect.addEventListener('change', toggleCalcHelp);
   toggleCalcHelp();

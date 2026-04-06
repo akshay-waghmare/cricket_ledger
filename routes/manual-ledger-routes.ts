@@ -232,6 +232,26 @@ router.get('/events/:eventId/entries/:entryId/settle', (req: Request, res: Respo
 
 router.post('/events/:eventId/entries/:entryId/settle', (req: Request, res: Response) => {
   try {
+    const ownerId = getOwnerId(req);
+
+    // Session settlement by actual score
+    if (req.body.actualScore !== undefined && req.body.actualScore !== '') {
+      const actualScore = parseFloat(req.body.actualScore);
+      if (isNaN(actualScore) || actualScore < 0) {
+        throw new Error('Actual score must be a valid non-negative number');
+      }
+      req.ledgerService.settleManualSessionEntry(
+        req.params.eventId,
+        req.params.entryId,
+        ownerId,
+        actualScore,
+      );
+      req.flash('success', `Session settled with actual score ${actualScore}`);
+      res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
+      return;
+    }
+
+    // Match / manual settlement by status
     const status = req.body.status as ManualLedgerEntryStatus;
     if (!['won', 'lost', 'void'].includes(status)) {
       throw new Error('Please choose a valid settlement status');
@@ -240,7 +260,7 @@ router.post('/events/:eventId/entries/:entryId/settle', (req: Request, res: Resp
     req.ledgerService.settleManualEntry(
       req.params.eventId,
       req.params.entryId,
-      getOwnerId(req),
+      ownerId,
       status,
     );
     req.flash('success', 'Offline entry settled successfully');
@@ -277,6 +297,42 @@ router.post('/events/:eventId/entries/:entryId/delete', (req: Request, res: Resp
       message: error instanceof Error ? error.message : 'Failed to delete manual entry',
       title: 'Error',
     });
+  }
+});
+
+router.post('/events/:eventId/settle-sessions', (req: Request, res: Response) => {
+  try {
+    const ownerId = getOwnerId(req);
+    const { marketName, actualScore } = req.body;
+    const score = parseFloat(actualScore);
+
+    if (!marketName) {
+      throw new Error('Market name is required');
+    }
+    if (isNaN(score) || score < 0) {
+      throw new Error('Actual score must be a valid non-negative number');
+    }
+
+    const event = req.ledgerService.getManualEventForOwner(req.params.eventId, ownerId);
+    const openSessionEntries = event.entries.filter(
+      (e: any) => e.market_type === 'session' && e.status === 'open' && e.market_name === marketName,
+    );
+
+    if (openSessionEntries.length === 0) {
+      throw new Error(`No open session entries found for "${marketName}"`);
+    }
+
+    let settled = 0;
+    for (const entry of openSessionEntries) {
+      req.ledgerService.settleManualSessionEntry(req.params.eventId, entry.id, ownerId, score);
+      settled++;
+    }
+
+    req.flash('success', `Settled ${settled} entries for "${marketName}" with score ${score}`);
+    res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
+  } catch (error) {
+    req.flash('error', error instanceof Error ? error.message : 'Failed to settle sessions');
+    res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
   }
 });
 

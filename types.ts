@@ -121,6 +121,7 @@ export interface ManualLedgerEntry extends ManualLedgerEntryInput {
   potential_profit: number;
   potential_risk: number;
   realized_profit_or_loss?: number;
+  actual_score?: number; // session settlement: the actual score achieved
 }
 
 export interface ManualLedgerEvent {

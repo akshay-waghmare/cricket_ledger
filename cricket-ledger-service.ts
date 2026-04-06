@@ -623,9 +623,14 @@ export class CricketLedgerService {
     entryId: string,
     ownerId: string,
     status: Exclude<ManualLedgerEntryStatus, 'open'>,
+    actualScore?: number,
   ): ManualLedgerEntry {
     const event = this.requireOwnedManualEvent(eventId, ownerId);
     const entry = this.requireManualEntry(event, entryId);
+
+    if (actualScore !== undefined) {
+      entry.actual_score = actualScore;
+    }
 
     entry.status = status;
     entry.settled_at = new Date();
@@ -634,6 +639,38 @@ export class CricketLedgerService {
     this.refreshManualEvent(event);
     this.saveData();
     return entry;
+  }
+
+  /**
+   * Settle a session entry by actual score.
+   * Compares actual score with the line (selection) to determine won/lost.
+   * back(YES) wins when actual >= line, lay(NO) wins when actual < line.
+   */
+  settleManualSessionEntry(
+    eventId: string,
+    entryId: string,
+    ownerId: string,
+    actualScore: number,
+  ): ManualLedgerEntry {
+    const event = this.requireOwnedManualEvent(eventId, ownerId);
+    const entry = this.requireManualEntry(event, entryId);
+
+    if (entry.market_type !== 'session') {
+      throw new Error('Session settlement only applies to session entries');
+    }
+
+    const line = parseFloat(entry.selection);
+    if (isNaN(line)) {
+      throw new Error(`Cannot auto-settle: selection "${entry.selection}" is not a numeric line`);
+    }
+
+    const yesWins = actualScore >= line;
+    const status: Exclude<ManualLedgerEntryStatus, 'open'> =
+      (entry.bet_type === 'back' && yesWins) || (entry.bet_type === 'lay' && !yesWins)
+        ? 'won'
+        : 'lost';
+
+    return this.settleManualEntry(eventId, entryId, ownerId, status, actualScore);
   }
 
   /**

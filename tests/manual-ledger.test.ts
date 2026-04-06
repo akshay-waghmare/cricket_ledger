@@ -960,6 +960,91 @@ section('15. Multi-event P/L isolation');
   assert(overview.totals.open_risk === 200, 'multi-event: open risk = 200');
 }
 
+// ── 16. Session settlement by actual score ─────────────────────
+section('16. Session settlement by actual score');
+{
+  const svc = new CricketLedgerService();
+  const ADMIN = 'admin-session';
+  const ev = svc.createManualEvent('IPL 2026 - CSK vs RCB', ['CSK', 'RCB'], undefined, ADMIN);
+
+  // YES (back) at line 35, rate 90 — profit = 1000 * 90/100 = 900
+  const yes1 = svc.addManualEntry(ev.id, ADMIN, {
+    customer_name: 'Rajesh', market_type: 'session', market_name: '6 Over CSK',
+    selection: '35', bet_type: 'back', stake: 1000, price: 90,
+  });
+  assert(yes1.potential_profit === 900, 'session YES profit = 900');
+  assert(yes1.potential_risk === 1000, 'session YES risk = 1000');
+
+  // NO (lay) at line 35, rate 80 — profit = 500, risk = 500 * 80/100 = 400
+  const no1 = svc.addManualEntry(ev.id, ADMIN, {
+    customer_name: 'Sunil', market_type: 'session', market_name: '6 Over CSK',
+    selection: '35', bet_type: 'lay', stake: 500, price: 80,
+  });
+  assert(no1.potential_profit === 500, 'session NO profit = 500');
+  assert(no1.potential_risk === 400, 'session NO risk = 400');
+
+  // Actual score = 42 (>= 35) → YES wins
+  const settled1 = svc.settleManualSessionEntry(ev.id, yes1.id, ADMIN, 42);
+  assert(settled1.status === 'won', 'YES wins when score >= line');
+  assert(settled1.actual_score === 42, 'actual_score recorded');
+  assert(settled1.realized_profit_or_loss === 900, 'YES won realized = +900');
+
+  const settled2 = svc.settleManualSessionEntry(ev.id, no1.id, ADMIN, 42);
+  assert(settled2.status === 'lost', 'NO loses when score >= line');
+  assert(settled2.realized_profit_or_loss === -400, 'NO lost realized = -400');
+
+  // New entries with score below line
+  const yes2 = svc.addManualEntry(ev.id, ADMIN, {
+    customer_name: 'Vikram', market_type: 'session', market_name: '10 Over CSK',
+    selection: '75', bet_type: 'back', stake: 2000, price: 100,
+  });
+  const no2 = svc.addManualEntry(ev.id, ADMIN, {
+    customer_name: 'Amit', market_type: 'session', market_name: '10 Over CSK',
+    selection: '75', bet_type: 'lay', stake: 1000, price: 100,
+  });
+
+  // Actual score = 68 (< 75) → NO wins
+  const settled3 = svc.settleManualSessionEntry(ev.id, yes2.id, ADMIN, 68);
+  assert(settled3.status === 'lost', 'YES loses when score < line');
+  assert(settled3.realized_profit_or_loss === -2000, 'YES lost realized = -2000');
+
+  const settled4 = svc.settleManualSessionEntry(ev.id, no2.id, ADMIN, 68);
+  assert(settled4.status === 'won', 'NO wins when score < line');
+  assert(settled4.realized_profit_or_loss === 1000, 'NO won realized = +1000');
+
+  // Exact line: score = 75 → YES wins (>= line)
+  const yes3 = svc.addManualEntry(ev.id, ADMIN, {
+    customer_name: 'Ravi', market_type: 'session', market_name: '15 Over CSK',
+    selection: '110', bet_type: 'back', stake: 500, price: 90,
+  });
+  const settled5 = svc.settleManualSessionEntry(ev.id, yes3.id, ADMIN, 110);
+  assert(settled5.status === 'won', 'YES wins when score = line (exact)');
+
+  // Error: non-numeric line
+  const matchEntry = svc.addManualEntry(ev.id, ADMIN, {
+    customer_name: 'X', market_type: 'session', market_name: 'Custom',
+    selection: 'Over', bet_type: 'back', stake: 100, price: 90,
+  });
+  assertThrows(
+    () => svc.settleManualSessionEntry(ev.id, matchEntry.id, ADMIN, 50),
+    'non-numeric line throws on session settle',
+  );
+
+  // Error: session settle on match entry
+  const matchE = svc.addManualEntry(ev.id, ADMIN, {
+    customer_name: 'Y', market_type: 'match', market_name: 'MO',
+    selection: 'CSK', bet_type: 'back', stake: 100, price: 2.0,
+  });
+  assertThrows(
+    () => svc.settleManualSessionEntry(ev.id, matchE.id, ADMIN, 50),
+    'session settle on match entry throws',
+  );
+
+  // Verify actual_score persisted after reload
+  const reloaded = svc.getManualEntry(ev.id, yes1.id, ADMIN);
+  assert(reloaded.actual_score === 42, 'actual_score persisted after getManualEntry');
+}
+
 } finally {
   // Restore cwd & clean up
   process.chdir(origCwd);
