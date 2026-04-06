@@ -127,10 +127,15 @@ router.post('/events/:eventId/delete', (req: Request, res: Response) => {
 router.get('/events/:eventId/entries/create', (req: Request, res: Response) => {
   try {
     const event = req.ledgerService.getManualEventForOwner(req.params.eventId, getOwnerId(req));
+    // Support query-param pre-fill (from quick-add buttons on show-event page)
+    const q = req.query;
+    const formData = (q.marketType || q.marketName || q.selection)
+      ? { marketType: q.marketType, marketName: q.marketName, selection: q.selection }
+      : null;
     res.render('manual-ledger/create-entry', {
       title: 'Add Offline Entry',
       event,
-      formData: null,
+      formData,
     });
   } catch (error) {
     res.status(404).render('error', {

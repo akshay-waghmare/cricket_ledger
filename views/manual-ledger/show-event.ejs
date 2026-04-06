@@ -12,6 +12,27 @@
   </div>
 </div>
 
+<%
+  const teams = event.teams || [];
+  const sessionOvers = [6, 10, 15, 20];
+%>
+<% if (teams.length >= 2) { %>
+<div class="card mb-4">
+  <div class="card-header"><strong>Quick Add Session Entry</strong></div>
+  <div class="card-body py-2">
+    <% teams.forEach(function(team, idx) { %>
+      <div class="mb-1">
+        <span class="small fw-semibold me-2"><%= team %> (<%= idx === 0 ? '1st' : '2nd' %> inn):</span>
+        <% sessionOvers.forEach(function(ov) { %>
+          <a href="/admin/manual-ledger/events/<%= event.id %>/entries/create?marketType=session&marketName=<%= encodeURIComponent(ov + ' Over ' + team) %>&selection=Over"
+             class="btn btn-sm btn-outline-info me-1 mb-1"><%= ov %> Ov</a>
+        <% }) %>
+      </div>
+    <% }) %>
+  </div>
+</div>
+<% } %>
+
 <% if (event.note) { %>
   <div class="alert alert-info"><%= event.note %></div>
 <% } %>
