@@ -45,6 +45,44 @@ const getSessionEntriesForMatch = (req: Request, matchId: string): ManualLedgerE
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 };
 
+const buildSessionExposureRows = (entries: ManualLedgerEntry[]) => {
+  const grouped = new Map<string, {
+    market_name: string;
+    customer_name: string;
+    entry_count: number;
+    yes_count: number;
+    no_count: number;
+    open_potential_profit: number;
+    open_risk: number;
+  }>();
+
+  entries
+    .filter((entry) => entry.status === 'open')
+    .forEach((entry) => {
+      const key = `${entry.market_name}::${entry.customer_name}`;
+      const current = grouped.get(key) ?? {
+        market_name: entry.market_name,
+        customer_name: entry.customer_name,
+        entry_count: 0,
+        yes_count: 0,
+        no_count: 0,
+        open_potential_profit: 0,
+        open_risk: 0,
+      };
+
+      current.entry_count += 1;
+      current.yes_count += entry.bet_type === 'back' ? 1 : 0;
+      current.no_count += entry.bet_type === 'lay' ? 1 : 0;
+      current.open_potential_profit += entry.potential_profit;
+      current.open_risk += entry.potential_risk;
+      grouped.set(key, current);
+    });
+
+  return Array.from(grouped.values()).sort((a, b) => {
+    return a.market_name.localeCompare(b.market_name) || a.customer_name.localeCompare(b.customer_name);
+  });
+};
+
 const buildOpenSessionMarkets = (entries: ManualLedgerEntry[]): Record<string, number> => {
   return entries.reduce<Record<string, number>>((acc, entry) => {
     if (entry.status === 'open') {
@@ -52,6 +90,21 @@ const buildOpenSessionMarkets = (entries: ManualLedgerEntry[]): Record<string, n
     }
     return acc;
   }, {});
+};
+
+const getOwnedSessionEntry = (req: Request) => {
+  const match = getOwnedMatch(req);
+  const event = req.ledgerService.getManualEventForMatch(match.match_id, req.user!.id);
+  if (!event) {
+    throw new Error('No session entries found for this match');
+  }
+
+  const entry = req.ledgerService.getManualEntry(event.id, req.params.entryId, req.user!.id);
+  if (entry.market_type !== 'session') {
+    throw new Error('Session entry not found');
+  }
+
+  return { match, event, entry };
 };
 
 router.get('/', (req: Request, res: Response) => {
@@ -134,11 +187,71 @@ router.post('/:id/session-entries', (req: Request, res: Response) => {
   res.redirect(getSafeRedirectPath(req.body.redirectTo, fallback));
 });
 
+router.get('/:id/session-entries/:entryId/edit', (req: Request, res: Response) => {
+  try {
+    const { match, entry } = getOwnedSessionEntry(req);
+    res.render('matches/edit-session-entry', { match, entry });
+  } catch (error) {
+    req.flash('error', error instanceof Error ? error.message : 'Unable to load session entry');
+    res.redirect(`/matches/${req.params.id}`);
+  }
+});
+
+router.post('/:id/session-entries/:entryId/update', (req: Request, res: Response) => {
+  const redirectPath = `/matches/${req.params.id}`;
+
+  try {
+    const { event } = getOwnedSessionEntry(req);
+    req.ledgerService.updateManualEntry(event.id, req.params.entryId, req.user!.id, {
+      customer_name: req.body.customerName,
+      market_type: 'session',
+      market_name: req.body.marketName,
+      selection: req.body.selection,
+      bet_type: req.body.betType,
+      stake: parseFloat(req.body.stake),
+      price: parseFloat(req.body.price),
+      note: req.body.note,
+    });
+    req.flash('success', 'Session entry updated');
+  } catch (error) {
+    req.flash('error', error instanceof Error ? error.message : 'Failed to update session entry');
+  }
+
+  res.redirect(redirectPath);
+});
+
+router.post('/:id/session-entries/:entryId/delete', (req: Request, res: Response) => {
+  const redirectPath = `/matches/${req.params.id}`;
+
+  try {
+    const { event } = getOwnedSessionEntry(req);
+    const deleted = req.ledgerService.deleteManualEntry(event.id, req.params.entryId, req.user!.id);
+    if (!deleted) {
+      throw new Error('Failed to delete session entry');
+    }
+    req.flash('success', 'Session entry deleted');
+  } catch (error) {
+    req.flash('error', error instanceof Error ? error.message : 'Failed to delete session entry');
+  }
+
+  res.redirect(redirectPath);
+});
+
 router.get('/:id/exposure', (req: Request, res: Response) => {
   try {
     const match = getOwnedMatch(req);
     const exposures = req.ledgerService.getExposureSnapshot(match.match_id);
-    res.render('matches/exposure', { exposures });
+    const sessionEntries = getSessionEntriesForMatch(req, match.match_id);
+    const sessionExposureRows = buildSessionExposureRows(sessionEntries);
+    res.render('matches/exposure', {
+      exposures,
+      sessionExposure: {
+        rows: sessionExposureRows,
+        openEntries: sessionEntries.filter((entry) => entry.status === 'open').length,
+        openPotentialProfit: sessionExposureRows.reduce((sum, row) => sum + row.open_potential_profit, 0),
+        openRisk: sessionExposureRows.reduce((sum, row) => sum + row.open_risk, 0),
+      },
+    });
   } catch (error) {
     res.status(404).render('error', {
       message: error instanceof Error ? error.message : 'Error retrieving exposure data',

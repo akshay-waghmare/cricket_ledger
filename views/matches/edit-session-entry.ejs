@@ -1,0 +1,61 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Edit Session Entry</h1>
+  <a href="/matches/<%= match.match_id %>" class="btn btn-secondary">Back to Match</a>
+</div>
+
+<div class="card">
+  <div class="card-header bg-warning text-dark">
+    <h5 class="mb-0"><%= match.teams.join(' vs ') %></h5>
+  </div>
+  <div class="card-body">
+    <form action="/matches/<%= match.match_id %>/session-entries/<%= entry.id %>/update" method="POST">
+      <div class="mb-3">
+        <label for="customerName" class="form-label">Customer</label>
+        <input type="text" class="form-control" id="customerName" name="customerName" required value="<%= entry.customer_name %>">
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="marketName" class="form-label">Session Market</label>
+          <input type="text" class="form-control" id="marketName" name="marketName" required value="<%= entry.market_name %>">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="selection" class="form-label">Line (runs)</label>
+          <input type="number" class="form-control" id="selection" name="selection" min="0" step="1" required value="<%= entry.selection %>">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label for="betType" class="form-label">Side</label>
+          <select class="form-select" id="betType" name="betType" required>
+            <option value="back" <%= entry.bet_type === 'back' ? 'selected' : '' %>>YES / Back</option>
+            <option value="lay" <%= entry.bet_type === 'lay' ? 'selected' : '' %>>NO / Lay</option>
+          </select>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="stake" class="form-label">Stake</label>
+          <input type="number" class="form-control" id="stake" name="stake" min="0.01" step="0.01" required value="<%= entry.stake %>">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="price" class="form-label">Rate</label>
+          <input type="number" class="form-control" id="price" name="price" min="0.01" step="0.01" required value="<%= entry.price %>">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="note" class="form-label">Note</label>
+        <input type="text" class="form-control" id="note" name="note" value="<%= entry.note || '' %>">
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <a href="/matches/<%= match.match_id %>" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">Update Session Entry</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

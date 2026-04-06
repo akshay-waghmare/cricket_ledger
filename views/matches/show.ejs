@@ -77,6 +77,7 @@
                   <th>Status</th>
                   <th>P/L</th>
                   <th>Created</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -91,6 +92,18 @@
                     <td><span class="badge bg-<%= entry.status === 'open' ? 'secondary' : (entry.status === 'won' ? 'success' : entry.status === 'lost' ? 'danger' : 'warning text-dark') %>"><%= entry.status %></span></td>
                     <td class="<%= (entry.realized_profit_or_loss || 0) >= 0 ? 'text-success' : 'text-danger' %>"><%= entry.realized_profit_or_loss !== undefined ? entry.realized_profit_or_loss.toFixed(2) : '—' %></td>
                     <td><%= new Date(entry.created_at).toLocaleString() %></td>
+                    <td>
+                      <% if (entry.status === 'open') { %>
+                        <div class="btn-group btn-group-sm">
+                          <a href="/matches/<%= match.match_id %>/session-entries/<%= entry.id %>/edit" class="btn btn-outline-primary">Edit</a>
+                          <form action="/matches/<%= match.match_id %>/session-entries/<%= entry.id %>/delete" method="POST" class="d-inline" onsubmit="return confirm('Delete this session entry?')">
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                          </form>
+                        </div>
+                      <% } else { %>
+                        <span class="text-muted">Settled</span>
+                      <% } %>
+                    </td>
                   </tr>
                 <% }) %>
               </tbody>
