@@ -3,7 +3,7 @@
     <h1 class="mb-1">Settle Offline Entry</h1>
     <div class="text-muted"><%= event.event_name %></div>
   </div>
-  <a href="/admin/manual-ledger/events/<%= event.id %>" class="btn btn-secondary">Back</a>
+  <a href="/manual-ledger/events/<%= event.id %>" class="btn btn-secondary">Back</a>
 </div>
 
 <div class="card mb-4">
@@ -40,7 +40,7 @@
 <div class="card mb-3">
   <div class="card-header"><strong>Session Settlement (by actual score)</strong></div>
   <div class="card-body">
-    <form action="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/settle" method="POST">
+    <form action="/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/settle" method="POST">
       <div class="row g-3 align-items-end">
         <div class="col-md-4">
           <label for="actualScore" class="form-label">Actual Score</label>
@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="d-flex justify-content-end gap-2 mt-3">
-        <a href="/admin/manual-ledger/events/<%= event.id %>" class="btn btn-light">Cancel</a>
+        <a href="/manual-ledger/events/<%= event.id %>" class="btn btn-light">Cancel</a>
         <button type="submit" class="btn btn-success">Settle by Score</button>
       </div>
     </form>
@@ -96,7 +96,7 @@
 <div class="card">
   <div class="card-body">
 <% } %>
-    <form action="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/settle" method="POST">
+    <form action="/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/settle" method="POST">
       <label class="form-label">Settlement Result</label>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="status" id="statusWon" value="won" <%= entry.status === 'won' ? 'checked' : '' %>>
@@ -112,7 +112,7 @@
       </div>
 
       <div class="d-flex justify-content-end gap-2">
-        <a href="/admin/manual-ledger/events/<%= event.id %>" class="btn btn-light">Cancel</a>
+        <a href="/manual-ledger/events/<%= event.id %>" class="btn btn-light">Cancel</a>
         <button type="submit" class="btn btn-success">Save Settlement</button>
       </div>
     </form>

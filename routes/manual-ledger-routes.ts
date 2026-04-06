@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { ensureAuthenticated, ensureAdmin } from '../middleware/auth';
+import { ensureAuthenticated } from '../middleware/auth';
 import { ManualLedgerEntryInput, ManualLedgerEntryStatus, ManualLedgerEvent } from '../types';
 
 declare global {
@@ -12,7 +12,9 @@ declare global {
 
 const router = express.Router();
 
-router.use(ensureAuthenticated, ensureAdmin);
+const LEDGER_BASE_PATH = '/manual-ledger';
+
+router.use(ensureAuthenticated);
 
 const getOwnerId = (req: Request): string => {
   return (req.user as any).id;
@@ -45,7 +47,7 @@ const parseManualEntryInput = (body: any): ManualLedgerEntryInput => {
 router.get('/', (req: Request, res: Response) => {
   const overview = req.ledgerService.getManualLedgerOverview(getOwnerId(req));
   res.render('manual-ledger/index', {
-    title: 'Offline Manual Ledger',
+    title: 'Session Ledger',
     overview,
   });
 });
@@ -53,7 +55,7 @@ router.get('/', (req: Request, res: Response) => {
 router.get('/reports/consolidated', (req: Request, res: Response) => {
   const overview = req.ledgerService.getManualLedgerOverview(getOwnerId(req));
   res.render('manual-ledger/consolidated', {
-    title: 'Manual Ledger Consolidated Report',
+    title: 'Session Ledger Consolidated Report',
     overview,
   });
 });
@@ -74,7 +76,7 @@ router.post('/events', (req: Request, res: Response) => {
       getOwnerId(req),
     );
     req.flash('success', 'Offline event created successfully');
-    res.redirect(`/admin/manual-ledger/events/${event.id}`);
+    res.redirect(`${LEDGER_BASE_PATH}/events/${event.id}`);
   } catch (error) {
     res.render('manual-ledger/create-event', {
       title: 'Create Offline Event',
@@ -115,7 +117,7 @@ router.post('/events/:eventId/delete', (req: Request, res: Response) => {
     }
 
     req.flash('success', 'Offline event deleted successfully');
-    res.redirect('/admin/manual-ledger');
+    res.redirect(LEDGER_BASE_PATH);
   } catch (error) {
     res.status(404).render('error', {
       message: error instanceof Error ? error.message : 'Failed to delete manual event',
@@ -153,7 +155,7 @@ router.post('/events/:eventId/entries', (req: Request, res: Response) => {
       parseManualEntryInput(req.body),
     );
     req.flash('success', 'Offline entry added successfully');
-    res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
+    res.redirect(`${LEDGER_BASE_PATH}/events/${req.params.eventId}`);
   } catch (error) {
     const event = req.ledgerService.getManualEventForOwner(req.params.eventId, getOwnerId(req));
     res.render('manual-ledger/create-entry', {
@@ -193,7 +195,7 @@ router.post('/events/:eventId/entries/:entryId/update', (req: Request, res: Resp
       parseManualEntryInput(req.body),
     );
     req.flash('success', 'Offline entry updated successfully');
-    res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
+    res.redirect(`${LEDGER_BASE_PATH}/events/${req.params.eventId}`);
   } catch (error) {
     const ownerId = getOwnerId(req);
     const event = req.ledgerService.getManualEventForOwner(req.params.eventId, ownerId);
@@ -247,7 +249,7 @@ router.post('/events/:eventId/entries/:entryId/settle', (req: Request, res: Resp
         actualScore,
       );
       req.flash('success', `Session settled with actual score ${actualScore}`);
-      res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
+      res.redirect(`${LEDGER_BASE_PATH}/events/${req.params.eventId}`);
       return;
     }
 
@@ -264,7 +266,7 @@ router.post('/events/:eventId/entries/:entryId/settle', (req: Request, res: Resp
       status,
     );
     req.flash('success', 'Offline entry settled successfully');
-    res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
+    res.redirect(`${LEDGER_BASE_PATH}/events/${req.params.eventId}`);
   } catch (error) {
     const ownerId = getOwnerId(req);
     const event = req.ledgerService.getManualEventForOwner(req.params.eventId, ownerId);
@@ -291,7 +293,7 @@ router.post('/events/:eventId/entries/:entryId/delete', (req: Request, res: Resp
     }
 
     req.flash('success', 'Offline entry deleted successfully');
-    res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
+    res.redirect(`${LEDGER_BASE_PATH}/events/${req.params.eventId}`);
   } catch (error) {
     res.status(404).render('error', {
       message: error instanceof Error ? error.message : 'Failed to delete manual entry',
@@ -329,10 +331,10 @@ router.post('/events/:eventId/settle-sessions', (req: Request, res: Response) =>
     }
 
     req.flash('success', `Settled ${settled} entries for "${marketName}" with score ${score}`);
-    res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
+    res.redirect(`${LEDGER_BASE_PATH}/events/${req.params.eventId}`);
   } catch (error) {
     req.flash('error', error instanceof Error ? error.message : 'Failed to settle sessions');
-    res.redirect(`/admin/manual-ledger/events/${req.params.eventId}`);
+    res.redirect(`${LEDGER_BASE_PATH}/events/${req.params.eventId}`);
   }
 });
 

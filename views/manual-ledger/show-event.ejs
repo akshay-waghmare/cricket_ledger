@@ -6,9 +6,9 @@
     <% } %>
   </div>
   <div class="d-flex gap-2">
-    <a href="/admin/manual-ledger/reports/consolidated" class="btn btn-outline-primary">Consolidated Report</a>
-    <a href="/admin/manual-ledger/events/<%= event.id %>/entries/create" class="btn btn-primary">Add Offline Entry</a>
-    <a href="/admin/manual-ledger" class="btn btn-secondary">Back</a>
+    <a href="/manual-ledger/reports/consolidated" class="btn btn-outline-primary">Consolidated Report</a>
+    <a href="/manual-ledger/events/<%= event.id %>/entries/create" class="btn btn-primary">Add Session Entry</a>
+    <a href="/manual-ledger" class="btn btn-secondary">Back</a>
   </div>
 </div>
 
@@ -24,7 +24,7 @@
       <div class="mb-1">
         <span class="small fw-semibold me-2"><%= team %> (<%= idx === 0 ? '1st' : '2nd' %> inn):</span>
         <% sessionOvers.forEach(function(ov) { %>
-          <a href="/admin/manual-ledger/events/<%= event.id %>/entries/create?marketType=session&marketName=<%= encodeURIComponent(ov + ' Over ' + team) %>"
+          <a href="/manual-ledger/events/<%= event.id %>/entries/create?marketType=session&marketName=<%= encodeURIComponent(ov + ' Over ' + team) %>"
              class="btn btn-sm btn-outline-info me-1 mb-1"><%= ov %> Ov</a>
         <% }) %>
       </div>
@@ -97,7 +97,7 @@
     <div class="row g-3">
       <% sessionMarketNames.forEach(function(mkt) { %>
         <div class="col-md-6 col-lg-4">
-          <form action="/admin/manual-ledger/events/<%= event.id %>/settle-sessions" method="POST" class="d-flex align-items-end gap-2">
+          <form action="/manual-ledger/events/<%= event.id %>/settle-sessions" method="POST" class="d-flex align-items-end gap-2">
             <input type="hidden" name="marketName" value="<%= mkt %>">
             <div class="flex-grow-1">
               <label class="form-label small mb-1"><%= mkt %> <span class="badge bg-secondary"><%= openSessionMarkets[mkt] %></span></label>
@@ -115,7 +115,7 @@
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h3 class="h5 mb-0">Offline Entries</h3>
-    <form action="/admin/manual-ledger/events/<%= event.id %>/delete" method="POST" onsubmit="return confirm('Delete this offline event and all its entries?')">
+    <form action="/manual-ledger/events/<%= event.id %>/delete" method="POST" onsubmit="return confirm('Delete this offline event and all its entries?')">
       <button type="submit" class="btn btn-sm btn-outline-danger">Delete Event</button>
     </form>
   </div>
@@ -176,10 +176,10 @@
                 <td class="text-end">
                   <div class="d-flex gap-1 justify-content-end">
                     <% if (entry.status === 'open') { %>
-                      <a href="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+                      <a href="/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/edit" class="btn btn-sm btn-outline-primary">Edit</a>
                     <% } %>
-                    <a href="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/settle" class="btn btn-sm btn-outline-success">Settle</a>
-                    <form action="/admin/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/delete" method="POST" onsubmit="return confirm('Delete this offline entry?')">
+                    <a href="/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/settle" class="btn btn-sm btn-outline-success">Settle</a>
+                    <form action="/manual-ledger/events/<%= event.id %>/entries/<%= entry.id %>/delete" method="POST" onsubmit="return confirm('Delete this offline entry?')">
                       <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                     </form>
                   </div>

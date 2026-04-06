@@ -128,7 +128,8 @@ const startServer = async () => {
     app.use('/users', ensureAuthenticated, userRoutes);
     app.use('/bets', ensureAuthenticated, betRoutes);
     app.use('/data', ensureAuthenticated, ensureAdmin, dataRoutes);
-    app.use('/admin/manual-ledger', ensureAuthenticated, ensureAdmin, manualLedgerRoutes);
+    app.use('/manual-ledger', ensureAuthenticated, manualLedgerRoutes);
+    app.use('/admin/manual-ledger', ensureAuthenticated, manualLedgerRoutes);
     app.use('/subscription', ensureAuthenticated, subscriptionRoutes);
 
     // Add this below your existing routes to render a dashboard after login
