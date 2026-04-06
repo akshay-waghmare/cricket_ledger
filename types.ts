@@ -127,6 +127,7 @@ export interface ManualLedgerEntry extends ManualLedgerEntryInput {
 export interface ManualLedgerEvent {
   id: string;
   owner_id: string;
+  linked_match_id?: string;
   event_name: string;
   teams: string[];
   note?: string;
@@ -138,6 +139,7 @@ export interface ManualLedgerEvent {
 
 export interface ManualLedgerEventSummary {
   event_id: string;
+  linked_match_id?: string;
   event_name: string;
   teams: string[];
   status: ManualLedgerEventStatus;

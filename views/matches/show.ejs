@@ -4,6 +4,7 @@
   <h1><%= match.match_id %></h1>
   <div>
     <a href="/matches/<%= match.match_id %>/exposure" class="btn btn-warning">View Exposures</a>
+    <a href="/matches/<%= match.match_id %>/settle-sessions" class="btn btn-info">Settle Sessions</a>
     <a href="/matches/<%= match.match_id %>/settle" class="btn btn-success">Settle Match</a>
     <form action="/matches/delete/<%= match.match_id %>" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this match? This action cannot be undone.')">
       <button type="submit" class="btn btn-danger">Delete Match</button>
@@ -33,9 +34,71 @@
       <div class="card-body">
         <% if (users && users.length > 0) { %>
           <a href="/bets/create/<%= match.match_id %>" class="btn btn-primary">Add Bet</a>
+          <a href="/bets/create/<%= match.match_id %>#session-entry-card" class="btn btn-warning">Add Session / Fancy Entry</a>
         <% } else { %>
           <div class="alert alert-warning">
             No users available. <a href="/users/create">Create a user</a> to place bets.
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Session / Fancy Ledger</h5>
+        <div class="small">
+          <strong>Total:</strong> <%= sessionSummary.total %> |
+          <strong>Open:</strong> <%= sessionSummary.open %> |
+          <strong>Settled:</strong> <%= sessionSummary.settled %>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-4"><strong>Realized P&amp;L:</strong> <span class="<%= sessionSummary.realized >= 0 ? 'text-success' : 'text-danger' %>"><%= sessionSummary.realized.toFixed(2) %></span></div>
+          <div class="col-md-4"><strong>Open Risk:</strong> <%= sessionSummary.openRisk.toFixed(2) %></div>
+          <div class="col-md-4"><strong>Open Potential:</strong> <%= sessionSummary.openPotential.toFixed(2) %></div>
+        </div>
+
+        <% if (sessionEntries && sessionEntries.length > 0) { %>
+          <div class="table-responsive">
+            <table class="table table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Market</th>
+                  <th>Line</th>
+                  <th>Side</th>
+                  <th>Stake</th>
+                  <th>Rate</th>
+                  <th>Status</th>
+                  <th>P/L</th>
+                  <th>Created</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% sessionEntries.forEach(entry => { %>
+                  <tr>
+                    <td><%= entry.customer_name %></td>
+                    <td><%= entry.market_name %></td>
+                    <td><%= entry.selection %></td>
+                    <td><span class="badge bg-<%= entry.bet_type === 'back' ? 'primary' : 'danger' %>"><%= entry.bet_type === 'back' ? 'YES' : 'NO' %></span></td>
+                    <td><%= entry.stake.toFixed(2) %></td>
+                    <td><%= entry.price.toFixed(2) %></td>
+                    <td><span class="badge bg-<%= entry.status === 'open' ? 'secondary' : (entry.status === 'won' ? 'success' : entry.status === 'lost' ? 'danger' : 'warning text-dark') %>"><%= entry.status %></span></td>
+                    <td class="<%= (entry.realized_profit_or_loss || 0) >= 0 ? 'text-success' : 'text-danger' %>"><%= entry.realized_profit_or_loss !== undefined ? entry.realized_profit_or_loss.toFixed(2) : '—' %></td>
+                    <td><%= new Date(entry.created_at).toLocaleString() %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <div class="alert alert-info mb-0">
+            No session/fancy entries yet. Use <strong>Add Session / Fancy Entry</strong> to create them directly for this match.
           </div>
         <% } %>
       </div>

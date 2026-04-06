@@ -469,6 +469,11 @@ export class CricketLedgerService {
     }
 
     this.matches.delete(matchId);
+    for (const [eventId, event] of this.manualLedgerEvents.entries()) {
+      if (event.linked_match_id === matchId) {
+        this.manualLedgerEvents.delete(eventId);
+      }
+    }
     this.saveData();
 
     return true;
@@ -500,7 +505,13 @@ export class CricketLedgerService {
   /**
    * Create a new manual offline event for admin tracking
    */
-  createManualEvent(eventName: string, teams: string[], note: string | undefined, ownerId: string): ManualLedgerEvent {
+  createManualEvent(
+    eventName: string,
+    teams: string[],
+    note: string | undefined,
+    ownerId: string,
+    linkedMatchId?: string,
+  ): ManualLedgerEvent {
     const normalizedName = eventName.trim();
     if (!normalizedName) {
       throw new Error('Event name is required');
@@ -511,6 +522,7 @@ export class CricketLedgerService {
     const event: ManualLedgerEvent = {
       id: uuidv4(),
       owner_id: ownerId,
+      linked_match_id: linkedMatchId,
       event_name: normalizedName,
       teams: normalizedTeams,
       note: note?.trim() || undefined,
@@ -530,6 +542,48 @@ export class CricketLedgerService {
    */
   getManualEventForOwner(eventId: string, ownerId: string): ManualLedgerEvent {
     return this.requireOwnedManualEvent(eventId, ownerId);
+  }
+
+  /**
+   * Get the ledger event linked to a match for one owner.
+   */
+  getManualEventForMatch(matchId: string, ownerId: string): ManualLedgerEvent | undefined {
+    const match = this.matches.get(matchId);
+    if (!match || match.user_id !== ownerId) {
+      throw new Error('Match not found');
+    }
+
+    return Array.from(this.manualLedgerEvents.values()).find((event) => {
+      return event.owner_id === ownerId && event.linked_match_id === matchId;
+    });
+  }
+
+  /**
+   * Reuse or create the hidden ledger event linked to a match.
+   */
+  getOrCreateManualEventForMatch(matchId: string, ownerId: string): ManualLedgerEvent {
+    const match = this.matches.get(matchId);
+    if (!match || match.user_id !== ownerId) {
+      throw new Error('Match not found');
+    }
+
+    const existing = this.getManualEventForMatch(matchId, ownerId);
+    const eventName = match.teams.join(' vs ') || match.match_id;
+    const normalizedTeams = match.teams.map((team) => team.trim()).filter(Boolean);
+    if (existing) {
+      if (
+        existing.event_name !== eventName
+        || JSON.stringify(existing.teams) !== JSON.stringify(normalizedTeams)
+      ) {
+        existing.event_name = eventName;
+        existing.teams = normalizedTeams;
+        this.refreshManualEvent(existing);
+        this.saveData();
+      }
+      return existing;
+    }
+
+    return this.createManualEvent(eventName, match.teams, undefined, ownerId, matchId);
   }
 
   /**
@@ -994,6 +1048,7 @@ export class CricketLedgerService {
 
     return {
       event_id: event.id,
+      linked_match_id: event.linked_match_id,
       event_name: event.event_name,
       teams: event.teams,
       status: event.status,

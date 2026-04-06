@@ -37,11 +37,23 @@
   </nav>
 
   <div class="container">
-    <% if (typeof error !== 'undefined') { %>
+    <% if (typeof error !== 'undefined' && error) { %>
       <div class="alert alert-danger">
         <%= error %>
       </div>
     <% } %>
-</div>
-</body>
-</html>
+    <% if (locals.success_msg && success_msg.length > 0) { %>
+      <div class="alert alert-success">
+        <%- success_msg %>
+      </div>
+    <% } %>
+    <% if (locals.error_msg && error_msg.length > 0) { %>
+      <div class="alert alert-danger">
+        <%- error_msg %>
+      </div>
+    <% } %>
+    <% if (locals.error && error.length > 0 && typeof error === 'string') { %>
+      <div class="alert alert-danger">
+        <%- error %>
+      </div>
+    <% } %>

@@ -63,7 +63,8 @@ router.post('/', (req, res) => {
     res.redirect(`/matches/${matchId}`);
   } catch (error) {
     const match = req.ledgerService.getMatch(matchId);
-    const users = req.ledgerService.getAllUsers();
+    const users = req.ledgerService.getAllUsers()
+      .filter((u: User) => u.owner_id === req.user!.id);
     
     res.render('bets/create', { 
       match, 
@@ -94,7 +95,8 @@ router.post('/update/:matchId/:betId', (req, res) => {
   } catch (error) {
     const match = req.ledgerService.getMatch(matchId);
     const bet = req.ledgerService.getBet(matchId, betId);
-    const users = req.ledgerService.getAllUsers();
+    const users = req.ledgerService.getAllUsers()
+      .filter((u: User) => u.owner_id === req.user!.id);
     
     res.render('bets/edit', { 
       match, 

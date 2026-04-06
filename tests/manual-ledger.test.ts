@@ -206,6 +206,35 @@ section('2. Manual ledger — event CRUD');
   assertThrows(() => svc.createManualEvent('   ', [], undefined, ADMIN), 'blank name throws');
 }
 
+section('2a. Match-linked session ledger events');
+{
+  const svc = new CricketLedgerService();
+  const OWNER = 'owner-linked';
+
+  svc.createMatch('linked-1', ['CSK', 'RCB'], OWNER);
+
+  const event1 = svc.getOrCreateManualEventForMatch('linked-1', OWNER);
+  assert(event1.linked_match_id === 'linked-1', 'linked event stores match id');
+  assert(event1.event_name === 'CSK vs RCB', 'linked event uses match teams as name');
+
+  const event2 = svc.getOrCreateManualEventForMatch('linked-1', OWNER);
+  assert(event1.id === event2.id, 'getOrCreateManualEventForMatch reuses existing event');
+
+  const fetched = svc.getManualEventForMatch('linked-1', OWNER);
+  assert(fetched?.id === event1.id, 'getManualEventForMatch returns linked event');
+
+  assertThrows(
+    () => svc.getManualEventForMatch('linked-1', 'wrong-owner'),
+    'wrong owner cannot access linked match event',
+  );
+
+  assert(svc.deleteMatch('linked-1') === true, 'deleteMatch true for linked match');
+  assert(
+    !svc.getAllManualEvents(OWNER).some((event) => event.linked_match_id === 'linked-1'),
+    'linked event removed when match deleted',
+  );
+}
+
 section('2b. Manual ledger — entry CRUD');
 {
   const svc = new CricketLedgerService();
