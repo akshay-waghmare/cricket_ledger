@@ -129,7 +129,7 @@ app.get('/', ensureAuthenticated, (req, res) => {
   res.render('index', { 
     matches, 
     users, 
-    title: 'Cricket Betting Ledger',
+    title: 'Cricket Bookmaker App',
     user: req.user
   });
 });
@@ -150,5 +150,5 @@ app.use((req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Cricket Ledger app listening at http://localhost:${port}`);
+  console.log(`Cricket Bookmaker App listening at http://localhost:${port}`);
 });

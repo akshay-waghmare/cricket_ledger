@@ -1,6 +1,6 @@
 import { CricketLedgerService } from './cricket-ledger-service';
 
-// Example usage of the Cricket Ledger system
+// Example usage of the Cricket Bookmaker App system
 
 // Create a new cricket ledger service
 const ledgerService = new CricketLedgerService();

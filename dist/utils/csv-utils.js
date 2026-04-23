@@ -119,7 +119,7 @@ function createCSVZip(csvFiles, outputPath) {
     // Since we're focusing on CSV export, we'll leave this as a basic implementation
     const { matchesFile, usersFile, betsFile } = csvFiles;
     // Create a simple manifest file listing the CSV files
-    const manifestContent = `Cricket Ledger Export
+    const manifestContent = `Cricket Bookmaker App Export
 Generated: ${new Date().toISOString()}
 
 Files included:

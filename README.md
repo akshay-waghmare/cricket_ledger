@@ -1,4 +1,4 @@
-# Cricket Ledger
+# Cricket Bookmaker App
 
 A cricket betting ledger system built with Node.js, Express, MongoDB and TypeScript.
 
